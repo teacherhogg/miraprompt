@@ -1,0 +1,1547 @@
+{
+    "categories": {
+        "Fine Art": ["oil painting", "watercolor", "acrylic", "pastel", "charcoal", "ink wash"],
+        "Drawing and Illustration": ["pencil drawing", "pen and ink", "marker art", "chalk drawing", "digital illustration", "sketch", "line art", "cross-hatching", "stippling", "technical illustration", "botanical illustration"],
+        "Comic and Cartoon": ["comic strip", "manga", "graphic novel", "caricature", "animation", "storyboarding",  "western comic", "superhero comic", "slice of life comic", "horror comic", "science fiction comic", "multi-panel strip", "single-panel cartoon"],
+        "Photography": ["portrait photography", "landscape photography", "street photography", "macro photography", "black and white photography", "film noir", "aerial photography", "underwater photography"],
+        "Digital Art": ["digital painting", "3D modeling", "vector art", "pixel art", "photo manipulation", "concept art", "pixel art", "low poly art", "isometric art", "glitch art", "fractal art", "voxel art"],
+        "Ancient and Primitive Art": ["cave painting", "rock art", "petroglyphs", "hieroglyphics", "ancient mosaic", "medieval manuscript illumination", "ceramic art", "textile art", "wood carving", "stone carving", "metalwork", "body art", "ritual art"],
+        "3D and Rendering": ["3D rendering", "3D modeling", "3D animation", "3D sculpting", "3D visualization", "3D printing", "CG", "clay rendering", "wireframe modeling", "low poly", "photorealistic rendering", "non-photorealistic rendering"],
+        "Architecture and Space": ["blueprint", "space/sci fi", "futuristic cityscape", "fantasy landscape"],
+        "Fashion and Costume": ["couture", "streetwear", "historical costume", "fantasy fashion", "cosplay"],
+        "Pattern and Texture": ["geometric pattern", "organic pattern", "textile pattern", "surface texture", "material texture", "mandala", "tessellation", "fractal pattern", "abstract texture", "natural texture", "stained glass", "mosaic pattern", "weaving pattern", "embroidery pattern"],
+        "Graphic Design": ["logo design", "typography", "infographics", "poster design", "web design"],
+        "Cultural Styles": ["Japanese ukiyo-e", "Chinese ink wash", "Indian miniature painting", "Art Nouveau", "Bauhaus", "African tribal art", "Aborginal dot art", "Native American art", "Islamic geometric art", "European medieval art", "Renaissance art", "Baroque art", "Romanticism", "Impressionism", "Expressionism", "Cubism", "Surrealism"],
+        "Mixed Media": ["collage", "assemblage", "installation art", "performance art", "found object art"]
+    },
+    "styles": {
+        "Global": {
+            "styles": {
+                "composition": {
+                    "composition": ["rule of thirds", "symmetry", "leading lines", "diagonal composition", "triangular composition", "circular composition", "asymmetry", "centered composition", "negative space"],
+                    "perspective": ["eye level", "high angle", "low angle", "bird's eye view", "worm's eye view", "Dutch angle", "forced perspective", "overhead shot", "close-up", "medium shot", "wide shot"],
+                    "framing": ["tight", "wide", "negative space", "centered", "asymmetrical", "diagonal framing", "natural framing", "reflected framing", "layered framing", "minimalist framing"],
+                    "background": ["plain background", "textured background", "environmental background", "abstract background", "bokeh background", "gradient background", "patterned background", "nature background", "urban background", "studio backdrop", "bokeh background", "architectural background", "cosmic background", "fantasy background", "surreal background"]
+                },
+                "lighting": {
+                    "natural": ["golden hour", "soft light", "candlelight", "firelight", "moonlight", "sunlight", "overcast light", "dappled light", "backlighting", "side lighting", "overcast", "dappled sunlight", "harsh midday sun", "twilight"],
+                    "artificial": ["studio lighting", "ambient light", "neon light", "fluorescent light", "incandescent light", "LED light", "spotlight", "softbox lighting", "ring light", "colored gels", "practical lighting"],
+                    "sci-fi": ["futuristic neon", "cyberpunk glow", "alien bioluminescence", "space station lighting", "holographic light", "laser light", "glowing energy source", "sci-fi ambient light"],
+                    "dramatic": ["chiaroscuro", "Rembrandt lighting", "low key lighting", "high key lighting", "silhouette lighting", "split lighting", "butterfly lighting", "loop lighting", "clamshell lighting"],
+                    "studio": ["softbox", "umbrella", "beauty dish", "strip light", "snoot", "grids", "reflector", "bounce lighting", "strobe lighting", "continuous lighting", "chiaroscuro"]
+                    },
+                "color palette": {
+                    "warm": ["earthy tones", "sunset hues", "golden amber", "rusty reds", "terracotta", "burnt orange", "mustard yellow", "olive green", "warm browns"],
+                    "cool": ["ocean blues", "forest greens", "icy grays", "steel blue", "teal", "mint green", "lavender", "cool grays", "ice blue", "arctic palette", "twilight purple", "deep ocean"],
+                    "neutral": ["monochrome", "pastels", "grayscale", "beige", "taupe", "charcoal", "ivory", "soft pink", "light gray"],
+                    "contrast": ["black and white", "duotone", "neon on dark", "pastel on white", "vibrant on muted", "complementary colors", "high contrast palette", "bold and bright", "dark and moody"],
+                    "vintage": ["sepia tones", "faded colors", "muted palette", "retro hues", "antique color scheme", "nostalgic colors", "vintage pastels", "aged paper tones"],
+                    "thematic": ["nature-inspired", "urban palette", "fantasy colors", "cyberpunk neon", "steampunk metallics", "gothic darks", "ethereal pastels", "vibrant festival colors"],
+                    "seasonal": ["spring pastels", "summer brights", "autumn warm tones", "winter cool tones", "holiday colors", "seasonal neutrals"],
+                    "emotional": ["calming blues", "energetic reds", "melancholic grays", "joyful yellows", "serene greens", "passionate purples", "moody darks", "uplifting brights"],
+                    "cultural": ["traditional Japanese colors", "vibrant Indian palette", "earthy African tones", "rich European hues", "ancient Mediterranean colors"],
+                    "artistic": ["impressionist palette", "expressionist colors", "cubist tones", "surrealist hues", "abstract color scheme"],
+                    "specific": ["monochromatic", "complementary colors", "muted desaturated", "vibrant saturated", "pastel shades", "dark and moody", "light and airy", "high contrast", "low contrast", "warm and cool mix", "analogous colors", "triadic colors"],
+                    "mood": ["dark and moody", "light and airy", "vibrant and energetic", "calm and serene", "nostalgic and vintage", "dramatic and intense", "playful and whimsical", "elegant and sophisticated", "mysterious and surreal", "romantic and dreamy"]
+                },
+                "detail level": {
+                    "highly detailed": ["intricate patterns", "fine textures", "realistic rendering", "hyperrealism", "photorealism"],
+                    "medium detail": ["stylized details", "simplified forms", "suggestive textures", "impressionistic details"],
+                    "low detail": ["minimalist", "abstract", "symbolic representation", "gestural marks"]
+                },
+                "mood": {
+                    "dark and moody": ["gothic", "noir", "horror", "mysterious"],
+                    "light and airy": ["dreamy", "ethereal", "romantic", "whimsical"],
+                    "vibrant and energetic": ["pop art", "festival", "celebratory", "dynamic"],
+                    "calm and serene": ["zen", "meditative", "peaceful", "tranquil"],
+                    "nostalgic and vintage": ["retro", "antique", "old-fashioned", "timeless"],
+                    "dramatic and intense": ["epic", "cinematic", "powerful", "emotional"],
+                    "playful and whimsical": ["fantasy", "childlike", "quirky", "imaginative"],
+                    "elegant and sophisticated": ["luxurious", "refined", "classy", "graceful"],
+                    "mysterious and surreal": ["otherworldly", "dreamlike", "enigmatic", "unsettling"],
+                    "romantic and dreamy": ["soft focus", "pastel colors", "gentle lighting", "sentimental"]
+                },
+                "background": {
+                    "plain background": ["solid color", "gradient", "textured backdrop", "transparent"],
+                    "environmental background": ["nature scene", "urban landscape", "interior setting"],
+                    "abstract background": ["geometric shapes", "color splashes", "patterned design"],
+                    "bokeh background": ["out of focus lights", "soft circles of light"],
+                    "architectural background": ["cityscape", "historical building", "futuristic structure"],
+                    "cosmic background": ["starry sky", "nebula", "galaxy"],
+                    "fantasy background": ["enchanted forest", "magical realm", "mythical landscape"],
+                    "surreal background": ["dreamlike scene", "impossible architecture", "abstract environment"]
+                }
+            },
+            "Fine Art": {
+                "styles": {
+                    "composition": {
+                        "Fine Art": ["classical composition", "dynamic composition", "balanced composition", "asymmetrical composition", "diagonal composition"]
+                    },
+                    "color palette": {
+                        "Fine Art": ["rich and vibrant colors", "subtle and muted tones", "monochromatic scheme", "complementary colors", "harmonious color palette"]
+                    },
+                    "detail level": {
+                        "Fine Art": ["highly detailed and realistic", "stylized and expressive", "impressionistic and loose"]
+                    },
+                    "mood": {
+                        "Fine Art": ["dramatic and intense", "calm and serene", "nostalgic and vintage", "playful and whimsical"]
+                    },
+                    "lighting": {
+                        "Fine Art": ["golden hour light", "soft diffused light", "studio lighting with softboxes", "dramatic chiaroscuro lighting"]
+                    }
+                 },
+                 "watercolor": {
+                    "styles": {
+                        "unique": {
+                            "watercolor": ["wet on wet", "dry brush", "layered washes", "splatter technique", "glazing technique", "loose washes", "bleeding edges", "granulation texture"]
+                        },
+                        "color palette": {
+                            "watercolor": ["soft pastels", "muted washes", "blooming pigment"]
+                        },
+                        "mood": {
+                            "watercolor": ["dreamy and ethereal", "delicate"]
+                        },
+                        "lighting": {
+                            "watercolor": ["soft diffused", "glowing whites preserved", "translucent layers"]
+                         }
+                     }
+                 },
+                 "oil painting": {
+                    "styles": {
+                        "unique": {
+                            "oil painting": ["impasto brushwork", "alla prima", "palette knife application", "scumbling", "layered glazing", "fat over lean"]
+                        },
+                        "color palette": {
+                            "oil painting": ["earth pigment dominant", "old master palette", "deep umbers and siennas", "varnished richness"]
+                        },
+                        "detail level": {
+                            "oil painting": ["visible brushstroke texture", "painterly edge control", "thick paint relief"]
+                        },
+                        "lighting": {
+                            "oil painting": ["varnish sheen highlights", "atelier north-light look"]
+                         },
+                        "background": {
+                            "oil painting": ["gessoed canvas grain", "toned ground showing through"]
+                         }
+                     }
+                 },
+                 "acrylic": {
+                    "styles": {
+                        "unique": {
+                            "acrylic": ["hard-edge color blocking", "acrylic pour cells", "matte layered glazing", "gel medium texture", "opaque flat passages"]
+                        },
+                        "color palette": {
+                            "acrylic": ["high saturation pigments", "clean primaries", "fluorescent accent tones"]
+                        },
+                        "detail level": {
+                            "acrylic": ["crisp edge definition", "flat-to-textured contrast"]
+                        },
+                        "lighting": {
+                            "acrylic": ["matte surface response", "clean specular accents"]
+                         }
+                     }
+                 },
+                 "pastel": {
+                    "styles": {
+                        "unique": {
+                            "pastel": ["soft pastel blending", "pastel pencil detailing", "broken color layering", "sgraffito scratches", "powdery edge transitions"]
+                        },
+                        "color palette": {
+                            "pastel": ["chalky desaturated tones", "velvety midtones", "powdered pigment bloom"]
+                        },
+                        "detail level": {
+                            "pastel": ["soft-focus detail", "paper tooth visible"]
+                        },
+                        "background": {
+                            "pastel": ["tinted paper ground", "textured paper tooth"]
+                         }
+                     }
+                 },
+                 "charcoal": {
+                    "styles": {
+                        "unique": {
+                            "charcoal": ["vine charcoal gesture", "compressed charcoal blacks", "charcoal powder atmosphere", "kneaded eraser highlights", "smudged tonal blocking"]
+                        },
+                        "color palette": {
+                            "charcoal": ["graphite-black grayscale", "warm paper undertone", "cold neutral values"]
+                        },
+                        "detail level": {
+                            "charcoal": ["broad tonal massing", "selective sharp accents", "dusty texture retention"]
+                        },
+                        "lighting": {
+                            "charcoal": ["dramatic value falloff", "deep shadow compression"]
+                         },
+                        "background": {
+                            "charcoal": ["newsprint texture", "toned paper backdrop"]
+                         }
+                     }
+                 },
+                 "ink wash": {
+                    "styles": {
+                        "unique": {
+                            "ink wash": ["graded tonal wash", "bone-dry brush texture", "ink bloom backruns", "minimal brush economy", "layered value passes"]
+                        },
+                        "composition": {
+                            "ink wash": ["calligraphic stroke emphasis", "asymmetric empty-space balance"]
+                        },
+                        "color palette": {
+                            "ink wash": ["monochrome ink values", "warm black to cool gray transitions"]
+                        },
+                        "detail level": {
+                            "ink wash": ["suggestive minimal detail", "value-first rendering"]
+                        },
+                        "mood": {
+                            "ink wash": ["contemplative restraint", "meditative simplicity"]
+                        },
+                        "background": {
+                            "ink wash": ["rice paper absorbency texture", "wash tide marks"]
+                         }
+                     }
+                 }
+            },
+            "Drawing and Illustration": {
+                "styles": {
+                    "unique": {
+                        "Drawing and Illustration": ["draftsmanship focus", "construction-first drawing", "expressive line quality", "paper grain emphasis"]
+                    },
+                    "composition": {
+                        "Drawing and Illustration": ["thumbnail-first planning", "silhouette readability", "value grouping", "shape language driven"]
+                    },
+                    "detail level": {
+                        "Drawing and Illustration": ["line-weight hierarchy", "edge-priority detailing", "selective rendering zones"]
+                    },
+                    "background": {
+                        "Drawing and Illustration": ["paper margin notes", "visible guide marks", "lightly toned paper"]
+                    }
+                },
+                "pencil drawing": {
+                    "styles": {
+                        "unique": {
+                            "pencil drawing": ["graphite layering", "blended tonal shading", "cross-contour construction", "kneaded eraser lift-outs", "pressure-varied linework"]
+                        },
+                        "detail level": {
+                            "pencil drawing": ["graphite sheen in dark values", "fine point detailing", "smudged midtone transitions"]
+                        },
+                        "background": {
+                            "pencil drawing": ["sketchbook paper texture", "toothy paper grain"]
+                        }
+                    }
+                },
+                "pen and ink": {
+                    "styles": {
+                        "unique": {
+                            "pen and ink": ["crow-quill precision", "india ink spot blacks", "contour and silhouette emphasis", "feathered line transitions", "inked edge tapering"]
+                        },
+                        "composition": {
+                            "pen and ink": ["black mass anchoring", "high readability silhouettes"]
+                        },
+                        "detail level": {
+                            "pen and ink": ["crisp micro-line detail", "controlled line density"]
+                        },
+                        "background": {
+                            "pen and ink": ["bristol board finish", "white reserve highlights"]
+                        }
+                    }
+                },
+                "marker art": {
+                    "styles": {
+                        "unique": {
+                            "marker art": ["alcohol marker blending", "chisel-tip blocking", "hard cel-shaded transitions", "layered marker passes", "streak texture intentional"]
+                        },
+                        "color palette": {
+                            "marker art": ["vivid marker gamut", "warm-cool marker split", "limited marker set harmonies"]
+                        },
+                        "detail level": {
+                            "marker art": ["bold shape simplification", "selective fine-liner accents"]
+                        },
+                        "background": {
+                            "marker art": ["bleed-proof marker paper", "bleed-edge halos"]
+                        }
+                    }
+                },
+                "chalk drawing": {
+                    "styles": {
+                        "unique": {
+                            "chalk drawing": ["side-of-stick shading", "powdered chalk blending", "erased chalk highlights", "layered chalk dust texture", "broad gestural blocking"]
+                        },
+                        "color palette": {
+                            "chalk drawing": ["chalkboard white on dark ground", "earth chalk set", "muted classroom pigments"]
+                        },
+                        "mood": {
+                            "chalk drawing": ["ephemeral and tactile", "dusty atmospheric"]
+                        },
+                        "background": {
+                            "chalk drawing": ["blackboard texture", "charcoal paper tooth"]
+                        }
+                    }
+                },
+                "digital illustration": {
+                    "styles": {
+                        "unique": {
+                            "digital illustration": ["custom brush engine textures", "layer mask driven rendering", "non-destructive paint workflow", "paint-over photo block-in", "stylus pressure modulation"]
+                        },
+                        "composition": {
+                            "digital illustration": ["shape-pass to detail-pass workflow", "value check in grayscale stage"]
+                        },
+                        "detail level": {
+                            "digital illustration": ["clean edge anti-aliasing", "texture overlay finishing", "foreground detail prioritization"]
+                        },
+                        "lighting": {
+                            "digital illustration": ["screen blend light accents", "multiply shadow pass"]
+                        }
+                    }
+                },
+                "sketch": {
+                    "styles": {
+                        "unique": {
+                            "sketch": ["gesture-first ideation", "rapid construction lines", "thumbnail exploration", "rough iteration passes", "unfinished intentionality"]
+                        },
+                        "composition": {
+                            "sketch": ["multiple thumbnail variants", "pose silhouette testing"]
+                        },
+                        "detail level": {
+                            "sketch": ["minimal finish", "construction visibility retained"]
+                        },
+                        "mood": {
+                            "sketch": ["spontaneous and exploratory", "raw creative process"]
+                        }
+                    }
+                },
+                "line art": {
+                    "styles": {
+                        "unique": {
+                            "line art": ["clean and precise", "sketchy and loose", "cross-hatching", "stippling", "contour drawing", "gestural lines", "contour only", "architectural drafting"]
+                        },
+                        "color palette": {
+                            "line art": ["ink-on-paper contrast", "single-spot accent color", "technical black line emphasis"]
+                        },
+                        "mood": {
+                            "line art": ["minimalist and modern", "expressive and loose", "architectural and rigid"]
+                        },
+                        "lighting": {
+                            "line art": ["flat lighting with no shading", "hatching for shadow areas", "implied shadow lines", "no fill"]
+                        }
+                    }
+                },
+                "cross-hatching": {
+                    "styles": {
+                        "unique": {
+                            "cross-hatching": ["multi-directional hatch layers", "contour-following hatch flow", "density-based value ramps", "coarse-to-fine hatch transitions"]
+                        },
+                        "detail level": {
+                            "cross-hatching": ["micro-hatch texture", "controlled line spacing", "value compression through overlap"]
+                        },
+                        "lighting": {
+                            "cross-hatching": ["form shadow built with hatch density", "highlight reserve with sparse marks"]
+                        }
+                    }
+                },
+                "stippling": {
+                    "styles": {
+                        "unique": {
+                            "stippling": ["dot-density shading", "clustered stipple gradients", "pointillist ink texture", "negative-space dot carving"]
+                        },
+                        "detail level": {
+                            "stippling": ["ultra-fine dot control", "slow-build tonal rendering", "grainy atmospheric depth"]
+                        },
+                        "mood": {
+                            "stippling": ["patient and meticulous", "quietly intricate"]
+                        }
+                    }
+                },
+                "technical illustration": {
+                    "styles": {
+                        "unique": {
+                            "technical illustration": ["orthographic precision", "exploded-view breakdown", "section cutaways", "dimension-line clarity", "callout annotation style"]
+                        },
+                        "composition": {
+                            "technical illustration": ["diagram-first layout", "part hierarchy grouping", "sequential assembly flow"]
+                        },
+                        "detail level": {
+                            "technical illustration": ["spec-level precision", "uniform line standardization", "mechanical edge fidelity"]
+                        },
+                        "background": {
+                            "technical illustration": ["grid paper backing", "blueprint-like drafting field"]
+                        }
+                    }
+                },
+                "botanical illustration": {
+                    "styles": {
+                        "unique": {
+                            "botanical illustration": ["scientific plate rendering", "vein-structure emphasis", "specimen profile studies", "cutaway botanical anatomy", "herbarium-inspired presentation"]
+                        },
+                        "composition": {
+                            "botanical illustration": ["species identification layout", "labeled morphology callouts", "root-to-bloom full specimen framing"]
+                        },
+                        "detail level": {
+                            "botanical illustration": ["fine venation detailing", "petal edge micro-texture", "accurate botanical proportions"]
+                        },
+                        "color palette": {
+                            "botanical illustration": ["natural pigment realism", "chlorophyll-rich greens", "subtle seasonal bloom shifts"]
+                        },
+                        "background": {
+                            "botanical illustration": ["archival paper plate", "white specimen field", "museum catalog backdrop"]
+                        }
+                    }
+                }
+            },
+            "Comic and Cartoons": {
+                "styles": {
+                    "unique": {
+                        "Comic and Cartoon": ["panel-driven storytelling", "exaggerated readability", "stylized motion emphasis"],
+                        "comic strip": ["sequential panels", "speech bubbles", "cartoonish characters", "exaggerated expressions", "dynamic action lines"],
+                        "manga": ["black and white", "expressive characters", "speed lines", "emotional close-ups", "stylized backgrounds"],
+                        "graphic novel": ["detailed artwork", "complex narratives", "varied panel layouts", "realistic characters", "thematic color schemes"],
+                        "caricature": ["facial feature exaggeration", "satirical distortion", "expressive contour emphasis"],
+                        "animation": ["keyframe pose clarity", "smear frame motion", "appeal-focused character design"],
+                        "storyboarding": ["shot-sequence thumbnails", "camera move notation", "beat-to-beat visual pacing"],
+                        "western comic": ["bold contour inking", "dynamic foreshortening", "caption-heavy narrative boxes"],
+                        "superhero comic": ["heroic anatomy exaggeration", "impact burst effects", "dramatic cape and cloth flow"],
+                        "slice of life comic": ["everyday micro-expressions", "quiet panel timing", "domestic scene intimacy"],
+                        "horror comic": ["ink-heavy shadow masses", "disturbing silhouette reveals", "uneasy negative space"],
+                        "science fiction comic": ["tech interface overlays", "futurist prop design", "cosmic scale establishing panels"],
+                        "multi-panel strip": ["beat-based panel rhythm", "setup-payoff pacing", "gutter-timing emphasis"],
+                        "single-panel cartoon": ["one-beat visual punchline", "editorial gag composition", "instant-read staging"]
+                    },
+                    "composition": {
+                        "Comic and Cartoon": ["left-to-right readability flow", "clear focal hierarchy", "panel-to-panel action continuity"],
+                        "storyboarding": ["shot-reverse-shot planning", "continuity-safe screen direction", "sequence-wide composition arcs"],
+                        "multi-panel strip": ["consistent panel grid cadence", "timing through panel width variation"],
+                        "single-panel cartoon": ["single focal gag staging", "minimal clutter framing"]
+                    },
+                    "color palette": {
+                        "comic strip": ["bright and bold colors", "limited color palette"],
+                        "manga": ["monochrome with screentones", "selective color accents"],
+                        "graphic novel": ["thematic color schemes", "muted tones for serious themes"],
+                        "caricature": ["high-chroma skin accents", "posterized local colors"],
+                        "animation": ["clean cel palette", "broad value separation"],
+                        "western comic": ["CMYK-style pop contrast", "inked flats with gradient accents"],
+                        "superhero comic": ["primary-color hero coding", "neon impact accents"],
+                        "slice of life comic": ["soft domestic neutrals", "seasonal everyday tones"],
+                        "horror comic": ["sickly desaturation", "blood-accent contrast", "shadow-dominant values"],
+                        "science fiction comic": ["electric cyan-magenta contrasts", "cold metallic hues"],
+                        "single-panel cartoon": ["editorial flat-color clarity", "newsprint-friendly palette"]
+                    },
+                    "mood": {
+                        "comic strip": ["lighthearted and humorous", "adventurous and exciting", "action packed", "slice of life", "satirical and witty"],
+                        "manga": ["dramatic and emotional", "action-packed and intense"],
+                        "graphic novel": ["serious and thought-provoking", "dark and gritty"],
+                        "caricature": ["biting satire", "playfully mocking"],
+                        "animation": ["kinetic and playful", "expressive performance-driven"],
+                        "storyboarding": ["functional and narrative-forward", "rhythm-conscious"],
+                        "western comic": ["adventurous pulp energy", "high-drama heroism"],
+                        "superhero comic": ["epic and triumphant", "high-stakes urgency"],
+                        "slice of life comic": ["warm and intimate", "quietly humorous"],
+                        "horror comic": ["dread-laden", "claustrophobic tension"],
+                        "science fiction comic": ["awe and estrangement", "technological tension"],
+                        "multi-panel strip": ["rhythmic comedic timing", "serialized momentum"],
+                        "single-panel cartoon": ["quick wit", "deadpan absurdity"]
+                    },
+                    "lighting": {
+                        "comic strip": ["flat lighting with bold shadows"],
+                        "manga": ["high contrast with dramatic shadows"],
+                        "graphic novel": ["varied lighting to enhance mood, from stark contrasts to soft shading"],
+                        "animation": ["readability-first key lighting", "rim light for silhouette separation"],
+                        "superhero comic": ["dramatic rim and bounce", "impact flash highlights"],
+                        "horror comic": ["underlighting menace", "hard shadow occlusion"],
+                        "science fiction comic": ["emissive panel glows", "instrument-light spill"],
+                        "storyboarding": ["simple value-lighting shorthand", "practical source indication"]
+                    },
+                    "background": {
+                        "storyboarding": ["minimal environment blocks", "camera direction arrows", "scene slug annotations"],
+                        "horror comic": ["decayed architectural interiors", "fogged negative-depth backgrounds"],
+                        "science fiction comic": ["modular starship interiors", "dense urban neon skylines"],
+                        "slice of life comic": ["everyday home and street settings", "localized neighborhood details"],
+                        "single-panel cartoon": ["economical setting cues", "blank-field emphasis for punchline"]
+                    },
+                    "detail level": {
+                        "caricature": ["feature-priority rendering", "simplified anatomy support"],
+                        "storyboarding": ["rough but readable", "timing-over-finish"],
+                        "superhero comic": ["high-detail focal anatomy", "simplified peripheral motion areas"]
+                    }
+                 }
+            },
+            "Photography": {
+                "styles": {
+                    "unique": {
+                        "Photography": ["lens-driven realism", "depth-of-field control", "exposure-priority aesthetics", "decisive-moment capture"]
+                    },
+                    "composition": {
+                        "Photography": ["foreground-midground-background layering", "lens focal-length storytelling", "horizon discipline", "subject-background separation"]
+                    },
+                    "lighting": {
+                        "Photography": ["exposure bracketing aware", "practical source motivated lighting", "flash-to-ambient balance", "dynamic range preservation"]
+                    },
+                    "detail level": {
+                        "Photography": ["sensor-noise character", "sharpness falloff by depth", "highlight roll-off behavior"]
+                    },
+                    "background": {
+                        "Photography": ["contextual real-world environment", "optical bokeh separation", "atmospheric depth haze"]
+                    }
+                },
+                "portrait photography": {
+                    "styles": {
+                        "unique": {
+                            "portrait photography": ["subject-eye emphasis", "skin-tone fidelity", "editorial portrait finish", "environmental portrait storytelling"]
+                        },
+                        "composition": {
+                            "portrait photography": ["head-and-shoulders framing", "negative-space portrait crop", "eye-line dominant framing"]
+                        },
+                        "lighting": {
+                            "portrait photography": ["catchlight placement control", "short lighting", "broad lighting", "subtle fill-card bounce"]
+                        },
+                        "detail level": {
+                            "portrait photography": ["micro skin texture retention", "shallow DOF facial isolation"]
+                        },
+                        "mood": {
+                            "portrait photography": ["intimate and character-driven", "editorial confidence"]
+                        }
+                    }
+                },
+                "landscape photography": {
+                    "styles": {
+                        "unique": {
+                            "landscape photography": ["grand vista emphasis", "terrain texture fidelity", "weather-driven atmosphere", "long-exposure landscape"]
+                        },
+                        "composition": {
+                            "landscape photography": ["strong horizon anchoring", "foreground anchor object", "depth through receding planes", "panoramic sweep framing"]
+                        },
+                        "lighting": {
+                            "landscape photography": ["graduated sky-ground balance", "backlit atmospheric haze", "storm-break directional light"]
+                        },
+                        "detail level": {
+                            "landscape photography": ["edge-to-edge sharpness", "fine terrain micro-contrast"]
+                        },
+                        "background": {
+                            "landscape photography": ["layered mountain distance", "open sky dominance", "mist-separated ridgelines"]
+                        }
+                    }
+                },
+                "street photography": {
+                    "styles": {
+                        "unique": {
+                            "street photography": ["candid human moments", "urban gesture capture", "documentary spontaneity", "found-juxtaposition storytelling"]
+                        },
+                        "composition": {
+                            "street photography": ["through-the-crowd framing", "reflections and storefront framing", "split-second intersection timing"]
+                        },
+                        "lighting": {
+                            "street photography": ["mixed urban light temperatures", "available-light shooting", "night sodium-vapor cast"]
+                        },
+                        "mood": {
+                            "street photography": ["observational and raw", "gritty urban immediacy"]
+                        },
+                        "background": {
+                            "street photography": ["dense city signage", "pedestrian flow blur", "wet pavement reflections"]
+                        }
+                    }
+                },
+                "macro photography": {
+                    "styles": {
+                        "unique": {
+                            "macro photography": ["extreme close-focus rendering", "tiny-subject dramatization", "focus-stack look", "micro-world abstraction"]
+                        },
+                        "composition": {
+                            "macro photography": ["single-detail dominance", "shallow-plane abstraction", "radial detail centering"]
+                        },
+                        "lighting": {
+                            "macro photography": ["diffused ring-flash look", "specular control on tiny surfaces", "backlit translucency in small subjects"]
+                        },
+                        "detail level": {
+                            "macro photography": ["microscopic texture visibility", "razor-thin focus plane", "high magnification clarity"]
+                        },
+                        "background": {
+                            "macro photography": ["creamy close-range bokeh", "color-field blur backdrop"]
+                        }
+                    }
+                },
+                "black and white photography": {
+                    "styles": {
+                        "unique": {
+                            "black and white photography": ["tonal-zone discipline", "silver gelatin look", "grain-structured monochrome", "contrast-driven storytelling"]
+                        },
+                        "composition": {
+                            "black and white photography": ["shape-and-shadow abstraction", "value-contrast subject isolation"]
+                        },
+                        "lighting": {
+                            "black and white photography": ["tonal separation lighting", "hard sidelight texture reveal", "highlight clipping restraint"]
+                        },
+                        "detail level": {
+                            "black and white photography": ["midtone richness", "film-like grain response"]
+                        },
+                        "mood": {
+                            "black and white photography": ["timeless austerity", "graphic emotional clarity"]
+                        }
+                    }
+                },
+                "film noir": {
+                    "styles": {
+                        "unique": {
+                            "film noir": ["venetian-blind shadow patterns", "detective-era staging", "hard-boiled cinematic framing", "smoke-laden atmosphere"]
+                        },
+                        "composition": {
+                            "film noir": ["obstructed voyeur framing", "off-kilter tension framing", "silhouette doorway staging"]
+                        },
+                        "lighting": {
+                            "film noir": ["single-source hard key", "venetian-slat light cuts", "deep shadow pools", "rim-lit cigarette haze"]
+                        },
+                        "mood": {
+                            "film noir": ["fatalistic tension", "paranoid intrigue", "morally ambiguous atmosphere"]
+                        },
+                        "background": {
+                            "film noir": ["rain-slick city streets", "dim office interiors", "alleyway fog depth"]
+                        }
+                    }
+                },
+                "aerial photography": {
+                    "styles": {
+                        "unique": {
+                            "aerial photography": ["top-down geographic abstraction", "high-altitude documentary perspective", "drone orbit capture style"]
+                        },
+                        "composition": {
+                            "aerial photography": ["map-like planar geometry", "leading roads from altitude", "pattern repetition from above"]
+                        },
+                        "lighting": {
+                            "aerial photography": ["long-shadow terrain modeling", "haze-penetrating midday capture", "low-angle relief definition"]
+                        },
+                        "detail level": {
+                            "aerial photography": ["micro-pattern terrain detail", "atmospheric perspective gradation"]
+                        },
+                        "background": {
+                            "aerial photography": ["cloud-layer intercuts", "patchwork urban-rural grids"]
+                        }
+                    }
+                },
+                "underwater photography": {
+                    "styles": {
+                        "unique": {
+                            "underwater photography": ["subsurface documentary style", "buoyancy-aware subject posing", "reef ecology storytelling", "split-shot over-under framing"]
+                        },
+                        "composition": {
+                            "underwater photography": ["depth-layer subject staging", "foreground particles for depth", "negative blue-water framing"]
+                        },
+                        "lighting": {
+                            "underwater photography": ["strobe color restoration", "caustic light patterns", "backscatter-aware flash angle", "surface-shaft volumetric light"]
+                        },
+                        "color palette": {
+                            "underwater photography": ["cyan-depth cast", "restored warm coral tones", "deep-water monochrome blue"]
+                        },
+                        "mood": {
+                            "underwater photography": ["weightless calm", "alien oceanic wonder"]
+                        },
+                        "background": {
+                            "underwater photography": ["particulate water column", "coral reef complexity", "open blue drop-off"]
+                        }
+                    }
+                }
+            },
+            "Digital Art": {
+                "styles": {
+                    "unique": {
+                        "Digital Art": ["layer-based workflow aesthetic", "brush-engine texture control", "hybrid 2D/3D pipeline influence"]
+                    },
+                    "composition": {
+                        "Digital Art": ["block-in to polish workflow", "readability-first silhouette passes", "iterative composition thumbnails"]
+                    },
+                    "detail level": {
+                        "Digital Art": ["zoom-level detail discipline", "texture-overlay finishing", "edge control by layer masks"]
+                    },
+                    "lighting": {
+                        "Digital Art": ["additive glow layering", "multiply shadow pass structure", "post-process bloom control"]
+                    }
+                },
+                "digital painting": {
+                    "styles": {
+                        "unique": {
+                            "digital painting": ["painterly digital brushwork", "opaque-to-glaze layering", "custom bristle simulation", "color-pick blending workflow"]
+                        },
+                        "detail level": {
+                            "digital painting": ["brushstroke-preserving finish", "texture-brush micro detail"]
+                        },
+                        "mood": {
+                            "digital painting": ["illustrative and expressive", "cinematic painted atmosphere"]
+                        }
+                    }
+                },
+                "3D modeling": {
+                    "styles": {
+                        "unique": {
+                            "3D modeling": ["subdivision-surface clean topology", "hard-surface paneling", "sculpted organic forms", "retopology-aware design"]
+                        },
+                        "composition": {
+                            "3D modeling": ["turntable-friendly silhouette", "hero-asset framing"]
+                        },
+                        "detail level": {
+                            "3D modeling": ["high-poly to low-poly fidelity", "normal-map supported detail", "bevel-highlight readability"]
+                        }
+                    }
+                },
+                "vector art": {
+                    "styles": {
+                        "unique": {
+                            "vector art": ["Bezier-curve precision", "flat geometric construction", "clean path boolean design", "scalable iconographic styling"]
+                        },
+                        "composition": {
+                            "vector art": ["shape hierarchy clarity", "modular geometric balance"]
+                        },
+                        "detail level": {
+                            "vector art": ["crisp alias-free edges", "minimal node complexity"]
+                        }
+                    }
+                },
+                "pixel art": {
+                    "styles": {
+                        "unique": {
+                            "pixel art": ["restricted resolution grid", "palette-limited sprite work", "subpixel readability tricks", "tile-based environment design"]
+                        },
+                        "composition": {
+                            "pixel art": ["tile-grid composition", "sprite-scale silhouette clarity"]
+                        },
+                        "detail level": {
+                            "pixel art": ["intentional dithering", "clustered pixel shading", "single-pixel highlight control"]
+                        },
+                        "color palette": {
+                            "pixel art": ["era-authentic console palette", "16-color constraint", "indexed palette ramps"]
+                        }
+                    }
+                },
+                "photo manipulation": {
+                    "styles": {
+                        "unique": {
+                            "photo manipulation": ["composite realism", "seamless matte extraction", "surreal photo-collage blending", "cinematic grade integration"]
+                        },
+                        "lighting": {
+                            "photo manipulation": ["cross-source light matching", "composite shadow unification", "atmospheric depth matching"]
+                        },
+                        "detail level": {
+                            "photo manipulation": ["edge-fringe cleanup", "grain unification across assets", "perspective-consistent compositing"]
+                        }
+                    }
+                },
+                "concept art": {
+                    "styles": {
+                        "unique": {
+                            "concept art": ["idea-exploration iterations", "design language sheets", "worldbuilding visual notes", "functional fantasy industrial design"]
+                        },
+                        "composition": {
+                            "concept art": ["read-first silhouette staging", "hero shot plus callout views", "scale-reference inclusion"]
+                        },
+                        "mood": {
+                            "concept art": ["narrative world tone", "pre-production cinematic mood"]
+                        }
+                    }
+                },
+                "low poly art": {
+                    "styles": {
+                        "unique": {
+                            "low poly art": ["faceted geometric simplification", "angular silhouette language", "minimal topology storytelling"]
+                        },
+                        "color palette": {
+                            "low poly art": ["flat-shaded polygon colors", "pastel faceted gradients", "terrain-style color bands"]
+                        },
+                        "detail level": {
+                            "low poly art": ["triangle-economy detail", "shape-driven readability"]
+                        }
+                    }
+                },
+                "isometric art": {
+                    "styles": {
+                        "unique": {
+                            "isometric art": ["30-degree axonometric projection", "diorama-like scene modules", "grid-aligned object language"]
+                        },
+                        "composition": {
+                            "isometric art": ["tileable isometric layout", "layered elevation stacks", "cutaway room modules"]
+                        },
+                        "detail level": {
+                            "isometric art": ["micro-environment props", "clean plane separation"]
+                        }
+                    }
+                },
+                "glitch art": {
+                    "styles": {
+                        "unique": {
+                            "glitch art": ["datamosh smear artifacts", "RGB channel misregistration", "scanline corruption", "compression block breakdown"]
+                        },
+                        "color palette": {
+                            "glitch art": ["digital error primaries", "signal-noise neon offsets", "chromatic aberration bands"]
+                        },
+                        "mood": {
+                            "glitch art": ["unstable digital anxiety", "cybernetic disorientation"]
+                        }
+                    }
+                },
+                "fractal art": {
+                    "styles": {
+                        "unique": {
+                            "fractal art": ["recursive geometric complexity", "algorithmic pattern bloom", "infinite zoom motifs"]
+                        },
+                        "composition": {
+                            "fractal art": ["self-similar radial structures", "spiral recursion centering"]
+                        },
+                        "color palette": {
+                            "fractal art": ["gradient-mapped spectrum bands", "psychedelic mathematical palettes"]
+                        },
+                        "detail level": {
+                            "fractal art": ["ultra-fine recursive micro-detail", "iteration-depth richness"]
+                        }
+                    }
+                },
+                "voxel art": {
+                    "styles": {
+                        "unique": {
+                            "voxel art": ["cube-based volumetric construction", "blocky 3D sprite aesthetic", "grid-quantized forms"]
+                        },
+                        "composition": {
+                            "voxel art": ["orthographic game-scene staging", "chunk-based environment layout"]
+                        },
+                        "detail level": {
+                            "voxel art": ["voxel-density controlled detail", "readable stepped silhouettes"]
+                        },
+                        "lighting": {
+                            "voxel art": ["baked AO in voxel corners", "simple directional key for block readability"]
+                        }
+                    }
+                }
+            },
+            "Ancient and Primitive": {
+                "styles": {
+                    "unique": {
+                        "Ancient and Primitive Art": ["artifact-rooted visual language", "ritual symbolism emphasis", "material-age patina"],
+                        "texture": ["ochre and charcoal pigments", "rough stone texture", "rock surface texture", "ancient symbols", "ceramic glaze texture"],
+                        "pattern": ["primitive figures", "handprint motifs", "cave wall art", "ritualistic imagery", "tribal patterns"]
+                    },
+                    "lighting": {
+                        "natural": ["candlelight", "firelight"],
+                        "artificial": ["torchlight", "lantern light"]
+                    },
+                    "detail level": {
+                        "highly detailed": ["intricate petroglyphs", "detailed cave paintings"],
+                        "medium detail": ["stylized figures", "suggestive markings", "symbolic representations"],
+                        "low detail": ["abstract symbols", "gestural marks", "rough and uneven"]
+                    },
+                    "mood": {
+                        "dark and moody": ["mysterious", "ritualistic", "ancient"],
+                        "light and airy": ["primitive beauty", "natural simplicity"],
+                        "vibrant and energetic": ["tribal celebration", "cultural vibrancy"],
+                        "calm and serene": ["timeless tranquility", "earthy harmony"],
+                        "nostalgic and vintage": ["ancient heritage", "prehistoric legacy"],
+                        "dramatic and intense": ["epic storytelling", "powerful symbolism"],
+                        "playful and whimsical": ["mythical creatures", "imaginative scenes"],
+                        "elegant and sophisticated": ["ancient artistry", "refined craftsmanship"],
+                        "mysterious and surreal": ["enigmatic symbols", "otherworldly imagery"],
+                        "romantic and dreamy": ["ancient myths", "legendary tales", "dreamy"]
+                    }
+                },
+                "cave painting": {
+                    "styles": {
+                        "unique": {
+                            "cave painting": ["pigment-on-rock application", "hand stencil motifs", "animal silhouette narration", "mineral earth binder look"]
+                        },
+                        "composition": {
+                            "cave painting": ["wall-contour-driven layout", "frieze-like narrative bands"]
+                        },
+                        "background": {
+                            "cave painting": ["uneven cavern wall relief", "smoke-darkened stone backdrop"]
+                        }
+                    }
+                },
+                "rock art": {
+                    "styles": {
+                        "unique": {
+                            "rock art": ["weathered pigment remnants", "sun-faded mark-making", "surface-crack integrated imagery"]
+                        },
+                        "detail level": {
+                            "rock art": ["abrasion-softened edges", "time-worn symbolic forms"]
+                        }
+                    }
+                },
+                "petroglyphs": {
+                    "styles": {
+                        "unique": {
+                            "petroglyphs": ["incised stone linework", "pecked groove marks", "chiseled contour iconography"]
+                        },
+                        "lighting": {
+                            "petroglyphs": ["raking light for carved depth", "shadow-filled groove contrast"]
+                        },
+                        "background": {
+                            "petroglyphs": ["lichen-speckled rock face", "eroded cliff surface"]
+                        }
+                    }
+                },
+                "hieroglyphics": {
+                    "styles": {
+                        "unique": {
+                            "hieroglyphics": ["pictographic column layout", "cartouche framing", "symbolic register stacking", "ink-and-carve hybrid marks"]
+                        },
+                        "composition": {
+                            "hieroglyphics": ["vertical script rhythm", "ordered icon sequence bands"]
+                        },
+                        "color palette": {
+                            "hieroglyphics": ["desert mineral pigments", "lapis and ochre accents", "aged limestone tones"]
+                        }
+                    }
+                },
+                "ancient mosaic": {
+                    "styles": {
+                        "unique": {
+                            "ancient mosaic": ["tesserae tile construction", "grout-line segmentation", "stone-and-glass inlay look"]
+                        },
+                        "composition": {
+                            "ancient mosaic": ["medallion-centric arrangement", "border-band framing"]
+                        },
+                        "detail level": {
+                            "ancient mosaic": ["tile-size value modeling", "chipped tesserae irregularity"]
+                        }
+                    }
+                },
+                "medieval manuscript illumination": {
+                    "styles": {
+                        "unique": {
+                            "medieval manuscript illumination": ["gilded initial capitals", "marginalia ornament", "flat iconic figures", "decorative foliate motifs"]
+                        },
+                        "color palette": {
+                            "medieval manuscript illumination": ["lapis blue and vermilion", "gold leaf highlights", "vellum cream tones"]
+                        },
+                        "background": {
+                            "medieval manuscript illumination": ["vellum page texture", "ornate border filigree"]
+                        }
+                    }
+                },
+                "ceramic art": {
+                    "styles": {
+                        "unique": {
+                            "ceramic art": ["wheel-thrown symmetry", "hand-built coil forms", "slip-painted motifs", "kiln-fired surface variation"]
+                        },
+                        "detail level": {
+                            "ceramic art": ["glaze pooling at edges", "firing crackle effects"]
+                        },
+                        "lighting": {
+                            "ceramic art": ["specular glaze highlights", "matte-clay contrast"]
+                        }
+                    }
+                },
+                "textile art": {
+                    "styles": {
+                        "unique": {
+                            "textile art": ["warp-weft structure emphasis", "hand-dyed irregularity", "loom pattern rhythm", "embroidered motif layering"]
+                        },
+                        "detail level": {
+                            "textile art": ["fiber-level texture", "stitched edge articulation"]
+                        },
+                        "background": {
+                            "textile art": ["woven cloth grain", "frayed fabric borders"]
+                        }
+                    }
+                },
+                "wood carving": {
+                    "styles": {
+                        "unique": {
+                            "wood carving": ["chisel-gouge mark visibility", "relief carving depth", "grain-following ornament", "hand-carved asymmetry"]
+                        },
+                        "lighting": {
+                            "wood carving": ["side-light grain reveal", "relief shadow groove contrast"]
+                        },
+                        "background": {
+                            "wood carving": ["aged timber patina", "tool-marked wood surface"]
+                        }
+                    }
+                },
+                "stone carving": {
+                    "styles": {
+                        "unique": {
+                            "stone carving": ["chiselled monumentality", "weathered relief planes", "tool-strike faceting", "bas-relief silhouette logic"]
+                        },
+                        "detail level": {
+                            "stone carving": ["eroded edge softness", "chisel-texture retention"]
+                        },
+                        "background": {
+                            "stone carving": ["quarried stone grain", "lichen and patina deposits"]
+                        }
+                    }
+                },
+                "metalwork": {
+                    "styles": {
+                        "unique": {
+                            "metalwork": ["hammered repousse texture", "engraved ornamental filigree", "cast-metal relief", "forged joinery marks"]
+                        },
+                        "lighting": {
+                            "metalwork": ["specular edge glints", "oxidized highlight breakup"]
+                        },
+                        "color palette": {
+                            "metalwork": ["aged bronze tones", "iron oxide browns", "patinated copper greens"]
+                        }
+                    }
+                },
+                "body art": {
+                    "styles": {
+                        "unique": {
+                            "body art": ["ritual body paint motifs", "scarification-inspired patterning", "symbolic placement mapping"]
+                        },
+                        "composition": {
+                            "body art": ["anatomy-following motif flow", "limb and torso symmetry patterns"]
+                        },
+                        "color palette": {
+                            "body art": ["mineral earth pigments", "charcoal and clay contrasts"]
+                        }
+                    }
+                },
+                "ritual art": {
+                    "styles": {
+                        "unique": {
+                            "ritual art": ["ceremonial symbol clustering", "totemic abstraction", "mythic narrative motifs", "sacred object centrality"]
+                        },
+                        "mood": {
+                            "ritual art": ["solemn reverence", "numinous intensity", "ancestral gravity"]
+                        },
+                        "background": {
+                            "ritual art": ["ceremonial gathering spaces", "firelit shrine environments"]
+                        }
+                    }
+                }
+            },
+            "3D and Rendering": {
+                "styles": {
+                    "unique": {
+                        "3D and Rendering": ["physically-based workflow", "camera-driven scene staging", "material and shader realism", "geometry-first visual language"]
+                    },
+                    "composition": {
+                        "3D and Rendering": ["cinematic virtual camera framing", "focal-length based depth compression", "parallax-rich foreground layering"]
+                    },
+                    "lighting": {
+                        "3D and Rendering": ["HDRI environment lighting", "three-point CGI lighting", "global illumination bounce"]
+                    },
+                    "detail level": {
+                        "3D and Rendering": ["surface normal fidelity", "texture map resolution priority", "subsurface and roughness nuance"]
+                    }
+                },
+                "3D rendering": {
+                    "styles": {
+                        "unique": {
+                            "3D rendering": ["beauty-pass polish", "ray-traced reflections", "path-traced realism", "render-layer compositing"]
+                        },
+                        "lighting": {
+                            "3D rendering": ["caustic-aware highlights", "contact shadow grounding", "volumetric light shafts"]
+                        }
+                    }
+                },
+                "3D modeling": {
+                    "styles": {
+                        "unique": {
+                            "3D modeling": ["clean edge-loop topology", "quad-dominant mesh flow", "boolean hard-surface blocking"]
+                        },
+                        "detail level": {
+                            "3D modeling": ["silhouette-first model quality", "bevel consistency", "topology-optimized detail"]
+                        }
+                    }
+                },
+                "3D animation": {
+                    "styles": {
+                        "unique": {
+                            "3D animation": ["pose-to-pose keyframing", "secondary motion layering", "motion arc clarity", "timing and spacing polish"]
+                        },
+                        "composition": {
+                            "3D animation": ["shot continuity blocking", "performance-focused staging"]
+                        },
+                        "lighting": {
+                            "3D animation": ["readability lighting for motion", "rim separation during action"]
+                        }
+                    }
+                },
+                "3D sculpting": {
+                    "styles": {
+                        "unique": {
+                            "3D sculpting": ["digital clay buildup", "anatomy plane sculpting", "surface noise detailing", "high-frequency pore sculpt"]
+                        },
+                        "detail level": {
+                            "3D sculpting": ["primary-secondary-tertiary form hierarchy", "high-poly micro detail"]
+                        }
+                    }
+                },
+                "3D visualization": {
+                    "styles": {
+                        "unique": {
+                            "3D visualization": ["design intent communication", "client-facing realism", "context-rich scene placement"]
+                        },
+                        "composition": {
+                            "3D visualization": ["architectural eye-height viewpoints", "material showcase angles"]
+                        }
+                    }
+                },
+                "3D printing": {
+                    "styles": {
+                        "unique": {
+                            "3D printing": ["printability-first forms", "support-aware geometry", "watertight manifold design"]
+                        },
+                        "detail level": {
+                            "3D printing": ["layer-line readability", "tolerance-conscious mechanical detail"]
+                        }
+                    }
+                },
+                "CG": {
+                    "styles": {
+                        "unique": {
+                            "CG": ["cinematic CG finish", "high-production VFX polish", "multi-pass composited look"]
+                        },
+                        "lighting": {
+                            "CG": ["motivated key-fill-rim balance", "atmospheric volumetrics"]
+                        }
+                    }
+                },
+                "clay rendering": {
+                    "styles": {
+                        "unique": {
+                            "clay rendering": ["material-neutral form study", "untextured surface evaluation", "shape-and-shadow focus"]
+                        },
+                        "color palette": {
+                            "clay rendering": ["neutral gray clay tones", "single-material monochrome"]
+                        }
+                    }
+                },
+                "wireframe modeling": {
+                    "styles": {
+                        "unique": {
+                            "wireframe modeling": ["topology exposure", "edge-flow readability", "mesh-structure visualization"]
+                        },
+                        "detail level": {
+                            "wireframe modeling": ["vertex density contrast", "clean quad routing"]
+                        }
+                    }
+                },
+                "low poly": {
+                    "styles": {
+                        "unique": {
+                            "low poly": ["faceted geometric abstraction", "triangle-economy forms", "stylized angular silhouettes"]
+                        },
+                        "lighting": {
+                            "low poly": ["flat-shaded facet readability", "simple directional key"]
+                        }
+                    }
+                },
+                "photorealistic rendering": {
+                    "styles": {
+                        "unique": {
+                            "photorealistic rendering": ["imperfection-driven realism", "physically plausible materials", "lens artifact simulation", "cinematic color-managed output"]
+                        },
+                        "detail level": {
+                            "photorealistic rendering": ["micro-surface roughness variation", "real-world scale consistency"]
+                        }
+                    }
+                },
+                "non-photorealistic rendering": {
+                    "styles": {
+                        "unique": {
+                            "non-photorealistic rendering": ["toon-shaded outlines", "painterly NPR brush passes", "technical line-enhanced rendering", "stylized hatch shading"]
+                        },
+                        "color palette": {
+                            "non-photorealistic rendering": ["posterized value bands", "illustrative color blocks"]
+                        }
+                    }
+                }
+            },
+            "Architecture and Space": {
+                "styles": {
+                    "unique": {
+                        "Architecture and Space": ["spatial storytelling", "form-function synthesis", "scale-aware environment design", "structural rhythm"]
+                    },
+                    "composition": {
+                        "Architecture and Space": ["strong vanishing-point control", "axial symmetry and procession", "human scale reference placement", "foreground framing architecture"]
+                    },
+                    "lighting": {
+                        "Architecture and Space": ["sun-path aware illumination", "interior-exterior exposure balance", "material reflectance emphasis"]
+                    },
+                    "detail level": {
+                        "Architecture and Space": ["facade articulation", "structural junction clarity", "material weathering realism"]
+                    },
+                    "background": {
+                        "Architecture and Space": ["urban context fabric", "environmental masterplan context", "atmospheric depth in built space"]
+                    }
+                },
+                "blueprint": {
+                    "styles": {
+                        "unique": {
+                            "blueprint": ["white-line drafting on cyan", "orthographic plan-elevation notation", "dimension and annotation callouts", "section-line conventions"]
+                        },
+                        "composition": {
+                            "blueprint": ["grid-aligned sheet layout", "title block hierarchy", "multi-view technical arrangement"]
+                        },
+                        "detail level": {
+                            "blueprint": ["line-weight standards", "symbol legend precision"]
+                        }
+                    }
+                },
+                "space/sci fi": {
+                    "styles": {
+                        "unique": {
+                            "space/sci fi": ["megastructure scale design", "retro-futurist industrial detailing", "orbital habitat architecture", "hard-sci-fi engineering cues"]
+                        },
+                        "lighting": {
+                            "space/sci fi": ["vacuum-contrast hard light", "airlock practical glows", "nebula backlight ambience"]
+                        },
+                        "background": {
+                            "space/sci fi": ["planetary horizon vistas", "docking bay interiors", "stellar debris fields"]
+                        },
+                        "mood": {
+                            "space/sci fi": ["awe at cosmic scale", "sterile technological tension"]
+                        }
+                    }
+                },
+                "futuristic cityscape": {
+                    "styles": {
+                        "unique": {
+                            "futuristic cityscape": ["vertical megacity layering", "skybridge urban networks", "parametric facade systems", "transit-infrastructure prominence"]
+                        },
+                        "composition": {
+                            "futuristic cityscape": ["street canyon depth", "multi-tier skyline stacking", "traffic light-trail perspective"]
+                        },
+                        "lighting": {
+                            "futuristic cityscape": ["holographic signage glow", "high-density night illumination", "aerial haze light scattering"]
+                        },
+                        "color palette": {
+                            "futuristic cityscape": ["steel-and-glass cools", "neon transit accents", "smog-muted highlights"]
+                        }
+                    }
+                },
+                "fantasy landscape": {
+                    "styles": {
+                        "unique": {
+                            "fantasy landscape": ["mythic terrain exaggeration", "impossible geology", "ancient ruins integration", "storybook environmental motifs"]
+                        },
+                        "composition": {
+                            "fantasy landscape": ["epic vista reveal", "path-to-horizon quest framing", "foreground framing flora"]
+                        },
+                        "lighting": {
+                            "fantasy landscape": ["magical emissive sources", "god-rays through mist", "otherworldly atmospheric glow"]
+                        },
+                        "background": {
+                            "fantasy landscape": ["floating landforms", "enchanted biomes", "distant citadel silhouettes"]
+                        },
+                        "mood": {
+                            "fantasy landscape": ["mythic wonder", "adventure-laden grandeur"]
+                        }
+                    }
+                }
+            },
+            "Fashion and Costume": {
+                "styles": {
+                    "unique": {
+                        "Fashion and Costume": ["fabric-driven silhouette design", "garment construction readability", "styling narrative cohesion"]
+                    },
+                    "composition": {
+                        "Fashion and Costume": ["full-look head-to-toe framing", "pose-for-garment-drape emphasis", "editorial runway pacing"]
+                    },
+                    "lighting": {
+                        "Fashion and Costume": ["fabric texture reveal lighting", "specular control on materials", "catwalk spotlight rhythm"]
+                    },
+                    "detail level": {
+                        "Fashion and Costume": ["seam and stitch visibility", "trim and embellishment precision", "fabric fold articulation"]
+                    }
+                },
+                "couture": {
+                    "styles": {
+                        "unique": {
+                            "couture": ["atelier hand-finished luxury", "architectural draping", "runway statement silhouettes", "haute embellishment detailing"]
+                        },
+                        "mood": {
+                            "couture": ["opulent and theatrical", "refined avant-garde"]
+                        }
+                    }
+                },
+                "streetwear": {
+                    "styles": {
+                        "unique": {
+                            "streetwear": ["layered urban styling", "logo and graphic-led garments", "oversized proportion play", "sneaker-centric lookbuilding"]
+                        },
+                        "background": {
+                            "streetwear": ["city alley textures", "graffiti wall context", "concrete plaza setting"]
+                        }
+                    }
+                },
+                "historical costume": {
+                    "styles": {
+                        "unique": {
+                            "historical costume": ["period-accurate tailoring", "era-authentic accessories", "museum-grade costume reconstruction", "textile tradition fidelity"]
+                        },
+                        "color palette": {
+                            "historical costume": ["natural-dye historical hues", "aged textile tones"]
+                        }
+                    }
+                },
+                "fantasy fashion": {
+                    "styles": {
+                        "unique": {
+                            "fantasy fashion": ["mythic armor-garment hybrids", "magical textile motifs", "regal worldbuilding attire", "ornamental lore-driven accessories"]
+                        },
+                        "mood": {
+                            "fantasy fashion": ["heroic pageantry", "enchanted elegance"]
+                        }
+                    }
+                },
+                "cosplay": {
+                    "styles": {
+                        "unique": {
+                            "cosplay": ["character-accurate costume replication", "prop-integrated styling", "convention-ready fabrication finish", "screen-faithful detailing"]
+                        },
+                        "detail level": {
+                            "cosplay": ["foam and thermoplastic craft realism", "weathered prop finishing"]
+                        }
+                    }
+                }
+            },
+            "Pattern and Texture": {
+                "styles": {
+                    "unique": {
+                        "Pattern and Texture": ["repeat-system design", "surface rhythm emphasis", "tactile material storytelling"]
+                    },
+                    "composition": {
+                        "Pattern and Texture": ["seamless tiling alignment", "motif scale hierarchy", "positive-negative shape cadence"]
+                    },
+                    "detail level": {
+                        "Pattern and Texture": ["micro-texture fidelity", "repeat-edge continuity", "material grain definition"]
+                    }
+                },
+                "geometric pattern": {
+                    "styles": {
+                        "unique": {
+                            "geometric pattern": ["hard-edge modular repeats", "radial and lattice systems", "precise tessellated geometry"]
+                        }
+                    }
+                },
+                "organic pattern": {
+                    "styles": {
+                        "unique": {
+                            "organic pattern": ["biomorphic flowing motifs", "growth-like branching repeats", "asymmetric natural rhythm"]
+                        }
+                    }
+                },
+                "textile pattern": {
+                    "styles": {
+                        "unique": {
+                            "textile pattern": ["print-ready repeat blocks", "fabric swatch motif scaling", "weave-compatible patterning"]
+                        }
+                    }
+                },
+                "surface texture": {
+                    "styles": {
+                        "unique": {
+                            "surface texture": ["micro-roughness mapping", "tactile wear patterns", "surface imperfection realism"]
+                        }
+                    }
+                },
+                "material texture": {
+                    "styles": {
+                        "unique": {
+                            "material texture": ["PBR material response cues", "fiber-grain anisotropy", "porosity and patina variation"]
+                        }
+                    }
+                },
+                "mandala": {
+                    "styles": {
+                        "unique": {
+                            "mandala": ["radial spiritual symmetry", "concentric motif layering", "intricate meditative linework"]
+                        }
+                    }
+                },
+                "tessellation": {
+                    "styles": {
+                        "unique": {
+                            "tessellation": ["edge-to-edge repeating tiles", "interlocking shape logic", "aperiodic tiling experiments"]
+                        }
+                    }
+                },
+                "fractal pattern": {
+                    "styles": {
+                        "unique": {
+                            "fractal pattern": ["recursive motif scaling", "self-similar branching complexity", "iteration-depth ornament"]
+                        }
+                    }
+                },
+                "abstract texture": {
+                    "styles": {
+                        "unique": {
+                            "abstract texture": ["gestural mark fields", "non-representational tactile layers", "procedural noise textures"]
+                        }
+                    }
+                },
+                "natural texture": {
+                    "styles": {
+                        "unique": {
+                            "natural texture": ["wood bark and grain fidelity", "stone erosion patterns", "leaf-vein and soil micro detail"]
+                        }
+                    }
+                },
+                "stained glass": {
+                    "styles": {
+                        "unique": {
+                            "stained glass": ["lead came segment outlines", "translucent jewel-tone panes", "cathedral window motifing"]
+                        },
+                        "lighting": {
+                            "stained glass": ["backlit color projection", "sun-through-glass glow"]
+                        }
+                    }
+                },
+                "mosaic pattern": {
+                    "styles": {
+                        "unique": {
+                            "mosaic pattern": ["tesserae chip variation", "grout-line rhythm", "stone-glass fragment assembly"]
+                        }
+                    }
+                },
+                "weaving pattern": {
+                    "styles": {
+                        "unique": {
+                            "weaving pattern": ["warp-weft over-under cadence", "loom repeat structures", "basket-weave variants"]
+                        }
+                    }
+                },
+                "embroidery pattern": {
+                    "styles": {
+                        "unique": {
+                            "embroidery pattern": ["stitch-type motif rendering", "thread sheen variation", "raised stitch relief"]
+                        }
+                    }
+                }
+            },
+            "Graphic Design": {
+                "styles": {
+                    "unique": {
+                        "Graphic Design": ["message-first visual hierarchy", "grid-based layout discipline", "brand-consistent visual systems"]
+                    },
+                    "composition": {
+                        "Graphic Design": ["typographic hierarchy control", "balanced whitespace economy", "modular grid alignment"]
+                    },
+                    "color palette": {
+                        "Graphic Design": ["brand palette consistency", "accessibility-conscious contrast", "print-vs-screen color intent"]
+                    }
+                },
+                "logo design": {
+                    "styles": {
+                        "unique": {
+                            "logo design": ["scalable mark simplicity", "negative-space symbol crafting", "monogram and icon synthesis"]
+                        },
+                        "detail level": {
+                            "logo design": ["small-size legibility", "single-color robustness"]
+                        }
+                    }
+                },
+                "typography": {
+                    "styles": {
+                        "unique": {
+                            "typography": ["expressive type pairing", "kerning-sensitive display text", "type-as-image compositions"]
+                        },
+                        "composition": {
+                            "typography": ["baseline grid rhythm", "modular typographic blocks"]
+                        }
+                    }
+                },
+                "infographics": {
+                    "styles": {
+                        "unique": {
+                            "infographics": ["data-first visual encoding", "icon-driven explanation", "narrative chart sequencing"]
+                        },
+                        "composition": {
+                            "infographics": ["progressive information flow", "sectioned data modules"]
+                        }
+                    }
+                },
+                "poster design": {
+                    "styles": {
+                        "unique": {
+                            "poster design": ["bold headline dominance", "distance-readable contrast", "event-message impact composition"]
+                        },
+                        "mood": {
+                            "poster design": ["attention-grabbing urgency", "campaign-driven tone"]
+                        }
+                    }
+                },
+                "web design": {
+                    "styles": {
+                        "unique": {
+                            "web design": ["UI pattern system coherence", "responsive layout strategy", "interaction-led visual design"]
+                        },
+                        "composition": {
+                            "web design": ["above-the-fold hierarchy", "component-based layout rhythm"]
+                        }
+                    }
+                }
+            },
+            "Cultural Styles": {
+                "styles": {
+                    "unique": {
+                        "Cultural Styles": ["region-specific visual grammar", "historical context fidelity", "motif and symbolism authenticity"],
+                        "Japanese ukiyo-e": ["woodblock print contouring", "flat color planes", "Edo-period compositional balance"],
+                        "Chinese ink wash": ["xieyi expressive brushwork", "ink gradation washes", "void-space composition"],
+                        "Indian miniature painting": ["fine decorative detailing", "profile portrait conventions", "ornamental border narratives"],
+                        "Art Nouveau": ["whiplash curves", "organic ornamental linework", "floral decorative integration"],
+                        "Bauhaus": ["function-first geometry", "primary color discipline", "modular typographic clarity"],
+                        "African tribal art": ["symbolic mask aesthetics", "rhythmic geometric motifs", "material ritual emphasis"],
+                        "Aborginal dot art": ["dot-matrix storytelling", "topographic symbolic mapping", "earth-pigment concentric motifs"],
+                        "Native American art": ["beadwork-inspired geometry", "ledger-art narrative motifs", "symbolic nature iconography"],
+                        "Islamic geometric art": ["girih star lattices", "arabesque interlace precision", "non-figurative sacred geometry"],
+                        "European medieval art": ["iconic frontal figures", "manuscript ornament language", "gold-ground sacred staging"],
+                        "Renaissance art": ["linear perspective mastery", "sfumato transitions", "classical anatomical idealization"],
+                        "Baroque art": ["dramatic movement composition", "tenebrist lighting", "ornate theatrical grandeur"],
+                        "Romanticism": ["sublime nature drama", "emotion-first narrative", "storm-lit atmospheric intensity"],
+                        "Impressionism": ["broken color brushwork", "momentary light capture", "optical color mixing"],
+                        "Expressionism": ["distorted emotional form", "psychological color intensification", "agitated brush energy"],
+                        "Cubism": ["multi-viewpoint fragmentation", "geometric plane decomposition", "simultaneous perspective"],
+                        "Surrealism": ["dream-logic juxtapositions", "uncanny symbolic imagery", "hyperreal impossible scenes"]
+                    }
+                }
+            },
+            "Mixed Media": {
+                "styles": {
+                    "unique": {
+                        "Mixed Media": ["material-layer hybridity", "analog-digital fusion", "process-visible assembly"]
+                    },
+                    "composition": {
+                        "Mixed Media": ["layer depth stacking", "found-material focal anchors", "fragmented narrative assembly"]
+                    },
+                    "detail level": {
+                        "Mixed Media": ["edge transitions between media", "adhesive and overlay artifacts", "material seam visibility"]
+                    }
+                },
+                "collage": {
+                    "styles": {
+                        "unique": {
+                            "collage": ["paper cutout juxtaposition", "vintage ephemera layering", "torn-edge compositing"]
+                        }
+                    }
+                },
+                "assemblage": {
+                    "styles": {
+                        "unique": {
+                            "assemblage": ["3D found-object composition", "salvaged material construction", "object-relational storytelling"]
+                        }
+                    }
+                },
+                "installation art": {
+                    "styles": {
+                        "unique": {
+                            "installation art": ["site-specific spatial intervention", "immersive environment design", "viewer-path choreography"]
+                        },
+                        "background": {
+                            "installation art": ["gallery-scale spatial context", "architectural room interaction"]
+                        }
+                    }
+                },
+                "performance art": {
+                    "styles": {
+                        "unique": {
+                            "performance art": ["body-as-medium focus", "time-based conceptual staging", "gesture ritualization"]
+                        },
+                        "mood": {
+                            "performance art": ["provocative immediacy", "ephemeral intensity"]
+                        }
+                    }
+                },
+                "found object art": {
+                    "styles": {
+                        "unique": {
+                            "found object art": ["ready-made transformation", "context-shifted object meaning", "everyday artifact re-signification"]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

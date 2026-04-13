@@ -1,0 +1,9 @@
+node_modules/
+dist/
+data/
+.env
+*.log
+miraprompt-ui/node_modules/
+miraprompt-ui/dist/
+miraprompt-server/node_modules/
+miraprompt-server/dist/
