@@ -171,7 +171,7 @@
                   type="textarea"
                   outlined
                   autogrow
-                  placeholder="Add a description for this prompt..."
+                  placeholder="Add a description to this prompt (typically the subject and background depending on styles chosen)..."
                 />
               </q-card-section>
             </q-card>
@@ -453,7 +453,7 @@
         </q-tab-panels>
 
         <!-- global dialog — must be outside tab panels so it renders on any active tab -->
-        <AddToJobDialog v-model="showAddToJob" :prompt-payload="promptPayloadForJob" @success="activeTab = 'models'" />
+        <AddToJobDialog v-model="showAddToJob" :prompt-payload="promptPayloadForJob" @success="onAddToJobSuccess" />
 
       </q-page>
     </q-page-container>
@@ -635,9 +635,20 @@ const canAddPromptToJob = computed(() => {
 });
 
 const styleSummaryLines = computed(() => {
-  return Object.entries(promptSelectionSummary.value).map(([dimension, values]) => {
-    return `${toTitle(dimension)}: ${values.join(', ')}`;
+  const lines = [];
+  const raw = promptDraft.value.styles || {};
+  orderedDimensions(raw).forEach((dimension) => {
+    const groups = raw[dimension] || {};
+    Object.keys(groups)
+      .sort((a, b) => a.localeCompare(b))
+      .forEach((groupName) => {
+        const values = groups[groupName] || [];
+        if (values.length) {
+          lines.push(`${toTitle(groupName)}: ${values.join(', ')}`);
+        }
+      });
   });
+  return lines;
 });
 
 const fullPromptPreview = computed(() => {
@@ -749,6 +760,19 @@ function addSavedStyleToPrompt(savedStyle) {
     };
   }
   activeTab.value = 'prompt';
+}
+
+function onAddToJobSuccess() {
+  // Start the next prompt from a clean slate.
+  selectedMap.value = {};
+  description.value = '';
+  promptDraft.value = {
+    category: null,
+    subcategory: null,
+    styles: {},
+    savedStyles: [],
+  };
+  activeTab.value = 'models';
 }
 
 function toTitle(text) {

@@ -26,13 +26,14 @@ function buildStyleSummaryLines(styles) {
 
   orderedDimensions(styles).forEach((dimension) => {
     const groups = styles?.[dimension] || {};
-    const values = Object.keys(groups)
+    Object.keys(groups)
       .sort((a, b) => a.localeCompare(b))
-      .flatMap((groupName) => groups[groupName] || []);
-
-    if (values.length) {
-      lines.push(`${toTitle(dimension)}: ${values.join(', ')}`);
-    }
+      .forEach((groupName) => {
+        const values = groups[groupName] || [];
+        if (values.length) {
+          lines.push(`${toTitle(groupName)}: ${values.join(', ')}`);
+        }
+      });
   });
 
   return lines;
