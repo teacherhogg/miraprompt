@@ -40,9 +40,8 @@ body {
 }
 
 .header-logo {
-  height: 100%;
+  height: 72px;
   width: auto;
-  max-width: 120px;
   object-fit: contain;
 }
 
@@ -85,10 +84,11 @@ body {
 .scope-legend {
   display: inline-block;
   border-radius: 999px;
-  padding: 2px 10px;
-  font-size: 12px;
+  padding: 1px 8px;
+  font-size: 11px;
   line-height: 1.4;
   border: 1px solid rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
 }
 
 .scope-legend.global {
@@ -151,6 +151,25 @@ body {
 .style-chip.scope-subcategory {
   background: #d4f0d8;
   color: #1a6030;
+}
+
+/* Styles accordion: primary-color header rows */
+.expansion-header-primary {
+  background: var(--q-primary) !important;
+  color: white !important;
+}
+
+.expansion-header-primary .q-item__label {
+  color: white !important;
+  font-weight: 600;
+}
+
+.expansion-header-primary .q-item__label--caption {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.expansion-header-primary .q-expansion-item__toggle-icon {
+  color: white !important;
 }
 
 .model-help-tooltip {

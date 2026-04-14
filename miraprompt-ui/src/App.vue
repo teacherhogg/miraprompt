@@ -4,7 +4,7 @@
       <q-page class="miraprompt-page">
 
         <!-- ── top header bar ───────────────────────────────────────── -->
-        <q-card flat bordered class="q-mb-md">
+        <q-card flat bordered class="q-mb-md bg-transparent">
           <q-card-section class="row items-center justify-between">
             <div class="header-brand">
               <div class="header-logo-wrap">
@@ -13,7 +13,7 @@
               <div class="header-brand-copy">
                 <div class="text-h4">MiraPrompt</div>
                 <div class="text-subtitle2 text-grey-8">
-                Build image-generation prompts from categories, subcategories, and style options.
+                    A prompt engineering assistant for AI image generation.                
                 </div>
               </div>
             </div>
@@ -98,7 +98,12 @@
             </q-banner>
             <q-card v-if="selectedCategory && selectedSubcategory" flat bordered class="q-mb-md">
               <q-card-section class="row items-center justify-between q-gutter-sm">
-                <div class="text-h6">Styles</div>
+                <div class="row items-center q-gutter-xs">
+                  <div class="text-h6 q-mr-xs">Styles</div>
+                  <span class="scope-legend global">Global</span>
+                  <span class="scope-legend category">Category</span>
+                  <span class="scope-legend subcategory">Subcategory</span>
+                </div>
                 <div class="row q-gutter-sm items-center">
                   <q-btn flat dense round icon="unfold_more" @click="expandAll">
                     <q-tooltip>Expand all sections</q-tooltip>
@@ -114,23 +119,16 @@
               <q-separator />
 
               <q-card-section>
-                <q-banner v-if="!selectedCategory" rounded class="bg-grey-2 text-grey-8 q-mb-md">
-                  Select a category first. Subcategory and merged style options will update automatically.
-                </q-banner>
-                <q-banner v-else rounded class="bg-grey-1 text-grey-8 q-mb-md">
-                  <span class="scope-legend global">Global</span>
-                  <span class="scope-legend category q-ml-sm">Category</span>
-                  <span class="scope-legend subcategory q-ml-sm">Subcategory</span>
-                </q-banner>
-
-                <q-list bordered separator>
+                <q-list separator>
                   <q-expansion-item
                     v-for="dimension in dimensions"
                     :key="dimension"
-                    v-model="expandedState[dimension]"
+                    :model-value="expandedState[dimension]"
+                    @update:model-value="(val) => onDimensionToggle(dimension, val)"
                     :label="toTitle(dimension)"
                     :caption="dimensionCountLabel(dimension)"
                     expand-separator
+                    header-class="expansion-header-primary"
                   >
                     <q-card flat>
                       <q-card-section class="q-pt-sm">
@@ -456,7 +454,7 @@ watch(
   dimensions,
   (newDims) => {
     const state = {};
-    newDims.forEach((d) => { state[d] = true; });
+    newDims.forEach((d) => { state[d] = false; });
     expandedState.value = state;
   },
   { immediate: true }
@@ -469,6 +467,15 @@ function expandAll() {
 
 function collapseAll() {
   dimensions.value.forEach((d) => { expandedState.value[d] = false; });
+}
+
+function onDimensionToggle(dim, val) {
+  if (val) {
+    // accordion: opening one collapses all others
+    dimensions.value.forEach((d) => { expandedState.value[d] = d === dim; });
+  } else {
+    expandedState.value[dim] = false;
+  }
 }
 
 function keyFor(dimension, groupName, option) {

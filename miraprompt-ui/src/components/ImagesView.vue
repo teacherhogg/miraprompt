@@ -5,7 +5,7 @@
         <div>
           <div class="text-h6">Images Library</div>
           <div class="text-caption text-grey-7">
-            Browse all generated images by category and subcategory.
+            Browse all previously generated images by category and subcategory.
           </div>
         </div>
         <q-btn flat dense round icon="refresh" :loading="loading" @click="loadImages">
