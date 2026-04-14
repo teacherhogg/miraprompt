@@ -3,7 +3,7 @@
         "Fine Art": ["oil painting", "watercolor", "acrylic", "pastel", "charcoal", "ink wash"],
         "Drawing and Illustration": ["pencil drawing", "pen and ink", "marker art", "chalk drawing", "digital illustration", "sketch", "line art", "cross-hatching", "stippling", "technical illustration", "botanical illustration"],
         "Comic and Cartoon": ["comic strip", "manga", "graphic novel", "caricature", "animation", "storyboarding",  "western comic", "superhero comic", "slice of life comic", "horror comic", "science fiction comic", "multi-panel strip", "single-panel cartoon"],
-        "Photography": ["portrait photography", "landscape photography", "street photography", "macro photography", "black and white photography", "film noir", "aerial photography", "underwater photography"],
+        "Photography": ["general photography", "portrait photography", "landscape photography", "street photography", "macro photography", "black and white photography", "film noir", "aerial photography", "underwater photography"],
         "Digital Art": ["digital painting", "3D modeling", "vector art", "pixel art", "photo manipulation", "concept art", "pixel art", "low poly art", "isometric art", "glitch art", "fractal art", "voxel art"],
         "Ancient and Primitive Art": ["cave painting", "rock art", "petroglyphs", "hieroglyphics", "ancient mosaic", "medieval manuscript illumination", "ceramic art", "textile art", "wood carving", "stone carving", "metalwork", "body art", "ritual art"],
         "3D and Rendering": ["3D rendering", "3D modeling", "3D animation", "3D sculpting", "3D visualization", "3D printing", "CG", "clay rendering", "wireframe modeling", "low poly", "photorealistic rendering", "non-photorealistic rendering"],

@@ -17,14 +17,14 @@
             <q-select
               v-model="selectedJobSlug"
               :options="jobOptions"
+              label="Job"
               outlined
               emit-value
               map-options
               :disable="!jobs.length"
             >
-              <template #label>
-                Job
-                <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+              <template #append>
+                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                   <q-tooltip class="model-help-tooltip bg-primary text-white">
                     Pick the job whose model settings you want to edit.
                   </q-tooltip>
@@ -36,14 +36,14 @@
             <q-select
               v-model="execution.model"
               :options="modelOptions"
+              label="Model"
               outlined
               emit-value
               map-options
               :disable="!selectedJobSlug || !modelOptions.length"
             >
-              <template #label>
-                Model
-                <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+              <template #append>
+                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                   <q-tooltip class="model-help-tooltip bg-primary text-white">
                     Select the generation model for this job.
                   </q-tooltip>
@@ -55,14 +55,14 @@
             <q-select
               v-model="execution.settings.aspectRatio"
               :options="aspectRatioOptions"
+              label="Aspect ratio"
               outlined
               emit-value
               map-options
               :disable="!selectedJobSlug"
             >
-              <template #label>
-                Aspect ratio
-                <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+              <template #append>
+                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                   <q-tooltip class="model-help-tooltip bg-primary text-white">
                     Controls the shape of the generated image (for example 1:1 or 16:9).
                   </q-tooltip>
@@ -74,14 +74,14 @@
             <q-select
               v-model="execution.settings.resolution"
               :options="resolutionOptions"
+              label="Resolution"
               outlined
               emit-value
               map-options
               :disable="!selectedJobSlug"
             >
-              <template #label>
-                Resolution
-                <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+              <template #append>
+                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                   <q-tooltip class="model-help-tooltip bg-primary text-white">
                     Sets output pixel size. Higher values may increase quality and time.
                   </q-tooltip>
@@ -94,13 +94,13 @@
               v-model.number="execution.settings.seed"
               type="number"
               min="0"
+              label="Seed (optional)"
               outlined
               :disable="!selectedJobSlug"
               hint="Leave empty for random"
             >
-              <template #label>
-                Seed (optional)
-                <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+              <template #append>
+                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                   <q-tooltip class="model-help-tooltip bg-primary text-white">
                     Use a fixed seed to reproduce similar outputs. Leave blank for randomness.
                   </q-tooltip>
@@ -119,14 +119,14 @@
                 v-if="opt.type === 'select'"
                 v-model="execution.settings[opt.key]"
                 :options="opt.options"
+                :label="opt.label"
                 outlined
                 emit-value
                 map-options
                 :disable="!selectedJobSlug"
               >
-                <template #label>
-                  {{ opt.label }}
-                  <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+                <template #append>
+                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                     <q-tooltip class="model-help-tooltip bg-primary text-white">
                       {{ specificOptionHelp(opt.key) }}
                     </q-tooltip>
@@ -140,12 +140,12 @@
                 :min="opt.min"
                 :max="opt.max"
                 :step="opt.step || 0.01"
+                :label="opt.label"
                 outlined
                 :disable="!selectedJobSlug"
               >
-                <template #label>
-                  {{ opt.label }}
-                  <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+                <template #append>
+                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                     <q-tooltip class="model-help-tooltip bg-primary text-white">
                       {{ specificOptionHelp(opt.key) }}
                     </q-tooltip>
@@ -157,12 +157,12 @@
                 v-model="execution.settings[opt.key]"
                 type="textarea"
                 autogrow
+                :label="opt.label"
                 outlined
                 :disable="!selectedJobSlug"
               >
-                <template #label>
-                  {{ opt.label }}
-                  <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+                <template #append>
+                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                     <q-tooltip class="model-help-tooltip bg-primary text-white">
                       {{ specificOptionHelp(opt.key) }}
                     </q-tooltip>
@@ -176,6 +176,7 @@
             <q-select
               v-model="selectedInputImage"
               :options="generatedImageOptions"
+              label="Choose Input Image from Previous Generations"
               outlined
               emit-value
               map-options
@@ -184,9 +185,8 @@
               @update:model-value="chooseInputImage"
               hint="Selected image is converted to base64 and stored in input_url"
             >
-              <template #label>
-                Choose Input Image from Previous Generations
-                <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+              <template #append>
+                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                   <q-tooltip class="model-help-tooltip bg-primary text-white">
                     Pick any previously generated image. It will be converted to base64 and saved to input_url.
                   </q-tooltip>
@@ -194,17 +194,160 @@
               </template>
             </q-select>
           </div>
+
+          <div class="col-12">
+            <q-toggle
+              v-model="execution.settings.characterChaining"
+              color="primary"
+              label="Enable Character Chain"
+              :disable="!selectedJobSlug || (!isChainCompatibleModel && !execution.settings.characterChaining)"
+            >
+              <template #append>
+                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
+                  <q-tooltip class="model-help-tooltip bg-primary text-white">
+                    Prompt 1 becomes the anchor subject. Later prompts reuse it for visual consistency.
+                  </q-tooltip>
+                </q-icon>
+              </template>
+            </q-toggle>
+          </div>
+
+          <div class="col-12" v-if="!isChainCompatibleModel">
+            <q-banner rounded class="bg-amber-1 text-amber-10">
+              Character Chain is disabled for this model. Switch to flux/dev, flux/schnell, or flux/pulid.
+            </q-banner>
+          </div>
+
+          <template v-if="execution.settings.characterChaining">
+            <div class="col-12 col-md-6">
+              <q-select
+                v-model="selectedCharacterRefImage"
+                :options="generatedImageOptions"
+                label="Character Reference from Existing Images (optional)"
+                outlined
+                emit-value
+                map-options
+                clearable
+                :disable="!selectedJobSlug || !generatedImageOptions.length"
+                @update:model-value="chooseCharacterReferenceImage"
+                hint="If empty, Prompt 1 output becomes the anchor."
+              >
+                <template #append>
+                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
+                    <q-tooltip class="model-help-tooltip bg-primary text-white">
+                      Pick a prior image to lock character appearance from the start.
+                    </q-tooltip>
+                  </q-icon>
+                </template>
+              </q-select>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <q-input
+                v-model="execution.settings.characterReferenceUrl"
+                type="textarea"
+                autogrow
+                label="Character Reference URL/Base64 (optional)"
+                outlined
+                :disable="!selectedJobSlug"
+              >
+                <template #append>
+                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
+                    <q-tooltip class="model-help-tooltip bg-primary text-white">
+                      Optional direct reference. Leave blank to use Prompt 1 output automatically.
+                    </q-tooltip>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+
+            <div class="col-12" v-if="characterReferencePreviewUrl">
+              <q-card flat bordered class="bg-grey-1">
+                <q-card-section class="q-pb-sm">
+                  <div class="text-subtitle2">Character Reference Preview</div>
+                  <div class="text-caption text-grey-7">
+                    This is the image that will be used as the reference anchor.
+                  </div>
+                </q-card-section>
+                <q-separator />
+                <q-card-section>
+                  <q-img
+                    :src="characterReferencePreviewUrl"
+                    fit="contain"
+                    style="max-width:220px; max-height:220px"
+                    class="rounded-borders"
+                  />
+                </q-card-section>
+              </q-card>
+            </div>
+
+            <div class="col-12 col-md-6" v-if="isFluxModel">
+              <q-input
+                v-model.number="execution.settings.characterStrength"
+                type="number"
+                min="0"
+                max="1"
+                step="0.01"
+                label="Character Chain Strength"
+                outlined
+                :disable="!selectedJobSlug"
+                hint="Recommended 0.30 - 0.50"
+              >
+                <template #append>
+                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
+                    <q-tooltip class="model-help-tooltip bg-primary text-white">
+                      Lower values allow bigger scene/pose changes while keeping the same subject.
+                    </q-tooltip>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+
+            <div class="col-12 col-md-6" v-if="isPulidModel">
+              <q-input
+                v-model.number="execution.settings.characterIdScale"
+                type="number"
+                min="0"
+                max="1"
+                step="0.01"
+                label="Character Identity Scale"
+                outlined
+                :disable="!selectedJobSlug"
+                hint="Higher values preserve face identity more strongly"
+              >
+                <template #append>
+                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
+                    <q-tooltip class="model-help-tooltip bg-primary text-white">
+                      Controls how strongly the model keeps facial identity across prompts.
+                    </q-tooltip>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+
+            <div class="col-12" v-if="!isFluxModel && !isPulidModel">
+              <q-banner rounded class="bg-amber-1 text-amber-10">
+                Character Chain works with FLUX models. Choose flux/dev, flux/schnell, or flux/pulid.
+              </q-banner>
+            </div>
+            <div class="col-12" v-if="isPulidModel && !hasCharacterReference">
+              <q-banner rounded class="bg-amber-1 text-amber-10">
+                flux/pulid requires a Character Reference image when Character Chain is enabled.
+              </q-banner>
+            </div>
+          </template>
+
           <div class="col-12">
             <q-input
               v-model="execution.settings.negativePrompt"
               type="textarea"
               autogrow
+              label="Negative prompt"
               outlined
               :disable="!selectedJobSlug"
             >
-              <template #label>
-                Negative prompt
-                <q-icon name="help_outline" size="16px" class="q-ml-xs text-primary">
+              <template #append>
+                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
                   <q-tooltip class="model-help-tooltip bg-primary text-white">
                     Describe elements to avoid in the output.
                   </q-tooltip>
@@ -218,14 +361,24 @@
       <q-separator />
 
       <q-card-actions align="right">
+        <div v-if="!selectedJobSlug" class="text-caption text-grey-7 q-mr-sm">
+          Select a job to save execution settings.
+        </div>
+        <div v-else-if="saveMessage" class="text-caption text-positive q-mr-sm">
+          {{ saveMessage }}
+        </div>
         <q-btn
           color="primary"
           label="Save To Job"
-          :disable="!selectedJobSlug"
+          :disable="!selectedJobSlug || Boolean(saveDisabledReason)"
           :loading="saving"
           @click="saveExecution"
         />
       </q-card-actions>
+
+      <q-banner v-if="saveDisabledReason" rounded class="bg-amber-1 text-amber-10 q-ma-md">
+        {{ saveDisabledReason }}
+      </q-banner>
     </q-card>
 
     <q-banner v-if="!jobs.length" rounded class="bg-grey-2 text-grey-8 q-mt-md">
@@ -236,7 +389,14 @@
 
 <script setup>
 import { computed, ref, watch, onMounted } from 'vue';
-import { listJobs, getJob, listModels, updateJobExecution, listGeneratedImages } from '../api/jobs.js';
+import {
+  listJobs,
+  getJob,
+  listModels,
+  updateJobExecution,
+  listGeneratedImages,
+  resolveApiAssetUrl,
+} from '../api/jobs.js';
 
 const props = defineProps({
   active: { type: Boolean, default: false },
@@ -246,11 +406,13 @@ const props = defineProps({
 const loading = ref(false);
 const saving = ref(false);
 const error = ref('');
+const saveMessage = ref('');
 const jobs = ref([]);
 const models = ref([]);
 const selectedJobSlug = ref(null);
 const generatedImages = ref([]);
 const selectedInputImage = ref(null);
+const selectedCharacterRefImage = ref(null);
 
 const execution = ref({
   provider: 'fal-ai',
@@ -260,11 +422,19 @@ const execution = ref({
     resolution: '1024x1024',
     negativePrompt: '',
     seed: null,
+    characterChaining: false,
+    characterStrength: 0.4,
+    characterIdScale: 0.8,
+    characterReferenceUrl: '',
   },
 });
 
 const jobOptions = computed(() =>
   jobs.value.map((job) => ({ label: job.name, value: job.slug }))
+);
+
+const selectedJobName = computed(() =>
+  jobs.value.find((j) => j.slug === selectedJobSlug.value)?.name || selectedJobSlug.value || 'selected job'
 );
 
 const modelOptions = computed(() =>
@@ -290,9 +460,42 @@ const isFluxModel = computed(() => {
   return modelId === 'flux/schnell' || modelId === 'flux/dev';
 });
 
+const isPulidModel = computed(() => {
+  const modelId = execution.value.model || '';
+  return modelId === 'flux/pulid';
+});
+
+const isChainCompatibleModel = computed(() => isFluxModel.value || isPulidModel.value);
+
+const hasCharacterReference = computed(() => String(execution.value.settings.characterReferenceUrl || '').trim().length > 0);
+
+const characterReferencePreviewUrl = computed(() => {
+  const value = String(execution.value.settings.characterReferenceUrl || '').trim();
+  return value ? resolveApiAssetUrl(value) : '';
+});
+
+const saveDisabledReason = computed(() => {
+  if (!selectedJobSlug.value) return '';
+
+  if (execution.value.settings.characterChaining && !isChainCompatibleModel.value) {
+    return 'Character Chain is only supported on flux/dev, flux/schnell, or flux/pulid.';
+  }
+
+  if (execution.value.settings.characterChaining && isPulidModel.value && !hasCharacterReference.value) {
+    return 'flux/pulid with Character Chain requires a Character Reference image.';
+  }
+
+  return '';
+});
+
 const generatedImageOptions = computed(() =>
   generatedImages.value.map((img) => ({
-    label: `${img.jobName} · ${img.subcategory || 'No subcategory'} · ${new Date(img.createdAt).toLocaleString()}`,
+    label: [
+      img.jobName,
+      img.subcategory || 'No subcategory',
+      img.description || 'No description',
+      new Date(img.createdAt).toLocaleString(),
+    ].join(' · '),
     value: img.publicLocalPath || img.imageUrl,
   }))
 );
@@ -315,9 +518,7 @@ async function chooseInputImage(imagePathOrUrl) {
 
   try {
     selectedInputImage.value = imagePathOrUrl;
-    const src = String(imagePathOrUrl).startsWith('http')
-      ? imagePathOrUrl
-      : `${window.location.origin}${imagePathOrUrl}`;
+    const src = resolveApiAssetUrl(imagePathOrUrl);
 
     const res = await fetch(src);
     if (!res.ok) {
@@ -328,6 +529,21 @@ async function chooseInputImage(imagePathOrUrl) {
     execution.value.settings.input_url = String(dataUrl);
   } catch (e) {
     error.value = e.message || 'Could not convert selected image to base64';
+  }
+}
+
+async function chooseCharacterReferenceImage(imagePathOrUrl) {
+  if (!imagePathOrUrl) {
+    selectedCharacterRefImage.value = null;
+    execution.value.settings.characterReferenceUrl = '';
+    return;
+  }
+
+  try {
+    selectedCharacterRefImage.value = imagePathOrUrl;
+    execution.value.settings.characterReferenceUrl = resolveApiAssetUrl(imagePathOrUrl);
+  } catch (e) {
+    error.value = e.message || 'Could not convert selected character reference image';
   }
 }
 
@@ -365,6 +581,32 @@ watch(selectedModel, (model) => {
     execution.value.settings = { ...execution.value.settings, seed: null };
   }
 
+  if (!Object.prototype.hasOwnProperty.call(execution.value.settings, 'characterChaining')) {
+    execution.value.settings = { ...execution.value.settings, characterChaining: false };
+  }
+  if (!Object.prototype.hasOwnProperty.call(execution.value.settings, 'characterStrength')) {
+    execution.value.settings = { ...execution.value.settings, characterStrength: 0.4 };
+  }
+  if (!Object.prototype.hasOwnProperty.call(execution.value.settings, 'characterIdScale')) {
+    execution.value.settings = { ...execution.value.settings, characterIdScale: 0.8 };
+  }
+  if (!Object.prototype.hasOwnProperty.call(execution.value.settings, 'characterReferenceUrl')) {
+    execution.value.settings = { ...execution.value.settings, characterReferenceUrl: '' };
+  }
+
+  if (!isChainCompatibleModel.value && execution.value.settings.characterChaining) {
+    execution.value.settings = { ...execution.value.settings, characterChaining: false };
+  }
+
+  if (!isPulidModel.value) {
+    if (Object.prototype.hasOwnProperty.call(execution.value.settings, 'id_scale')) {
+      const cleanPulid = { ...execution.value.settings };
+      delete cleanPulid.id_scale;
+      delete cleanPulid.reference_image_url;
+      execution.value.settings = cleanPulid;
+    }
+  }
+
   // Set defaults for any specific options not already in the execution settings
   for (const opt of (model.specificOptions || [])) {
     if (!Object.prototype.hasOwnProperty.call(execution.value.settings, opt.key)) {
@@ -373,8 +615,18 @@ watch(selectedModel, (model) => {
   }
   // Clear specific options that belong to a different model
   const validKeys = new Set((model.specificOptions || []).map((o) => o.key));
+  const globalKeys = new Set([
+    'aspectRatio',
+    'resolution',
+    'negativePrompt',
+    'seed',
+    'characterChaining',
+    'characterStrength',
+    'characterIdScale',
+    'characterReferenceUrl',
+  ]);
   const staleKeys = Object.keys(execution.value.settings).filter(
-    (k) => !['aspectRatio', 'resolution', 'negativePrompt', 'seed'].includes(k) && !validKeys.has(k)
+    (k) => !globalKeys.has(k) && !validKeys.has(k)
   );
   if (staleKeys.length) {
     const clean = { ...execution.value.settings };
@@ -402,9 +654,18 @@ watch(selectedJobSlug, async (slug) => {
         seed: Object.prototype.hasOwnProperty.call(job.execution?.settings || {}, 'seed')
           ? job.execution.settings.seed
           : null,
+        characterChaining: Boolean(job.execution?.settings?.characterChaining),
+        characterStrength: Number.isFinite(Number(job.execution?.settings?.characterStrength))
+          ? Number(job.execution.settings.characterStrength)
+          : 0.4,
+        characterIdScale: Number.isFinite(Number(job.execution?.settings?.characterIdScale))
+          ? Number(job.execution.settings.characterIdScale)
+          : 0.8,
+        characterReferenceUrl: job.execution?.settings?.characterReferenceUrl || '',
         ...specificSettings,
       },
     };
+    selectedCharacterRefImage.value = null;
   } catch (e) {
     error.value = e.message || 'Failed to load selected job';
   }
@@ -413,6 +674,7 @@ watch(selectedJobSlug, async (slug) => {
 async function loadAll() {
   loading.value = true;
   error.value = '';
+  saveMessage.value = '';
   try {
     const [jobsList, modelCatalog] = await Promise.all([listJobs(), listModels()]);
     jobs.value = jobsList;
@@ -430,9 +692,17 @@ async function loadAll() {
 }
 
 async function saveExecution() {
-  if (!selectedJobSlug.value) return;
+  if (!selectedJobSlug.value) {
+    error.value = 'Select a job before saving model settings.';
+    return;
+  }
+  if (saveDisabledReason.value) {
+    error.value = saveDisabledReason.value;
+    return;
+  }
   saving.value = true;
   error.value = '';
+  saveMessage.value = '';
   try {
     const normalized = {
       ...execution.value,
@@ -441,9 +711,33 @@ async function saveExecution() {
         seed: Number.isInteger(Number(execution.value.settings.seed))
           ? Number(execution.value.settings.seed)
           : null,
+        characterChaining: Boolean(execution.value.settings.characterChaining),
+        characterStrength: Number.isFinite(Number(execution.value.settings.characterStrength))
+          ? Number(execution.value.settings.characterStrength)
+          : 0.4,
+        characterIdScale: Number.isFinite(Number(execution.value.settings.characterIdScale))
+          ? Number(execution.value.settings.characterIdScale)
+          : 0.8,
+        characterReferenceUrl: String(execution.value.settings.characterReferenceUrl || ''),
       },
     };
-    await updateJobExecution(selectedJobSlug.value, normalized);
+
+    if (isPulidModel.value) {
+      normalized.settings.id_scale = normalized.settings.characterIdScale;
+      normalized.settings.reference_image_url = normalized.settings.characterReferenceUrl;
+    }
+
+    const response = await updateJobExecution(selectedJobSlug.value, normalized);
+    if (response?.execution) {
+      execution.value = {
+        provider: response.execution.provider,
+        model: response.execution.model,
+        settings: {
+          ...response.execution.settings,
+        },
+      };
+    }
+    saveMessage.value = `Saved to ${selectedJobName.value}.`;
   } catch (e) {
     error.value = e.message || 'Failed to save model settings';
   } finally {

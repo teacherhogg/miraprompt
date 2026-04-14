@@ -26,6 +26,30 @@ body {
   padding: 20px;
 }
 
+.header-brand {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 12px;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.header-logo-wrap {
+  align-self: stretch;
+  display: flex;
+}
+
+.header-logo {
+  height: 100%;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.header-brand-copy {
+  min-width: 0;
+}
+
 /* Quasar's q-page-container adds max-width centering — remove it so content fills the viewport */
 .q-page-container {
   max-width: 100% !important;

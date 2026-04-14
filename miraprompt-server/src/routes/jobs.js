@@ -96,6 +96,16 @@ function contentTypeToExt(contentType) {
   return 'jpg';
 }
 
+function summarizeReference(urlLike) {
+  if (!urlLike) return null;
+  const text = String(urlLike);
+  return {
+    length: text.length,
+    isDataUrl: text.startsWith('data:'),
+    preview: text.length > 120 ? `${text.slice(0, 120)}...` : text,
+  };
+}
+
 async function downloadImageToLocal(jobSlug, promptId, imageUrl) {
   if (!imageUrl) return null;
 
@@ -133,8 +143,57 @@ async function runJobGeneration(slug) {
       throw new Error('Configured model is not supported');
     }
 
+    const modelId = modelInfo.id;
+    const chainEnabled = Boolean(job.execution?.settings?.characterChaining);
+    const chainConfiguredReference = String(job.execution?.settings?.characterReferenceUrl || '').trim();
+    const supportsImageToImageChain = modelId === 'flux/dev' || modelId === 'flux/schnell';
+    const supportsIdentityChain = modelId === 'flux/pulid';
+    const chainStrength = Number(job.execution?.settings?.characterStrength);
+    const chainIdScale = Number(job.execution?.settings?.characterIdScale);
+    let characterAnchorUrl = chainConfiguredReference || null;
+    let chainBroken = false;
+
     for (let i = 0; i < job.prompts.length; i += 1) {
       if (controller.stopRequested) break;
+
+      const chainDiagnostics = {
+        enabled: chainEnabled,
+        promptIndex: i,
+        mode: supportsIdentityChain ? 'pulid-identity' : supportsImageToImageChain ? 'flux-img2img' : 'unsupported-model',
+        anchorSource: chainConfiguredReference ? 'preset-reference' : 'prompt-1-output',
+        anchorSummary: summarizeReference(characterAnchorUrl),
+        injected: {
+          input_url: false,
+          strength: false,
+          reference_image_url: false,
+          id_scale: false,
+        },
+        skipReason: null,
+      };
+
+      if (chainEnabled && i > 0 && (chainBroken || !characterAnchorUrl)) {
+        const prompt = job.prompts[i];
+        prompt.transformedPrompt = transformPromptForFal(prompt, job.execution);
+        chainDiagnostics.skipReason = 'No chain anchor image available because Prompt 1 failed.';
+        prompt.generation = {
+          status: 'skipped',
+          requestId: null,
+          imageUrl: null,
+          localFilePath: null,
+          metadata: {
+            chainDiagnostics,
+            error: {
+              status: null,
+              details: 'Skipped because Prompt 1 failed and no chain anchor image is available.',
+            },
+          },
+          error: 'Skipped because Prompt 1 failed and no chain anchor image is available.',
+          startedAt: new Date().toISOString(),
+          completedAt: new Date().toISOString(),
+        };
+        await writeJob(slug, job);
+        continue;
+      }
 
       const prompt = job.prompts[i];
       const transformedPrompt = transformPromptForFal(prompt, job.execution);
@@ -152,10 +211,46 @@ async function runJobGeneration(slug) {
       await writeJob(slug, job);
 
       try {
+        const effectiveSettings = {
+          ...job.execution.settings,
+        };
+
+        if (chainEnabled && characterAnchorUrl) {
+          if (supportsIdentityChain) {
+            effectiveSettings.reference_image_url = characterAnchorUrl;
+            chainDiagnostics.injected.reference_image_url = true;
+            if (Number.isFinite(chainIdScale)) {
+              effectiveSettings.id_scale = chainIdScale;
+              chainDiagnostics.injected.id_scale = true;
+            }
+          }
+
+          if (supportsImageToImageChain && (i > 0 || Boolean(chainConfiguredReference))) {
+            effectiveSettings.input_url = characterAnchorUrl;
+            chainDiagnostics.injected.input_url = true;
+            if (Number.isFinite(chainStrength)) {
+              effectiveSettings.strength = chainStrength;
+              chainDiagnostics.injected.strength = true;
+            }
+          }
+        }
+
+        chainDiagnostics.applied = Object.values(chainDiagnostics.injected).some(Boolean);
+        chainDiagnostics.effective = {
+          hasInputUrl: Boolean(effectiveSettings.input_url),
+          hasReferenceImageUrl: Boolean(effectiveSettings.reference_image_url),
+          strength: Number.isFinite(Number(effectiveSettings.strength))
+            ? Number(effectiveSettings.strength)
+            : null,
+          idScale: Number.isFinite(Number(effectiveSettings.id_scale))
+            ? Number(effectiveSettings.id_scale)
+            : null,
+        };
+
         const result = await generateWithFal({
           falModelId: modelInfo.falModelId,
           transformedPrompt,
-          settings: job.execution.settings,
+          settings: effectiveSettings,
         });
 
         const firstImageUrl = result.imageUrls[0] || null;
@@ -170,17 +265,26 @@ async function runJobGeneration(slug) {
           requestId: result.requestId || null,
           imageUrl: firstImageUrl,
           localFilePath,
-          metadata: result.rawData || null,
+          metadata: {
+            ...(result.rawData && typeof result.rawData === 'object' ? result.rawData : { rawData: result.rawData || null }),
+            chainDiagnostics,
+          },
           error: null,
           completedAt: new Date().toISOString(),
         };
+
+        if (chainEnabled && i === 0 && !chainConfiguredReference && firstImageUrl) {
+          characterAnchorUrl = firstImageUrl;
+        }
       } catch (err) {
         const falError = extractFalError(err);
+        chainDiagnostics.applied = Object.values(chainDiagnostics.injected).some(Boolean);
         prompt.generation = {
           ...prompt.generation,
           status: 'failed',
           error: falError.message,
           metadata: {
+            chainDiagnostics,
             error: {
               status: falError.status,
               details: falError.details,
@@ -188,6 +292,11 @@ async function runJobGeneration(slug) {
           },
           completedAt: new Date().toISOString(),
         };
+
+        if (chainEnabled && i === 0) {
+          chainBroken = true;
+          characterAnchorUrl = null;
+        }
       }
 
       await writeJob(slug, job);
@@ -242,6 +351,7 @@ router.get('/generated-images', async (req, res) => {
           imageUrl: prompt.generation?.imageUrl || null,
           localFilePath: prompt.generation?.localFilePath || null,
           publicLocalPath: toPublicImagePath(prompt.generation?.localFilePath),
+          execution: job.execution || null,
           createdAt: prompt.generation?.completedAt || prompt.createdAt,
         });
       }
@@ -335,6 +445,32 @@ router.post('/:slug/prompts', async (req, res) => {
     job.prompts.push(prompt);
     await writeJob(job.slug, job);
     res.status(201).json(prompt);
+  } catch (err) {
+    if (err.code === 'ENOENT') return res.status(404).json({ error: 'Job not found' });
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PATCH /api/jobs/:slug/prompts/:promptId
+router.patch('/:slug/prompts/:promptId', async (req, res) => {
+  try {
+    const job = await readJob(req.params.slug);
+    const prompt = job.prompts.find((p) => p.id === req.params.promptId);
+    if (!prompt) {
+      return res.status(404).json({ error: 'Prompt not found' });
+    }
+
+    if (job.status === 'in-progress') {
+      return res.status(409).json({ error: 'Cannot edit prompts while job is in progress' });
+    }
+
+    if (Object.prototype.hasOwnProperty.call(req.body || {}, 'description')) {
+      prompt.description = String(req.body.description || '');
+      prompt.transformedPrompt = null;
+    }
+
+    await writeJob(job.slug, job);
+    res.json({ prompt });
   } catch (err) {
     if (err.code === 'ENOENT') return res.status(404).json({ error: 'Job not found' });
     res.status(500).json({ error: err.message });

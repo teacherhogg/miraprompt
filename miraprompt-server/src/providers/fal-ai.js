@@ -37,6 +37,8 @@ export async function generateWithFal({ falModelId, transformedPrompt, settings 
     seed: Number.isInteger(Number(settings.seed)) ? Number(settings.seed) : undefined,
     strength: Number.isFinite(Number(settings.strength)) ? Number(settings.strength) : undefined,
     input_url: settings.input_url || undefined,
+    reference_image_url: settings.reference_image_url || undefined,
+    id_scale: Number.isFinite(Number(settings.id_scale)) ? Number(settings.id_scale) : undefined,
     ...(settings.rendering_speed ? { rendering_speed: settings.rendering_speed } : {}),
   };
 

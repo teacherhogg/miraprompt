@@ -1,4 +1,13 @@
-const BASE = import.meta.env.VITE_API_URL || 'http://localhost:3011';
+export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3011';
+
+export function resolveApiAssetUrl(pathOrUrl) {
+  if (!pathOrUrl) return '';
+  const value = String(pathOrUrl);
+  if (/^https?:\/\//i.test(value) || value.startsWith('data:')) {
+    return value;
+  }
+  return new URL(value, `${API_BASE}/`).toString();
+}
 
 async function request(method, path, body) {
   const opts = {
@@ -7,11 +16,18 @@ async function request(method, path, body) {
   };
   if (body !== undefined) opts.body = JSON.stringify(body);
 
-  const res = await fetch(`${BASE}${path}`, opts);
+  const res = await fetch(`${API_BASE}${path}`, opts);
   if (res.status === 204) return null;
 
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  const contentType = res.headers.get('content-type') || '';
+  const isJson = contentType.includes('application/json');
+  const data = isJson ? await res.json() : await res.text();
+  if (!res.ok) {
+    const message = isJson
+      ? data.error || `HTTP ${res.status}`
+      : `HTTP ${res.status}: ${String(data).replace(/\s+/g, ' ').slice(0, 220)}`;
+    throw new Error(message);
+  }
   return data;
 }
 
@@ -29,6 +45,10 @@ export function createJob(name, cloneFromSlug = null) {
 
 export function addPrompt(slug, promptPayload) {
   return request('POST', `/api/jobs/${slug}/prompts`, promptPayload);
+}
+
+export function updatePrompt(slug, promptId, patch) {
+  return request('PATCH', `/api/jobs/${slug}/prompts/${promptId}`, patch).then((d) => d.prompt);
 }
 
 export function deleteJob(slug) {

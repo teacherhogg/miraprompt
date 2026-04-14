@@ -20,11 +20,21 @@ export const MODEL_CATALOG = [
     specificOptions: [],
   },
   {
+    id: 'xai/grok-imagine-image',
+    provider: 'fal-ai',
+    falModelId: 'fal-ai/xai/grok-imagine-image',
+    settings: {
+      aspectRatios: ['2:1', '20:9', '19.5:9', '16:9', '4:3', '3:2', '1:1', '2:3', '3:4', '9:16', '9:19.5', '9:20', '1:2'],
+      resolutions: ['1024x1024', '1365x1024', '1024x1365'],
+    },
+    specificOptions: [],
+  },
+  {
     id: 'flux/schnell',
     provider: 'fal-ai',
     falModelId: 'fal-ai/flux/schnell',
     settings: {
-      aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16'],
+      aspectRatios: ['square_hd', 'square', 'portrait_4_3', 'landscape_4_3', 'landscape_16_9'],
       resolutions: ['1024x1024', '1280x720', '720x1280'],
     },
     specificOptions: [
@@ -50,7 +60,7 @@ export const MODEL_CATALOG = [
     provider: 'fal-ai',
     falModelId: 'fal-ai/flux/dev',
     settings: {
-      aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16'],
+      aspectRatios: ['square_hd', 'square', 'portrait_4_3', 'landscape_4_3', 'landscape_16_9'],
       resolutions: ['1024x1024', '1280x720', '720x1280'],
     },
     specificOptions: [
@@ -72,11 +82,38 @@ export const MODEL_CATALOG = [
     ],
   },
   {
+    id: 'flux/pulid',
+    provider: 'fal-ai',
+    falModelId: 'fal-ai/flux-pulid',
+    settings: {
+      aspectRatios: ['square_hd', 'square', 'portrait_4_3', 'landscape_4_3', 'landscape_16_9'],
+      resolutions: ['1024x1024', '1280x720', '720x1280'],
+    },
+    specificOptions: [
+      {
+        key: 'id_scale',
+        label: 'Identity Scale',
+        type: 'number',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        default: 0.8,
+      },
+      {
+        key: 'reference_image_url',
+        label: 'Reference Image (URL/Base64)',
+        type: 'text',
+        default: '',
+      },
+    ],
+  },
+  {
     id: 'ideogram/v3',
     provider: 'fal-ai',
     falModelId: 'fal-ai/ideogram/v3',
     settings: {
-      aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16'],
+      // Ideogram v3 expects named image_size enums instead of generic ratios.
+      aspectRatios: ['square_hd', 'square', 'portrait_4_3', 'portrait_16_9', 'landscape_4_3', 'landscape_16_9'],
       resolutions: ['1024x1024', '1365x1024', '1024x1365'],
     },
     specificOptions: [
@@ -114,6 +151,10 @@ export function defaultExecutionConfig() {
       resolution: '1024x1024',
       negativePrompt: '',
       seed: null,
+      characterChaining: false,
+      characterStrength: 0.4,
+      characterIdScale: 0.8,
+      characterReferenceUrl: '',
     },
   };
 }
@@ -154,6 +195,30 @@ export function validateExecutionConfig(config) {
     const strengthNumber = Number(strength);
     if (!Number.isFinite(strengthNumber) || strengthNumber < 0 || strengthNumber > 1) {
       return { ok: false, error: 'strength must be between 0 and 1' };
+    }
+  }
+
+  const characterStrength = config.settings?.characterStrength;
+  if (characterStrength !== null && characterStrength !== undefined && characterStrength !== '') {
+    const characterStrengthNumber = Number(characterStrength);
+    if (!Number.isFinite(characterStrengthNumber) || characterStrengthNumber < 0 || characterStrengthNumber > 1) {
+      return { ok: false, error: 'characterStrength must be between 0 and 1' };
+    }
+  }
+
+  const characterIdScale = config.settings?.characterIdScale;
+  if (characterIdScale !== null && characterIdScale !== undefined && characterIdScale !== '') {
+    const characterIdScaleNumber = Number(characterIdScale);
+    if (!Number.isFinite(characterIdScaleNumber) || characterIdScaleNumber < 0 || characterIdScaleNumber > 1) {
+      return { ok: false, error: 'characterIdScale must be between 0 and 1' };
+    }
+  }
+
+  const idScale = config.settings?.id_scale;
+  if (idScale !== null && idScale !== undefined && idScale !== '') {
+    const idScaleNumber = Number(idScale);
+    if (!Number.isFinite(idScaleNumber) || idScaleNumber < 0 || idScaleNumber > 1) {
+      return { ok: false, error: 'id_scale must be between 0 and 1' };
     }
   }
 

@@ -6,10 +6,15 @@
         <!-- ── top header bar ───────────────────────────────────────── -->
         <q-card flat bordered class="q-mb-md">
           <q-card-section class="row items-center justify-between">
-            <div>
-              <div class="text-h4">MiraPrompt</div>
-              <div class="text-subtitle2 text-grey-8">
+            <div class="header-brand">
+              <div class="header-logo-wrap">
+                <img :src="mirapromptLogo" alt="MiraPrompt logo" class="header-logo" />
+              </div>
+              <div class="header-brand-copy">
+                <div class="text-h4">MiraPrompt</div>
+                <div class="text-subtitle2 text-grey-8">
                 Build image-generation prompts from categories, subcategories, and style options.
+                </div>
               </div>
             </div>
             <q-btn
@@ -26,12 +31,18 @@
 
         <!-- ── tabs ─────────────────────────────────────────────────── -->
         <q-tabs v-model="activeTab" dense align="left" class="q-mb-md text-grey-8" active-color="primary" indicator-color="primary">
-          <q-tab name="jobs" icon="work_outline" label="Jobs" @click="jobsRefreshToken += 1" />
-          <q-tab name="models" icon="tune" label="Models" @click="modelsRefreshToken += 1" />
+          <q-tab name="images" icon="photo_library" label="Images" @click="imagesRefreshToken += 1" />
           <q-tab name="prompt" icon="tune" label="Prompt" />
+          <q-tab name="models" icon="tune" label="Models" @click="modelsRefreshToken += 1" />
+          <q-tab name="jobs" icon="work_outline" label="Jobs" @click="jobsRefreshToken += 1" />
         </q-tabs>
 
         <q-tab-panels v-model="activeTab" animated keep-alive>
+
+          <!-- ══ IMAGES TAB ═══════════════════════════════════════════ -->
+          <q-tab-panel name="images" class="q-pa-none">
+            <ImagesView :active="activeTab === 'images'" :refresh-token="imagesRefreshToken" />
+          </q-tab-panel>
 
           <!-- ══ JOBS TAB ══════════════════════════════════════════════ -->
           <q-tab-panel name="jobs" class="q-pa-none">
@@ -78,7 +89,14 @@
             </q-card>
 
             <!-- styles accordion -->
-            <q-card flat bordered class="q-mb-md">
+            <q-banner
+              v-if="!selectedCategory || !selectedSubcategory"
+              rounded
+              class="bg-grey-2 text-grey-8 q-mb-md"
+            >
+              Select both a category and a subcategory to view style options.
+            </q-banner>
+            <q-card v-if="selectedCategory && selectedSubcategory" flat bordered class="q-mb-md">
               <q-card-section class="row items-center justify-between q-gutter-sm">
                 <div class="text-h6">Styles</div>
                 <div class="row q-gutter-sm items-center">
@@ -265,6 +283,7 @@
               <q-img
                 v-if="lightboxImage"
                 :src="lightboxImage.imageUrl || lightboxImage.publicLocalPath || sampleImage"
+                fit="contain"
                 style="max-height:60vh; width:100%; object-fit:contain"
                 class="rounded-borders"
               />
@@ -307,22 +326,25 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import styleData from './assets/image-styles.json';
+import mirapromptLogo from './assets/miraprompt.png';
 import sampleImage from './assets/sample-image.svg';
 import { buildMergedStylesWithScopes, orderedDimensions, getStyleChips, SCOPE_PRIORITY } from './utils/style-data';
 import { listGeneratedImages } from './api/jobs.js';
 import AddToJobDialog from './components/AddToJobDialog.vue';
+import ImagesView from './components/ImagesView.vue';
 import JobsView from './components/JobsView.vue';
 import ModelsView from './components/ModelsView.vue';
 
 // ── reactive state ───────────────────────────────────────────────────────────
 const selectedCategory = ref(null);
 const selectedSubcategory = ref(null);
-const activeTab = ref('jobs');
+const activeTab = ref('images');
+const imagesRefreshToken = ref(0);
 const jobsRefreshToken = ref(0);
 const modelsRefreshToken = ref(0);
 const showAddToJob = ref(false);
 const lightboxImage = ref(null);
-const panelOpen = ref(false);
+const panelOpen = ref(true);
 const generatedImages = ref([]);
 const generatedImagesLoading = ref(false);
 const selectedMap = ref({});

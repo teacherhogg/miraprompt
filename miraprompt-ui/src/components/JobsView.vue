@@ -43,6 +43,26 @@
         :loading="loading"
         hide-bottom
       >
+        <template #body-cell-statusIcon="props">
+          <q-td :props="props" class="text-center">
+            <q-icon
+              v-if="props.row.statusIcon === 'success'"
+              name="check_circle"
+              color="positive"
+              size="20px"
+            >
+              <q-tooltip>Successful output(s)</q-tooltip>
+            </q-icon>
+            <q-icon
+              v-else-if="props.row.statusIcon === 'failed'"
+              name="cancel"
+              color="negative"
+              size="20px"
+            >
+              <q-tooltip>Failed (no successful outputs)</q-tooltip>
+            </q-icon>
+          </q-td>
+        </template>
         <template #body-cell-actions="props">
           <q-td :props="props" class="q-gutter-x-sm">
             <q-btn flat dense round icon="data_object" size="sm" @click="openPreview(props.row)">
@@ -82,7 +102,12 @@
     <q-dialog v-model="showPreview" maximized>
       <q-card>
         <q-card-section class="row items-center justify-between">
-          <div class="text-h6">{{ previewJobName }} — Prompts JSON</div>
+          <div class="row items-center q-gutter-sm">
+            <q-btn flat dense round icon="arrow_back" v-close-popup>
+              <q-tooltip>Back</q-tooltip>
+            </q-btn>
+            <div class="text-h6">{{ previewJobName }} — Prompts JSON</div>
+          </div>
           <q-btn flat dense label="Close" v-close-popup />
         </q-card-section>
         <q-separator />
@@ -120,6 +145,7 @@ const previewLoading = ref(false);
 
 const columns = [
   { name: 'name', label: 'Name', field: 'name', align: 'left', sortable: true },
+  { name: 'statusIcon', label: 'Status', field: 'statusIcon', align: 'center', sortable: false },
   { name: 'promptCount', label: 'Prompts', field: 'promptCount', align: 'center', sortable: true },
   {
     name: 'runStatus',
@@ -141,12 +167,16 @@ async function load() {
     const list = await listJobs();
     jobs.value = list.map((job) => {
       if (job.status === 'in-progress') {
-        return { ...job, runStatus: 'In progress' };
+        return { ...job, runStatus: 'In progress', statusIcon: job.outcome || 'never' };
       }
       if (job.lastRunAt) {
-        return { ...job, runStatus: `Last run: ${new Date(job.lastRunAt).toLocaleString()}` };
+        return {
+          ...job,
+          runStatus: `Last run: ${new Date(job.lastRunAt).toLocaleString()}`,
+          statusIcon: job.outcome || 'never',
+        };
       }
-      return { ...job, runStatus: 'Never run' };
+      return { ...job, runStatus: 'Never run', statusIcon: job.outcome || 'never' };
     });
   } catch (e) {
     error.value = e.message || 'Failed to load jobs';
@@ -193,7 +223,14 @@ async function openPreview(row) {
   showPreview.value = true;
   try {
     const job = await getJob(row.slug);
-    previewJson.value = JSON.stringify(job.prompts, null, 2);
+    previewJson.value = JSON.stringify(
+      {
+        execution: job.execution || null,
+        prompts: job.prompts || [],
+      },
+      null,
+      2
+    );
   } catch (e) {
     previewJson.value = `Error: ${e.message}`;
   } finally {

@@ -28,6 +28,13 @@ export async function listJobs() {
     try {
       const raw = await fs.readFile(path.join(JOBS_DIR, file), 'utf8');
       const job = normalizeJob(JSON.parse(raw));
+      const hasSuccess = job.prompts.some(
+        (p) => p?.generation?.status === 'completed' && (p?.generation?.imageUrl || p?.generation?.localFilePath)
+      );
+      const hasFailure = job.prompts.some(
+        (p) => p?.generation?.status === 'failed' || p?.generation?.status === 'skipped'
+      );
+
       jobs.push({
         name: job.name,
         slug: job.slug,
@@ -35,6 +42,7 @@ export async function listJobs() {
         promptCount: job.prompts.length,
         status: job.status || 'never',
         lastRunAt: job.lastRunAt || null,
+        outcome: hasSuccess ? 'success' : hasFailure ? 'failed' : 'never',
         execution: job.execution,
       });
     } catch {
@@ -75,7 +83,9 @@ export function normalizeJob(job) {
     ...prompt,
     transformedPrompt: prompt.transformedPrompt || null,
     generation: {
-      status: prompt.generation?.status || 'not-started',
+      status: ['not-started', 'in-progress', 'completed', 'failed', 'skipped'].includes(prompt.generation?.status)
+        ? prompt.generation.status
+        : 'not-started',
       requestId: prompt.generation?.requestId || null,
       imageUrl: prompt.generation?.imageUrl || null,
       localFilePath: prompt.generation?.localFilePath || null,
