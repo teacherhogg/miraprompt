@@ -62,6 +62,55 @@ function toPublicImagePath(localFilePath) {
   return `/${String(localFilePath).replace(/\\/g, '/')}`;
 }
 
+function toAbsoluteProjectPath(relativePath) {
+  if (!relativePath) return null;
+  if (path.isAbsolute(relativePath)) return relativePath;
+  return path.resolve(path.dirname(DATA_DIR), String(relativePath));
+}
+
+function toSidecarLocalPath(localFilePath) {
+  if (!localFilePath) return null;
+  const parsed = path.parse(String(localFilePath));
+  return path.join(parsed.dir, `${parsed.name}.json`);
+}
+
+function buildPromptSidecar(job, prompt) {
+  return {
+    sidecarVersion: 1,
+    exportedAt: new Date().toISOString(),
+    sourceJobFile: path.join('data', 'jobs', `${job.slug}.json`).replace(/\\/g, '/'),
+    name: job.name,
+    slug: job.slug,
+    createdAt: job.createdAt,
+    status: job.status,
+    lastRunAt: job.lastRunAt,
+    execution: job.execution || null,
+    prompts: [
+      {
+        ...prompt,
+        generation: {
+          ...(prompt.generation || {}),
+          publicLocalPath: toPublicImagePath(prompt.generation?.localFilePath),
+          sidecarFilePath: toSidecarLocalPath(prompt.generation?.localFilePath),
+        },
+      },
+    ],
+  };
+}
+
+async function writePromptSidecar(job, prompt) {
+  const sidecarLocalPath = toSidecarLocalPath(prompt?.generation?.localFilePath);
+  if (!sidecarLocalPath) return null;
+
+  const sidecarAbsPath = toAbsoluteProjectPath(sidecarLocalPath);
+  const sidecar = buildPromptSidecar(job, prompt);
+
+  await fs.mkdir(path.dirname(sidecarAbsPath), { recursive: true });
+  await fs.writeFile(sidecarAbsPath, JSON.stringify(sidecar, null, 2), 'utf8');
+
+  return sidecarLocalPath.replace(/\\/g, '/');
+}
+
 function resetPromptForClone(prompt) {
   return {
     id: uuidv4(),
@@ -70,7 +119,7 @@ function resetPromptForClone(prompt) {
     subcategory: prompt.subcategory ?? null,
     description: prompt.description ?? '',
     styles: prompt.styles ?? {},
-    transformedPrompt: null,
+    transformedPrompt: transformPromptForFal(prompt),
     generation: {
       status: 'not-started',
       requestId: null,
@@ -86,6 +135,58 @@ function resetPromptForClone(prompt) {
 
 async function ensureGeneratedDir() {
   await fs.mkdir(GENERATED_DIR, { recursive: true });
+}
+
+async function listPromptSidecarFiles(dirPath) {
+  let entries = [];
+  try {
+    entries = await fs.readdir(dirPath, { withFileTypes: true });
+  } catch (err) {
+    if (err?.code === 'ENOENT') return [];
+    throw err;
+  }
+
+  const files = [];
+  for (const entry of entries) {
+    const entryPath = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await listPromptSidecarFiles(entryPath)));
+      continue;
+    }
+    if (entry.isFile() && entry.name.toLowerCase().endsWith('.json')) {
+      files.push(entryPath);
+    }
+  }
+  return files;
+}
+
+function sidecarToImageRecord(sidecar, subcategoryFilter) {
+  const prompt = Array.isArray(sidecar?.prompts) ? sidecar.prompts[0] : null;
+  if (!prompt) return null;
+
+  const generation = prompt.generation || {};
+  const imageUrl = generation.imageUrl || null;
+  const localFilePath = generation.localFilePath || null;
+  if (!imageUrl && !localFilePath) return null;
+
+  const promptSubcategory = String(prompt.subcategory || '').trim();
+  if (subcategoryFilter && promptSubcategory.toLowerCase() !== subcategoryFilter) return null;
+
+  return {
+    jobName: sidecar.name || null,
+    jobSlug: sidecar.slug || null,
+    promptId: prompt.id || null,
+    subcategory: prompt.subcategory || null,
+    category: prompt.category || null,
+    description: prompt.description || null,
+    transformedPrompt: prompt.transformedPrompt || null,
+    styles: prompt.styles || {},
+    imageUrl,
+    localFilePath,
+    publicLocalPath: generation.publicLocalPath || toPublicImagePath(localFilePath),
+    execution: sidecar.execution || null,
+    createdAt: generation.completedAt || prompt.createdAt || sidecar.exportedAt || null,
+  };
 }
 
 function contentTypeToExt(contentType) {
@@ -273,6 +374,20 @@ async function runJobGeneration(slug) {
           completedAt: new Date().toISOString(),
         };
 
+        if (localFilePath) {
+          try {
+            const sidecarFilePath = await writePromptSidecar(job, prompt);
+            if (sidecarFilePath) {
+              prompt.generation.metadata = {
+                ...(prompt.generation.metadata || {}),
+                sidecarFilePath,
+              };
+            }
+          } catch (sidecarErr) {
+            console.error(`Failed to write prompt sidecar for ${job.slug}/${prompt.id}:`, sidecarErr);
+          }
+        }
+
         if (chainEnabled && i === 0 && !chainConfiguredReference && firstImageUrl) {
           characterAnchorUrl = firstImageUrl;
         }
@@ -331,29 +446,19 @@ router.get('/', async (_req, res) => {
 router.get('/generated-images', async (req, res) => {
   try {
     const subcategory = String(req.query?.subcategory || '').trim().toLowerCase();
-    const summaries = await listJobs();
     const images = [];
+    const sidecarFiles = await listPromptSidecarFiles(GENERATED_DIR);
 
-    for (const summary of summaries) {
-      const job = await readJob(summary.slug);
-      for (const prompt of job.prompts || []) {
-        if (!prompt?.generation?.imageUrl && !prompt?.generation?.localFilePath) continue;
-        if (subcategory && String(prompt.subcategory || '').toLowerCase() !== subcategory) continue;
-        images.push({
-          jobName: job.name,
-          jobSlug: job.slug,
-          promptId: prompt.id,
-          subcategory: prompt.subcategory || null,
-          category: prompt.category || null,
-          description: prompt.description || null,
-          transformedPrompt: prompt.transformedPrompt || null,
-          styles: prompt.styles || {},
-          imageUrl: prompt.generation?.imageUrl || null,
-          localFilePath: prompt.generation?.localFilePath || null,
-          publicLocalPath: toPublicImagePath(prompt.generation?.localFilePath),
-          execution: job.execution || null,
-          createdAt: prompt.generation?.completedAt || prompt.createdAt,
-        });
+    for (const filePath of sidecarFiles) {
+      try {
+        const raw = await fs.readFile(filePath, 'utf8');
+        const sidecar = JSON.parse(raw);
+        const imageRecord = sidecarToImageRecord(sidecar, subcategory);
+        if (imageRecord) {
+          images.push(imageRecord);
+        }
+      } catch {
+        // ignore malformed sidecar files
       }
     }
 
@@ -430,7 +535,7 @@ router.post('/:slug/prompts', async (req, res) => {
       subcategory: req.body.subcategory ?? null,
       description: req.body.description ?? '',
       styles: req.body.styles ?? {},
-      transformedPrompt: null,
+      transformedPrompt: req.body.transformedPrompt ?? transformPromptForFal(req.body),
       generation: {
         status: 'not-started',
         requestId: null,
@@ -466,7 +571,7 @@ router.patch('/:slug/prompts/:promptId', async (req, res) => {
 
     if (Object.prototype.hasOwnProperty.call(req.body || {}, 'description')) {
       prompt.description = String(req.body.description || '');
-      prompt.transformedPrompt = null;
+      prompt.transformedPrompt = transformPromptForFal(prompt, job.execution);
     }
 
     await writeJob(job.slug, job);

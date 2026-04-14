@@ -368,8 +368,9 @@
           {{ saveMessage }}
         </div>
         <q-btn
-          color="primary"
-          label="Save To Job"
+          color="secondary"
+          label="Save Model To Job"
+          icon="playlist_add"
           :disable="!selectedJobSlug || Boolean(saveDisabledReason)"
           :loading="saving"
           @click="saveExecution"
@@ -402,6 +403,7 @@ const props = defineProps({
   active: { type: Boolean, default: false },
   refreshToken: { type: Number, default: 0 },
 });
+const emit = defineEmits(['save-success']);
 
 const loading = ref(false);
 const saving = ref(false);
@@ -738,6 +740,7 @@ async function saveExecution() {
       };
     }
     saveMessage.value = `Saved to ${selectedJobName.value}.`;
+    emit('save-success', selectedJobSlug.value);
   } catch (e) {
     error.value = e.message || 'Failed to save model settings';
   } finally {

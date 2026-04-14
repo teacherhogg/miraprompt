@@ -1,0 +1,1686 @@
+{
+  "HISTORICAL ART MOVEMENTS": [
+    {
+      "name": "Renaissance-Style",
+      "prompt": "Classical realism with precision, balanced composition, sfumato transitions, harmonious-proportions, and naturalistic lighting"
+    },
+    {
+      "name": "Baroque-style",
+      "prompt": "Dramatic chiaroscuro, dynamic poses, rich detail, theatrical emotions, heavy contrast, and a sense of grandeur and movement"
+    },
+    {
+      "name": "Rococo-paint-style",
+      "prompt": "Ornate decorative details , soft glowing light, delicate flowing shapes, intricate patterns, graceful , oil painting, soft brushstrokes, visible brush texture, painterly style 1700s-1800s, fine detail, luminous lighting"
+    },
+    {
+      "name": "Neoclassical-paint-style",
+      "prompt": "Austere compositions inspired by Roman and Greek art, heroic poses, moral seriousness, strong contour lines, balanced composition, oil painting, fine brushstrokes, visible brush texture, muted color palette, soft but precise lighting, painterly style 18th-19th century, realistic details"
+    },
+    {
+      "name": "Romanticism-style",
+      "prompt": "Emotional intensity, dramatic landscapes, expressive brushwork, sublime nature, stormy lighting, and heightened atmosphere"
+    },
+    {
+      "name": "Impressionism-style",
+      "prompt": "Visible short brushstrokes, emphasis on light changes, soft edges, plein-air feeling, broken color, Monet-like luminosity"
+    },
+    {
+      "name": "Pointillism-style",
+      "prompt": "Image constructed only from countless distinct colored dots, optical color blending, crisp contours made only with micro-points"
+    },
+    {
+      "name": "Futurism",
+      "prompt": "Dynamic movement lines, industrial energy, speed, overlapping forms suggesting motion and force"
+    },
+    {
+      "name": "Surrealism-art-style",
+      "prompt": "Dreamlike surreal realistic painting, chromatic, intricate, bizarre paradoxical, illogical and symbolic, abstracted, metaphorical, impossible bizarre scenarios, morphing, melting, floating, levitating, twisting perspectives, juxtaposed enigmatic objects, mismatched improbable situations, fully shaped drawing = complete, clean spaces composition"
+    },
+    {
+      "name": "Expressionism-art-style",
+      "prompt": "Distorted forms, exaggerated colors, emotional intensity, energetic strokes, subjective and psychological atmosphere"
+    },
+    {
+      "name": "Fauvism-art-style",
+      "prompt": "Vivid unnatural colors, simplified forms, expressive painterly marks, raw emotional color fields"
+    },
+    {
+      "name": "Cubism-art-style",
+      "prompt": "Fragmented geometry, multiple perspectives at once, abstract planar shapes, analytical structure, faceted construction"
+    },
+    {
+      "name": "Abstract-Expressionism",
+      "prompt": "Spontaneous gestures, dynamic splashes, textured paint, emotional abstraction, Pollock-inspired energy"
+    },
+    {
+      "name": "Fresco-Painting",
+      "prompt": "Ancient wall painting on wet plaster, matte earthy pigments, slightly desaturated, texture of aging wall, cracking plaster, renaissance feel"
+    },
+    {
+      "name": "Art-Nouveau-style",
+      "prompt": "Flowing organic lines, decorative floral motifs, graceful curves, soft palettes, flat stylization inspired by Mucha"
+    },
+    {
+      "name": "Art-Deco-style",
+      "prompt": "Geometric symmetry, flat , metallic accents, gold tones, streamlined elegance, luxury shapes, 1920s decorative styling"
+    },
+    {
+      "name": "Pop-Art",
+      "prompt": "Bold comic-like colors, commercial imagery, flat tones, repetition, Warhol/Lichtenstein graphic aesthetic"
+    },
+    {
+      "name": "De-Stijl",
+      "prompt": "Strict grids, black outlines, primary color rectangles, strong alignment, Mondrian-like abstraction"
+    },
+    {
+      "name": "Bauhaus-art",
+      "prompt": "Functional geometry, clean industrial design, primary colors, minimalist structure , flat illustration, utilitarian visual language"
+    },
+    {
+      "name": "Dadaism",
+      "prompt": "Absurdist collage, anti-art randomness, chaotic composition, satirical and nonsensical elements"
+    },
+    {
+      "name": "Op-Art",
+      "prompt": "High-contrast optical illusions, repetitive patterns, moiré effects, geometric distortions in black-and-white"
+    }
+  ],
+  "TRADITIONAL MEDIA": [
+    {
+      "name": "Oil-Painting",
+      "prompt": "Thick textured brushstrokes, impasto depth, smooth color blending, glossy surface, classical painted look"
+    },
+    {
+      "name": "Watercolor",
+      "prompt": "Translucent washes, wet-on-wet diffusion, soft gradients, delicate splatter effects, fluid edges"
+    },
+    {
+      "name": "Charcoal-Drawing",
+      "prompt": "Smudged textures, deep blacks, high contrast shading, gritty tonal transitions, expressive strokes"
+    },
+    {
+      "name": "Ink-Wash-Sumi-e",
+      "prompt": "Black ink gradients, fluid brush control, minimalist strokes, controlled density variation, negative space emphasis"
+    },
+    {
+      "name": "Pencil-Sketch",
+      "prompt": "Graphite texture, cross-hatching, loose outlines, soft shading, hand-drawn realism or rough study feel"
+    },
+    {
+      "name": "Pastel-Art",
+      "prompt": "Soft powdery pigment, visible grain, vibrant matte colors, gentle blending, velvety surface, big pastel strokes"
+    },
+    {
+      "name": "Linocut-Woodcut",
+      "prompt": "Bold carved shapes, thick black outlines, high contrast, stamping-like irregularities, wood-block-print texture"
+    },
+    {
+      "name": "Scratchboard",
+      "prompt": "White lines carved from black surface, crisp highlights, dramatic contrast, engraved illustration style"
+    },
+    {
+      "name": "Cyanotype",
+      "prompt": "Blue-and-white photogram appearance, soft silhouettes, sun-print textures, analog exposure softness"
+    },
+    {
+      "name": "Gouache-style",
+      "prompt": "Opaque matte pigments, flat multilayered overlaping water colors, chalky texture, crisp edges with occasional brush grain,uncoloared areas gaps, detailed"
+    },
+    {
+      "name": "Aquarelle-style",
+      "prompt": "French watercolor style with luminous washes, flowing light, airy transparency, delicate hue shifts"
+    },
+    {
+      "name": "Tempera-Painting",
+      "prompt": "Mattemed pigments bound with egg yolk, precise small strokes, bright long-lasting coloration"
+    },
+    {
+      "name": "Fresnel-Painting",
+      "prompt": "Luminous wall-painting technique, mineral pigments, durable surface, soft radiance, fresco-like blending"
+    },
+    {
+      "name": "Line-Art",
+      "prompt": "Clean uniform outlines, no shading, flat cartoon-like contour emphasis, coloring-book simplicity"
+    },
+    {
+      "name": "Ligne-Claire-style",
+      "prompt": "tintin-cartoon-clear linework, thick uniform outlines, bright flat coloring, no gradients, tidy composition, sharp details, simplified geometry"
+    },
+    {
+      "name": "Vector-Art",
+      "prompt": "Sharp mathematically perfect edges, scalable flat shapes, smooth gradients or solids, digital precision"
+    },
+    {
+      "name": "Flat-Design",
+      "prompt": "Minimalist shapes, no gradients, corporate visual language, clean geometry, simple color schemes"
+    },
+    {
+      "name": "Risograph-style",
+      "prompt": "rough ink grain texture, vibrant spot inks, translucent ink overlays, misaligned dual-color overprint, overlapping plates/blocks, layered screen-print aesthetic, halftone dot/grain texture, uneven ink coverage, slight smudging,illustration,made with shapes that overlap"
+    },
+    {
+      "name": "Halftone",
+      "prompt": "Dot-pattern shading, vintage comic newspaper texture, variable dot density forming tones"
+    },
+    {
+      "name": "Vintage-Botanical",
+      "prompt": "Scientific illustration style, high detail, thin ink lines, watercolor tint, isolated on white"
+    },
+    {
+      "name": "Fantasy-Storybook",
+      "prompt": "Whimsical linework, antique muted palette, intricate details, Arthur Rackham fairy-tale aesthetic"
+    },
+    {
+      "name": "Medieval-Illumination",
+      "prompt": "Gold leaf accents, ornate borders, parchment texture, flat decorative scenes, marginalia flourishes"
+    },
+    {
+      "name": "Sticker-Art",
+      "prompt": "Thick white outlines, die-cut silhouette, flat bold colors, clean graphic cutout style"
+    },
+    {
+      "name": "Graffiti-Street-Art",
+      "prompt": "Spray-paint textures, bold tagging, drips, stencils, urban wall aesthetic, vivid street colors"
+    },
+    {
+      "name": "Tattoo-Flash",
+      "prompt": "Bold black outlines, classic shading, isolated motif, traditional tattoo palette and form"
+    },
+    {
+      "name": "Chalk-Art",
+      "prompt": "Vibrant powdery pastels on rough asphalt, temporary street-art look, soft smudging and grain"
+    },
+    {
+      "name": "Scientific-Illustration",
+      "prompt": "Precise technical details, cross-sections, labeled structures, accurate rendering for study"
+    }
+  ],
+  "ANIMATION & COMICS": [
+    {
+      "name": "Anime",
+      "prompt": "Stylized Japanese animation look, clean lines, expressive eyes, flat shading, bright colors"
+    },
+    {
+      "name": "Studio-Ghibli",
+      "prompt": "Lush painterly backgrounds, soft color harmony, expressive rounded character design, magical warmth"
+    },
+    {
+      "name": "Manga",
+      "prompt": "Black-and-white ink style, screen tones, dynamic speed lines, stylized anatomy, crisp line weights"
+    },
+    {
+      "name": "Western-Comic-Book",
+      "prompt": "Bold inks, vivid colors, dynamic poses, Ben-Day dots, heroic exaggerated action"
+    },
+    {
+      "name": "Noir-Graphic-Novel",
+      "prompt": "Extreme black-and-white contrast, harsh shadows, gritty atmosphere, Frank Miller storytelling tone"
+    },
+    {
+      "name": "Cel-Shaded",
+      "prompt": "Flat color regions with hard-edged shadows, toon-outlined look, simplified lighting"
+    },
+    {
+      "name": "Chibi",
+      "prompt": "Super-deformed proportions, oversized heads, tiny bodies, exaggerated cuteness"
+    },
+    {
+      "name": "Rotoscoping",
+      "prompt": "Fluid lifelike movement recreated through traced live-action, smooth outlines, cartoon realistic motion"
+    },
+    {
+      "name": "80s-Retro-Anime",
+      "prompt": "Classic OVA aesthetic, cel-shaded with visible film grain, vibrant but limited color palette, heavy outlines, character designs often feature high contrast hair and large, glossy eyes, Akira or Macross inspired"
+    },
+    {
+      "name": "Seinen-Anime-Style",
+      "prompt": "Mature themes, more realistic proportions and detailed anatomy, muted or darker color palette, heavier use of shadows and atmospheric lighting, complex, gritty linework, Ghost in the Shell or Berserk influence"
+    },
+    {
+      "name": "Makoto-Shinkai-style",
+      "prompt": "Hyper-detailed backgrounds, photorealistic environments, glowing skies, dramatic lens flare, soft golden-hour or sunset lighting, vibrant color saturation, deep feeling of nostalgia/longing"
+    },
+    {
+      "name": "Hanna-Barbera-Style",
+      "prompt": "Limited animation technique, repeated backgrounds, simplified character designs with bold colors, thick outlines, often used for adventure or Scooby-Doo-esque mystery genres"
+    },
+    {
+      "name": "90s-Nickelodeon-Cartoon",
+      "prompt": "Quirky, often grotesque or exaggerated character designs, vibrant and sometimes jarring color palettes, slightly grungy or \"ugly\" aesthetic, bold outlines, highly expressive and non-traditional animation"
+    },
+    {
+      "name": "Golden-Age-Cartoon",
+      "prompt": "highly elastic and bouncy characters, pie-cut eyes, simple circular limbs with white gloves, low detail on backgrounds, black and white or limited color, exaggerated squash and stretch movement"
+    },
+    {
+      "name": "Rubber-Hose-Animation",
+      "prompt": "Bouncy, limbless limbs, circular forms, exaggerated elastic motion, vintage 1920s–1930s cartoon fluidity, simple color palette, whimsical expressive poses"
+    }
+  ],
+  "3D / DIGITAL RENDERING": [
+    {
+      "name": "AAA-Game-Realism",
+      "prompt": "3D High-texture PBR materials, complex cgi lighting"
+    },
+    {
+      "name": "3D-Render",
+      "prompt": "Ray-traced reflections, global illumination, Octane/Redshift-like realism, polished CG materials"
+    },
+    {
+      "name": "3D-Disney-style",
+      "prompt": "3D pixar rendering, textures,volumetric depth, natural colors,  visible, detailed  materials, realistic anatomy / object proportions"
+    },
+    {
+      "name": "Hand-Painted-Texture",
+      "prompt": "Visible brushstrokes on 3D surfaces, stylized game look, color-blocked shading, crafted feel"
+    },
+    {
+      "name": "Stylized-3D-(Blizzard-like)",
+      "prompt": "Exaggerated forms, hand-painted textures, high contrast"
+    },
+    {
+      "name": "3D-isometric-style",
+      "prompt": "Isometric view, objects and characters drawn at a consistent 30-degree angle, precise geometric proportions, clean edges, detailed textures, vibrant but balanced colors, soft lighting and shadows, clear depth perception, minimal perspective distortion, digital 3D render look"
+    },
+    {
+      "name": "Low-Poly",
+      "prompt": "Geometric faceted mesh, sharp polygonal planes, minimal textures, simplified forms"
+    },
+    {
+      "name": "Claymation-Aardman",
+      "prompt": "Plasticine texture, thumbprints visible on surface, rounded bulky shapes, stop-motion lighting, physical set background"
+    },
+    {
+      "name": "Polymer-clay-model",
+      "prompt": "sculpey figure, smooth matte texture, hand-sculpted miniature"
+    },
+    {
+      "name": "Procedural-Generation",
+      "prompt": "Algorithmic patterns, endlessly detailed textures, mathematically driven repetition and structure"
+    },
+    {
+      "name": "Voxel-Art",
+      "prompt": "3D pixel-cube construction, blocky volumetric design, Minecraft-like structure"
+    },
+    {
+      "name": "Isometric",
+      "prompt": "Three-quarter perspective from a corner view, equal axes, illustration"
+    },
+    {
+      "name": "Pixel-art",
+      "prompt": "dense pixel detail, 1px clean edging, micro-dither shading, small-palette color control, sharp geometric pixel shapes, layered tile-sprite construction"
+    }
+  ],
+  "AESTHETIC GENRES": [
+    {
+      "name": "Needle-Felt",
+      "prompt": "Fuzzy wool texture, soft sculpted shapes, miniature craft aesthetic with visible fibers"
+    },
+    {
+      "name": "Quilling-art",
+      "prompt": "rolled paper sculpture, delicate paper strips, intricate filigree paper"
+    },
+    {
+      "name": "Kirigami-paper-art",
+      "prompt": "pop-up book style, cut and folded paper, paper-lace silhouette"
+    },
+    {
+      "name": "Amigurumi-doll",
+      "prompt": "[crocheted toy, yarn texture, visible stitching, chibi plushie]"
+    },
+    {
+      "name": "Pyrography-art",
+      "prompt": "wood burning detail, etched wood surface, rustic carving"
+    },
+    {
+      "name": "FrameBeadworkpattern",
+      "prompt": "intricate beaded design, segmented texture, reflective glass beads, shaped beadwork"
+    },
+    {
+      "name": "Stained-Glass",
+      "prompt": "Bold black lines forming the contours, translucent, jeweled colors, light streaming through the colored panes, segmented composition, religious or gothic subject matter, lead-came framing, luminous radiance"
+    },
+    {
+      "name": "Mosaic",
+      "prompt": "Image composed entirely of small, individually colored square or irregular tiles (tesserae), deep grouted lines, ancient Byzantine or Roman texture, slightly uneven surface, rich stone colors, highly detailed"
+    },
+    {
+      "name": "Encaustic-Painting",
+      "prompt": "Layers of heated beeswax mixed with pigments, luminous textured surfaces, warm radiant tones, subtle translucency, rich surface depth, tactile brushstrokes"
+    },
+    {
+      "name": "Ukiyo-e-Inspired",
+      "prompt": "Bold woodblock outlines, flat areas of color, dynamic Japanese print composition, stylized figures, ornamental patterns, Edo-period aesthetic, narrative storytelling"
+    },
+    {
+      "name": "Scribble-Art-Style",
+      "prompt": "Loose spontaneous linework, continuous overlapping strokes, chaotic energetic contours, sketchy hand-drawn texture, abstract or semi-representational forms, dynamic movement, visible pressure variation, raw expressive mark-making with no clean outlines"
+    },
+    {
+      "name": "Memphis-style",
+      "prompt": "80s geometric chaos, squiggles, bright neon, asymmetric shapes, playful retro abstraction vector"
+    },
+    {
+      "name": "Embroidery-Cross-Stitch",
+      "prompt": "Thread-based image with stitched patterns, woven texture, pixel-like handmade appearance"
+    },
+    {
+      "name": "Technical-Blueprint-style",
+      "prompt": "White-line diagrams on blue boards, engineering precision"
+    },
+    {
+      "name": "Paper-Cutout-Layered",
+      "prompt": "Diorama style, stacked layers of paper, depth via drop shadows, simple shapes, craft paper texture, tunnel book aesthetic"
+    }
+  ],
+  "EXTRA STYLES": [
+    {
+      "name": "Chinoiserie-style",
+      "prompt": "European interpretation of Chinese artistic traditions, ornate detailed landscapes, delicate figures, pagodas, porcelain blue and white color scheme, gold accents, highly decorative elegance"
+    },
+    {
+      "name": "Mughal-Miniature",
+      "prompt": "Intricate hand-painted detail, vibrant jewel-toned colors, gold leaf highlights, flat perspective, highly stylized figures and nature, traditional South Asian court art"
+    },
+    {
+      "name": "Caricature-Art-Exaggerated",
+      "prompt": "Focuses on highly stylized and humorous exaggeration of facial features and body proportions to emphasize personality traits, bold outlines and dynamic line work"
+    },
+    {
+      "name": "Photorealistic-Pencil-Drawing",
+      "prompt": "Extreme level of graphite detail that mimics a photograph, smooth shading with almost no visible pencil texture, hyperrealism in monochrome, fine, precise rendering"
+    },
+    {
+      "name": "Newspaper-Comic-Strip-Style",
+      "prompt": "(Simple, ink-drawn figures, often with thick black lines, minimal use of color (often only four-color process or black and white), small panel composition, focus on dialogue and gag setup)\"text\"\"text\" \"text\""
+    }
+  ],
+  "Fantasy, Mythology & Speculative Worldbuilding": [
+    {
+      "prompt": "epic magical worlds; kingdoms; enchanted forests; mythical ; grand castles; glowing magic; vast landscapes",
+      "name": "High-Fantasy-Style"
+    },
+    {
+      "prompt": "fantasy cityscapes with glowing magic elements around; neon ;",
+      "name": "Urban-Fantasy-Style"
+    },
+    {
+      "prompt": "rugged landscapes; dark forests; with armor; magical glowing enchanted artifacts",
+      "name": "Sorcery-Style"
+    },
+    {
+      "prompt": "enchanted worlds; whimsical forests; magical ; pastel-jewel tones; surreal warmth , realistic",
+      "name": "Fairy-Tale-Fable-Style"
+    },
+    {
+      "prompt": "knights; chivalry; stone castles; lush meadows; armored warriors; banners; candlelit halls",
+      "name": "Arthurian-Medieval-Fantasy-Style"
+    },
+    {
+      "prompt": "magic-meets-steam tech; brass machinery; cogwork automatons; airships; Victorian clothing",
+      "name": "Steampunk-Fantasy-Style"
+    },
+    {
+      "prompt": "morally ambiguous; gothic forests; crumbling castles; muted colors; sinister atmospheres",
+      "name": "Dark-Fantasy-Style"
+    },
+    {
+      "prompt": "alien horror; non-Euclidean geometry; impossible landscapes; tentacles; fog; oppressive skies",
+      "name": "Lovecraftian-Cosmic-Horror-Style"
+    },
+    {
+      "prompt": "dragons dominate; volcanic landscapes; treasure hoards; flying serpents; smoke and molten rivers",
+      "name": "Dragon-Lore-Style"
+    },
+    {
+      "prompt": "planes dominated by fire, water, earth, air; dynamic lighting; elemental colors; floating landmasses",
+      "name": "Elemental-Magic-Worlds-Style"
+    },
+    {
+      "prompt": "hellish landscapes; lava rivers; horned creatures; scorched terrain; red-black hues",
+      "name": "Demonic-Infernal-Realms-Style"
+    },
+    {
+      "prompt": "heavenly worlds; floating temples; radiant skies; divine figures; golden-white illumination",
+      "name": "Celestial-Angelic-Realms-Style"
+    },
+    {
+      "prompt": "collapsed magic; overgrown ruins; crumbled temples; scattered relics; fog and mist",
+      "name": "Post-Magic-Ruined-Civilization-Style"
+    },
+    {
+      "prompt": "alien planes; floating landmasses; warped physics; impossible structures; surreal lighting",
+      "name": "Otherworld-Parallel-Dimensions-Style"
+    }
+  ],
+  "Micro-Aesthetics & Cultural Themes": [
+    {
+      "prompt": "gothic intellectualism; aged libraries; mahogany; candlelit solitude; scholarly obsession; muted browns; rainy courtyards; introspection",
+      "name": "Dark-Academia-Style"
+    },
+    {
+      "prompt": "soft scholastic warmth; linen textures; classical charm; ivory-beige palette , studying",
+      "name": "Light-Academia-Style"
+    },
+    {
+      "prompt": "pastoral simplicity; meadows; rustic homesteads backgrounds;  florals; cozy domesticity; earth tones",
+      "name": "Cottagecore-Style"
+    },
+    {
+      "prompt": "whimsical forests; glowing spores; ethereal wings; mushroom clusters; enchanted flora; pastel glimmers; magical atmosphere",
+      "name": "Fairycore-Style"
+    },
+    {
+      "prompt": "earthy chaos; moss, roots, and stones; natural clutter; shiny trinkets; feral charm; wild textures",
+      "name": "Goblincore-Style"
+    },
+    {
+      "prompt": "occult mysticism; runes; herbal bundles; arcane tools; candlelight; deep violets and blacks; ritualistic atmosphere",
+      "name": "Witchcore-Style"
+    },
+    {
+      "prompt": "heavenly purity; feathers; clouds; halos; radiant light; soft white-pastels; serene figures",
+      "name": "Angelcore-Style"
+    },
+    {
+      "prompt": "infernal intensity; red-black palette; horns; fire; shadow-heavy scenes; demonic motifs; primal menace",
+      "name": "Devilcore-Style"
+    },
+    {
+      "prompt": "draconic majesty; volcanic landscapes; hoards; flying dragons; smoke and ember; mythical power",
+      "name": "Dragoncore-Style"
+    },
+    {
+      "prompt": "chivalric symbols; steel armor; heraldic banners; medieval grandeur; fortified castles; battlefield honor",
+      "name": "Knightcore-Style"
+    },
+    {
+      "prompt": "regal opulence; velvet and gold; ceremonial decor; grand halls; dynastic prestige; aristocratic poise",
+      "name": "Royalcore-Style"
+    },
+    {
+      "prompt": "uncanny surrealism; extreme distorted pixelated spaces; intense big pixelation background; liminal oddities; dreamlike wrongness; emotional displacement realistic",
+      "name": "Weirdcore-Style"
+    },
+    {
+      "prompt": "soft surrealism enviroments; floating objects; pastel haze; subconscious warped landscapes; drifting field of view on the background",
+      "name": "Dreamcore-Style"
+    },
+    {
+      "prompt": "empty transitional giant spaces; flickering signs \"exit \"turn on and of ; monotone carpets; uncanny normalcy; sterile emptiness; threshold tension , backrooms",
+      "name": "Liminalcore-Style"
+    },
+    {
+      "prompt": "hyper-glossy plastic toy shaped fantasy; saturated pinks; dollhouse perfection; playful extravagance; 90s glam elements",
+      "name": "Barbiecore-Style"
+    },
+    {
+      "prompt": "early digital futurism; chrome sheen; translucent plastics; cyber-glam fashion",
+      "name": "Y2K-Style"
+    },
+    {
+      "prompt": "dark romanticism; ornate fabrics; brooding patterns; somber symbols; melancholic elegance",
+      "name": "Gothic-Style"
+    },
+    {
+      "prompt": "DIY urban grit; patched fabrics; spikes; counterculture rebellion; distressed materials",
+      "name": "Punk-Style"
+    },
+    {
+      "prompt": "raw imperfection; worn fabrics; muted neutrals; urban decay cues; angsty authenticity",
+      "name": "Grunge-Style"
+    },
+    {
+      "prompt": "street culture; bold ; urban fashion; expressive energy; gold accents",
+      "name": "Hip-Hop-Style"
+    },
+    {
+      "prompt": "oversized silhouettes; layered textiles; logo-driven; contemporary urban sophistication",
+      "name": "Streetwear-Style"
+    },
+    {
+      "prompt": "eclectic street fashion; vibrant patterns; layered accessories; whimsical maximalism",
+      "name": "Harajuku-Style"
+    },
+    {
+      "prompt": "street athleticism; graffiti influence; loose silhouettes; scuffed textures; kinetic energy",
+      "name": "Skatecore-Style"
+    }
+  ],
+  "Moods & Conceptual States": [
+    {
+      "prompt": "soft sorrow; muted colors; hazy distance; quiet reflection; subtle sadness; introspection",
+      "name": "Melancholy-Style"
+    },
+    {
+      "prompt": "memory-tinged warmth; faded textures; retro elements; sentimental artifacts; comforting imperfection",
+      "name": "Nostalgia-Style"
+    },
+    {
+      "prompt": "calm; balanced empty space; soft gradients; gentle luminosity; tranquil stillness",
+      "name": "Serenity-Style"
+    },
+    {
+      "prompt": "intense uplift; radiant glow; vibrant saturation; ecstatic motion; transcendent joy",
+      "name": "Euphoria-Style"
+    },
+    {
+      "prompt": "tension; sharp contrasts; unstable framing; restless asymmetry; unease",
+      "name": "Anxiety-Style"
+    },
+    {
+      "prompt": "lone subjects; expansive emptiness; cold tones; existential detachment",
+      "name": "Isolation-Style"
+    },
+    {
+      "prompt": "soft allure; intimate warmth; glowing highlights; affectionate tone",
+      "name": "Romantic-Style"
+    },
+    {
+      "prompt": "playful unpredictability; childlike fantasy; colorful eccentricity; buoyant energy",
+      "name": "Whimsical-Style"
+    },
+    {
+      "prompt": "hidden symbolism; veiled knowledge; subtle glow; ritual quiet; transcendent ambiguity",
+      "name": "Mystical-Style"
+    },
+    {
+      "prompt": "dreamlike distortions; unexpected juxtapositions; altered spatial logic; uncanny elements",
+      "name": "Surreal-Style"
+    },
+    {
+      "prompt": "soft diffusion; airy light; pale luminous accents; delicate textures; spiritual weightlessness",
+      "name": "Ethereal-Style"
+    },
+    {
+      "prompt": "dark presence; decayed textures; death motifs; grim atmosphere",
+      "name": "Macabre-Style"
+    },
+    {
+      "prompt": "structural oppression; muted metallic palette; societal collapse; bleak uniformity",
+      "name": "Dystopian-Style"
+    },
+    {
+      "prompt": "orderly harmony; bright equilibrium; serene conceptual clarity; gentle futurism",
+      "name": "Utopian-Style"
+    },
+    {
+      "prompt": "collapse-driven desolation; scorched fragments; dust-laden air; survival motifs",
+      "name": "Apocalyptic-Style"
+    },
+    {
+      "prompt": "soft rising light; gentle color lift; subtle rebuilding; positive ascent",
+      "name": "Hopeful-Style"
+    },
+    {
+      "prompt": "low-key richness; controlled darkness; selective highlights; emotionally saturated environments",
+      "name": "Cinematic-Moody-Style"
+    },
+    {
+      "prompt": "disordered geometry; abrupt patterns; high motion intensity; visual instability",
+      "name": "Chaotic-Style"
+    },
+    {
+      "prompt": "reduced visual information; clean geometry; narrow palette",
+      "name": "Minimalist-Style"
+    },
+    {
+      "prompt": "dense layering; bold saturation; ornamental excess; overwhelming detail",
+      "name": "Maximalist-Style"
+    },
+    {
+      "prompt": "uncanny hints; dim environments; subtle horror cues; emotional discomfort",
+      "name": "Creepy-Style"
+    },
+    {
+      "prompt": "ghostly presence; echoing emptiness; spectral traces; somber tension",
+      "name": "Haunting-Style"
+    },
+    {
+      "prompt": "soft joy; comforting warmth; gentle colors; approachable mood",
+      "name": "Wholesome-Style"
+    }
+  ],
+  "Narrative Worlds & Speculative Fiction": [
+    {
+      "prompt": "neon megacities; high-tech/low-life; holographic signage; surveillance culture; chrome textures; rainy streets; dense urban sprawl; digital noise; nocturnal glow",
+      "name": "Cyberpunk-Style"
+    },
+    {
+      "prompt": "utopian eco-future; nature-technology harmony; solar arrays; lush vegetation; communal optimism; clean white-gold light; regenerative landscapes; radiant natural illumination",
+      "name": "Solarpunk-Style"
+    },
+    {
+      "prompt": "brass machinery; steam-powered tech; leather straps; exposed gears; Victorian-industrial fantasy; ornate craftsmanship; airships; retro-futurist optimism",
+      "name": "Steampunk-Style"
+    },
+    {
+      "prompt": "80s sci-fi action aesthetic; neon pink/cyan grids; retro sun-set horizons; chrome ; cinematic silhouettes; nostalgic technology",
+      "name": "Synthwave-Style"
+    },
+    {
+      "prompt": "digital nostalgia; pastel neon palette; 3D CGI surrealism; Greek-Roman busts; checkerboard floors; mall aesthetics; dreamy retro environment",
+      "name": "Vaporwave-Style"
+    },
+    {
+      "prompt": "1930s-40s industrial dystopia; riveted metal; war machinery; deep reds and browns; zeppelins; authoritarian undertones; mechanical mass",
+      "name": "Dieselpunk-Style"
+    },
+    {
+      "prompt": "1950s space-age optimism; ray-gun futurism; chrome diners; pastel nuclear colors; retro rockets; atomic diagrams; mid-century modern futurism",
+      "name": "Atompunk-Style"
+    },
+    {
+      "prompt": "genetic modification dystopia; organic wet-tech; petri dishes; bioengineered organisms; fleshy textures; medical-lab aesthetic; body-horror undertones",
+      "name": "Biopunk-Style"
+    },
+    {
+      "prompt": "futurism fused with African culture; geometric patterns; cosmic motifs; radiant textiles; ancestral mythology; empowered aesthetic; advanced tech",
+      "name": "Afrofuturism-Style"
+    },
+    {
+      "prompt": "existential dread; non-Euclidean geometry; dark voids; ancient entities; distorted scale; oppressive atmospheres; unknowable vastness",
+      "name": "Cosmic-Horror-Style"
+    },
+    {
+      "prompt": "civilization in ruins; scavenged survivalism; dust and rust; decayed infrastructure; abandoned vehicles; desolate landscapes; reclaimed nature",
+      "name": "Post-Apocalyptic-Style"
+    },
+    {
+      "prompt": "barren devastation; sand-blasted terrain; skeletal remains; cracked earth; minimal vegetation; wind erosion; extreme isolation",
+      "name": "Wasteland-Style"
+    },
+    {
+      "prompt": "grand interstellar adventure; ornate starships; colorful nebulas; alien civilizations; heroic scale; fleet battles; sweeping cosmic vistas",
+      "name": "Space-Opera-Style"
+    }
+  ],
+  "CAMERA ANGLES & ORIENTATIONS": [
+    {
+      "name": "LOW ANGLE",
+      "prompt": "Low-angle shot: camera positioned below eye level, looking up at the subject. Creates a sense of power, dominance, and monumentality. appears larger, more imposing against the background."
+    },
+    {
+      "name": "HIGH ANGLE",
+      "prompt": "High-angle shot: camera positioned above eye level, looking down at the subject. Creates vulnerability, smallness, or overview perspective. Subject appears diminished or subordinate in the frame."
+    },
+    {
+      "name": "EYE LEVEL",
+      "prompt": "Eye-level shot: camera positioned at the subject's eye height, creating neutral, natural perspective. Establishes equality and realism, neither empowering nor diminishing the subject."
+    },
+    {
+      "name": "EXTREME LOW ANGLE",
+      "prompt": "Extreme low-angle shot: camera positioned very close to ground level, looking sharply upward. Creates dramatic scale distortion, towering effect, and powerful sense of dominance or intimidation."
+    },
+    {
+      "name": "EXTREME HIGH ANGLE",
+      "prompt": "Extreme high-angle shot: camera positioned far above subject, looking steeply downward. Creates isolation, vulnerability, or god's-eye perspective. Subject appears tiny within vast environment."
+    },
+    {
+      "name": "WORM-EYE VIEW",
+      "prompt": "View from below the subject, worm's-eye perspective, camera close to ground, looking up. Exaggerated scale, low-angle composition, emphasizing height and dominance of the subject."
+    },
+    {
+      "name": "BIRD-EYE VIEW",
+      "prompt": "Mild aerial viewpoint: the camera is placed above the subject, angled downward to create a clear bird's-eye view without distortion."
+    },
+    {
+      "name": "DUTCH ANGLE",
+      "prompt": "Mild Dutch camera angle: the camera is intentionally tilted off-balance on the roll axis, giving the composition a diagonal, dynamic feel, but with only a small tilt—not a full rotation."
+    },
+    {
+      "name": "DUTCH TILT",
+      "prompt": "Dutch tilt composition: camera rolled on its axis, creating slanted horizon line and diagonal perspective. Generates tension, disorientation, or psychological unease in the frame."
+    },
+    {
+      "name": "CANTED ANGLE",
+      "prompt": "Canted angle shot: camera tilted sideways off horizontal axis, creating oblique composition. Conveys instability, tension, or dynamic energy through off-kilter framing."
+    },
+    {
+      "name": "OVERHEAD ANGLE",
+      "prompt": "Overhead shot: camera positioned directly above subject, pointing straight down. Creates flat, graphic composition showing spatial relationships and patterns from above."
+    },
+    {
+      "name": "TOP-DOWN ANGLE",
+      "prompt": "Top-down perspective: camera looking directly downward onto subject from above. Emphasizes layout, arrangement, and spatial design with flattened perspective."
+    },
+    {
+      "name": "OBLIQUE ANGLE",
+      "prompt": "Oblique angle shot: camera positioned at diagonal angle to subject, neither parallel nor perpendicular. Creates depth, dimension, and dynamic three-dimensional perspective."
+    },
+    {
+      "name": "SIDE ANGLE",
+      "prompt": "Side-angle shot: camera positioned perpendicular to subject, capturing pure profile view. Emphasizes silhouette, outline, and lateral dimension of subject."
+    },
+    {
+      "name": "FRONT ANGLE",
+      "prompt": "Front-facing angle: camera positioned directly in front of subject, creating symmetrical frontal view. Establishes direct confrontation, intimacy, or formal presentation."
+    },
+    {
+      "name": "BACK ANGLE",
+      "prompt": "Back-angle shot: camera positioned behind subject, showing rear view. Creates mystery, anonymity, or shares subject's perspective of what lies ahead."
+    },
+    {
+      "name": "THREE-QUARTER ANGLE",
+      "prompt": "Three-quarter angle shot: camera positioned at 45-degree angle to subject, showing both front and side. Creates depth, dimensionality, and natural, flattering perspective."
+    },
+    {
+      "name": "PROFILE ANGLE",
+      "prompt": "Profile shot: camera capturing subject from pure side view, showing complete silhouette. Emphasizes facial features, body contour, and outline against background."
+    },
+    {
+      "name": "DIAGONAL ANGLE",
+      "prompt": "Strong diagonal layout: the composition positions the subject along a bold diagonal path, enhancing energy and flow within the frame."
+    },
+    {
+      "name": "TILT-UP ANGLE",
+      "prompt": "Tilt-up composition: camera angled upward from lower position, gradually revealing subject from bottom to top. Creates anticipation, grandeur, or revealing movement."
+    },
+    {
+      "name": "TILT-DOWN ANGLE",
+      "prompt": "Tilt-down composition: camera angled downward from higher position, showing subject from top descending. Creates survey, assessment, or descending perspective."
+    },
+    {
+      "name": "POV ANGLE",
+      "prompt": "Point-of-view shot: camera positioned to replicate exact perspective of a character's eyes. Creates immersive, subjective experience of seeing through character's viewpoint."
+    },
+    {
+      "name": "REVERSE POV ANGLE",
+      "prompt": "Reverse POV shot: camera showing what is looking at the POV character. Reveals the subject of character's gaze, completing visual conversation between perspectives."
+    },
+    {
+      "name": "BACK-TO-CAMERA ANGLE",
+      "prompt": "Back-to-camera shot: subject positioned with back toward camera, facing away. Creates anonymity, contemplation, or shares subject's forward-looking perspective."
+    }
+  ],
+  "CAMERA SHOTS (FRAMING / DISTANCE)": [
+    {
+      "name": "EXTREME WIDE SHOT",
+      "prompt": "Extreme wide shot: camera positioned very far from subject, showing vast environment. Subject appears small within expansive landscape, emphasizing scale and context."
+    },
+    {
+      "name": "WIDE SHOT",
+      "prompt": "Wide shot: camera captures subject fully within environment, showing complete body and surrounding space. Establishes location, context, and spatial relationships."
+    },
+    {
+      "name": "LONG SHOT",
+      "prompt": "Long shot: camera positioned at distance showing full subject from head to toe with surrounding space. Balances subject presence with environmental context."
+    },
+    {
+      "name": "FULL BODY SHOT",
+      "prompt": "Full body shot: camera framing captures subject's entire body from head to feet. Shows complete physical presence, posture, and body language within frame."
+    },
+    {
+      "name": "MEDIUM LONG SHOT",
+      "prompt": "Medium long shot: camera frames subject from approximately knees upward. Often called \"cowboy shot,\" balancing body language visibility with facial detail."
+    },
+    {
+      "name": "MEDIUM SHOT",
+      "prompt": "Medium shot: camera frames subject from waist up, showing torso, arms, and head. Balances facial expression with body language and gestures."
+    },
+    {
+      "name": "MEDIUM CLOSE-UP",
+      "prompt": "Medium close-up shot: camera frames subject from chest upward, emphasizing face while including shoulders. Intimate yet maintaining some physical context."
+    },
+    {
+      "name": "CLOSE-UP",
+      "prompt": "Close-up: the camera is positioned very near the subject, capturing all subject in the frame."
+    },
+    {
+      "name": "EXTREME CLOSE-UP",
+      "prompt": "Extreme close-up shot: camera frames very tight on specific detail—eyes, mouth, hands, or object. Creates intense intimacy, emphasis, or dramatic focus."
+    },
+    {
+      "name": "MACRO SHOT",
+      "prompt": "Macro shot: camera with macro lens positioned extremely close to small subject, revealing minute details invisible to naked eye. Creates abstract, detailed, magnified perspective."
+    },
+    {
+      "name": "COWBOY SHOT",
+      "prompt": "Cowboy shot: camera frames subject from mid-thigh upward, traditionally showing gunbelt in Western films. Emphasizes stance, readiness, and body language."
+    },
+    {
+      "name": "KNEE SHOT",
+      "prompt": "Knee shot: camera frames subject from knees upward, showing most of body while maintaining facial detail. Provides strong sense of physical presence."
+    },
+    {
+      "name": "SHOULDER SHOT",
+      "prompt": "Shoulder shot: camera frames subject from shoulders up, focusing on face and upper torso. Creates intimacy while maintaining personal space boundary."
+    },
+    {
+      "name": "BUST SHOT",
+      "prompt": "Bust shot: camera frames subject from chest upward, capturing head, neck, and upper torso. Classic portrait framing emphasizing facial expression and upper body."
+    },
+    {
+      "name": "HEADSHOT",
+      "prompt": "Headshot: camera tightly frames subject's head and face, filling frame from top of head to just below chin. Maximum facial detail and emotional intimacy."
+    },
+    {
+      "name": "TIGHT SHOT",
+      "prompt": "Tight shot: camera framed extremely close to subject with minimal surrounding space. Creates claustrophobic, intense, or highly focused composition."
+    }
+  ],
+  "COMPOSITION-STYLE SHOT TAGS": [
+    {
+      "name": "CENTERED COMPOSITION",
+      "prompt": "Centered composition: subject positioned in exact center of frame, creating symmetrical, balanced, formal arrangement. Emphasizes subject importance and stability."
+    },
+    {
+      "name": "RULE-OF-THIRDS COMPOSITION",
+      "prompt": "Rule-of-thirds composition: frame divided into 3x3 grid, subject positioned along gridlines or intersections. Creates balanced, natural, visually pleasing arrangement."
+    },
+    {
+      "name": "SYMMETRICAL SHOT",
+      "prompt": "Symmetrical shot: composition with balanced elements mirrored on either side of central axis. Creates harmony, formality, and aesthetic perfection."
+    },
+    {
+      "name": "ASYMMETRICAL SHOT",
+      "prompt": "Asymmetrical shot: composition with unbalanced element distribution, creating visual tension. Generates dynamic interest through intentional imbalance."
+    },
+    {
+      "name": "MINIMALIST SHOT",
+      "prompt": "Minimalist shot: composition with minimal elements, abundant empty space, simple forms. Emphasizes subject through reduction and negative space."
+    },
+    {
+      "name": "BUSY COMPOSITION",
+      "prompt": "Busy composition: frame filled with multiple elements, details, and visual information. Creates complexity, energy, or overwhelming sensory experience."
+    },
+    {
+      "name": "NEGATIVE SPACE SHOT",
+      "prompt": "Negative space shot: composition emphasizing empty areas around subject, using emptiness as design element. Creates isolation, focus, or breathing room."
+    },
+    {
+      "name": "LEADING LINES SHOT",
+      "prompt": "Leading lines composition: visual lines within frame guide viewer's eye toward subject. Creates depth, direction, and purposeful visual flow."
+    },
+    {
+      "name": "FOREGROUND FRAMING SHOT",
+      "prompt": "Foreground framing shot: elements in foreground create natural frame around subject. Adds depth, context, and directs attention to main subject."
+    },
+    {
+      "name": "OVER-THE-SHOULDER SHOT",
+      "prompt": "Over-the-shoulder shot: camera positioned behind one subject's shoulder, looking toward another. Creates conversational perspective and spatial relationship."
+    },
+    {
+      "name": "REACTION SHOT",
+      "prompt": "Reaction shot: camera captures subject responding to off-screen action or dialogue. Emphasizes emotional response and character perspective."
+    },
+    {
+      "name": "TWO-SHOT",
+      "prompt": "Two-shot: camera frames two subjects within same composition. Establishes relationship, interaction, or comparison between characters."
+    },
+    {
+      "name": "THREE-SHOT",
+      "prompt": "Three-shot: camera frames three subjects within composition, showing group dynamic. Creates triangular visual relationship and social interaction."
+    },
+    {
+      "name": "GROUP SHOT",
+      "prompt": "Group shot: camera captures multiple subjects arranged together in frame. Emphasizes collective presence, community, or ensemble dynamic."
+    }
+  ],
+  "MOVEMENT-RELATED CAMERA SHOTS": [
+    {
+      "name": "TRACKING SHOT",
+      "prompt": "Tracking shot aesthetic: composition suggesting camera movement following subject laterally. Creates dynamic sense of motion, pursuit, or accompaniment."
+    },
+    {
+      "name": "DOLLY SHOT",
+      "prompt": "Dolly shot style: composition implying camera physically moving toward or away from subject on track. Creates smooth approach or retreat with depth change."
+    },
+    {
+      "name": "CRN-SHOT",
+      "prompt": "Crane shot perspective: composition suggesting camera positioned on crane, capable of sweeping vertical and horizontal movement. Creates grand, elevated, cinematic perspective."
+    },
+    {
+      "name": "BOOM SHOT",
+      "prompt": "Boom shot style: composition implying camera on boom arm, moving vertically. Creates rising or lowering perspective with dramatic reveal."
+    },
+    {
+      "name": "ZOOM SHOT",
+      "prompt": "Zoom shot aesthetic: composition suggesting focal length change, appearing to move closer or farther. Creates intensity increase or dramatic distance change."
+    },
+    {
+      "name": "PUSH-IN SHOT",
+      "prompt": "Push-in composition: framing suggesting camera moving steadily closer to subject. Creates building tension, intimacy, or focused attention."
+    },
+    {
+      "name": "PULL-BACK SHOT",
+      "prompt": "Pull-back composition: framing suggesting camera moving away from subject, revealing context. Creates revelation, scope expansion, or isolation."
+    },
+    {
+      "name": "PAN SHOT",
+      "prompt": "Pan shot style: composition implying horizontal camera rotation across scene. Creates sweeping survey, landscape revelation, or spatial exploration."
+    },
+    {
+      "name": "TILT SHOT",
+      "prompt": "Tilt shot aesthetic: composition suggesting vertical camera rotation, scanning up or down. Creates height revelation or vertical space exploration."
+    },
+    {
+      "name": "ARC SHOT",
+      "prompt": "Arc shot composition: framing suggesting camera moving in curved path around subject. Creates dimensional reveal, dynamic perspective, and circular motion."
+    },
+    {
+      "name": "360-DEGREE SHOT",
+      "prompt": "360-degree perspective: composition implying complete circular camera path around subject. Creates comprehensive spatial understanding and dynamic rotation."
+    },
+    {
+      "name": "STATIC SHOT",
+      "prompt": "Static shot: camera fixed in single position without movement. Creates stability, observation, and deliberate, contemplative framing."
+    }
+  ],
+  "LENS / PERSPECTIVE TYPE": [
+    {
+      "name": "WIDE-ANGLE SHOT",
+      "prompt": "Wide-angle lens shot: composition showing expanded field of view with slight barrel distortion. Exaggerates space, depth, and environmental scope."
+    },
+    {
+      "name": "ULTRA-WIDE SHOT",
+      "prompt": "Ultra-wide lens shot: composition with extremely expanded field of view and pronounced barrel distortion. Creates dramatic spatial exaggeration and immersive perspective."
+    },
+    {
+      "name": "FISHEYE SHOT",
+      "prompt": "Fisheye lens shot: composition with spherical distortion creating circular, bulging perspective. Dramatically warps space, creating surreal, immersive viewpoint."
+    },
+    {
+      "name": "TELEPHOTO SHOT",
+      "prompt": "Telephoto lens shot: composition with compressed perspective, flattened depth, and narrow field of view. Creates isolated subject with beautifully blurred background."
+    },
+    {
+      "name": "PORTRAIT-LENS SHOT",
+      "prompt": "Portrait-lens shot: composition with shallow depth of field, subject sharp against softly blurred background. Creates pleasing bokeh and subject isolation."
+    },
+    {
+      "name": "MACRO-LENS SHOT",
+      "prompt": "Macro-lens shot: composition capturing extreme detail of small subject at very close range. Reveals microscopic textures and details with minimal depth of field."
+    },
+    {
+      "name": "TILT-SHIFT SHOT",
+      "prompt": "Tilt-shift lens shot: composition with selective focus plane, creating miniature effect or corrected perspective. Produces dreamy, toy-like, or architecturally corrected view."
+    },
+    {
+      "name": "ANAMORPHIC SHOT",
+      "prompt": "Anamorphic lens shot: composition with characteristic wide aspect ratio, horizontal lens flares, and oval bokeh. Creates cinematic, premium visual aesthetic."
+    }
+  ],
+  "SPECIAL POV / PERSPECTIVE": [
+    {
+      "name": "FIRST-PERSON SHOT",
+      "prompt": "First-person perspective: camera represents character's own eyes, showing what they see. Creates immersive, subjective experience of being the character."
+    },
+    {
+      "name": "THIRD-PERSON SHOT",
+      "prompt": "Third-person perspective: camera observing subject from outside their body. Creates objective viewpoint watching character from external position."
+    },
+    {
+      "name": "OBJECT POV SHOT",
+      "prompt": "Object POV shot: camera positioned at perspective of inanimate object, showing scene from object's \"viewpoint.\" Creates unusual, creative perspective."
+    },
+    {
+      "name": "DRONE SHOT",
+      "prompt": "Drone shot perspective: elevated aerial view with smooth, floating quality. Creates sweeping, bird's-eye perspective with contemporary aesthetic."
+    },
+    {
+      "name": "SVC",
+      "prompt": "Surveillance camera angle: high-corner mounted perspective with wide-angle distortion, timestamp overlay aesthetic. Creates voyeuristic, security monitoring viewpoint."
+    },
+    {
+      "name": "SECURITY CAM ANGLE",
+      "prompt": "Security cam perspective: fixed high-angle viewpoint with grainy quality, suggesting CCTV footage. Creates documentary, monitoring, or found-footage aesthetic."
+    },
+    {
+      "name": "DASHCAM ANGLE",
+      "prompt": "Dashcam perspective: forward-facing view from vehicle dashboard, showing road ahead. Creates point-of-view from driver's position with characteristic wide angle."
+    },
+    {
+      "name": "VINTAGE FILM FILTER",
+      "prompt": "subtle warm tones, soft grain, gentle contrast, slightly faded colors, classic analog film look"
+    },
+    {
+      "name": "COOL CINEMATIC FILTER",
+      "prompt": "clean teal-and-neutral tones, smooth contrast, soft shadows, modern cinematic color grading, no added objects"
+    },
+    {
+      "name": "MSC-POV",
+      "prompt": "Microscope viewpoint: extreme magnification showing microscopic details with circular vignette. Creates scientific, detailed perspective of tiny subjects."
+    },
+    {
+      "name": "TSC-POV",
+      "prompt": "Telescope viewpoint: distant view through circular vignette, showing magnified far-away subjects. Creates astronomical, surveillance, or distant observation perspective."
+    }
+  ],
+  "3D RENDERING & CGI SPECIFIC": [
+    {
+      "prompt": "dancing refracted patterns; concentrated light webs; water/glass light distortion; bright ripple clusters, liquid-light geometry, shimmering focus patterns",
+      "name": "Caustics-Style"
+    },
+    {
+      "prompt": "soft corner shadows; contact darkness; grounded realism; subtle crevice shading, depth-weight enhancement, photorealistic surface grounding",
+      "name": "Ambient-Occlusion-Style"
+    },
+    {
+      "prompt": "surface light spillover; colored bounce glow; soft indirect tinting; diffuse bounce illumination, reflected hue wash, radiant red  color spill",
+      "name": "Color-Bleeding-Style-(Radiosity)"
+    },
+    {
+      "prompt": "realistic bulb projection shapes; textured falloff; non-uniform beam pattern; intricate light geometry, patterned illumination cone, authentic photometric spread",
+      "name": "IES-Light-Profile-Style"
+    },
+    {
+      "prompt": "light passing through glass, crystal, or water; rainbow or spectrum highlights; dispersed beams; subtle chromatic splitting; refracted volumetric glow interacting with subject",
+      "name": "PrismaticRefraction-Style"
+    }
+  ],
+  "ATMOSPHERIC & NATURAL PHENOMENA": [
+    {
+      "prompt": "parallel sunbeams through clouds/trees; dust-lit shafts; dramatic volumetric rays; radiant crepuscular beams, directional sun shafts, atmospheric diffusion, glowing light columns",
+      "name": "God-Rays-Style"
+    },
+    {
+      "prompt": "direct beams of light on the subject , light line",
+      "name": "Light-Beam-Style"
+    },
+    {
+      "prompt": "double halo bright spots; 22° parhelia; glowing mock-suns; lateral bright orbs, icy atmospheric refraction, arc halo glow, dual side-sun reflections",
+      "name": "Sun-Dogs-Style"
+    },
+    {
+      "prompt": "warm soft orange light; long shadows; glowing skin tones; rich amber lighting, directional low sun, warm atmosphere haze, cinematic sunset illumination",
+      "name": "Golden-Hour-Style"
+    },
+    {
+      "prompt": "deep cool blue ambience; shadowless soft light; civil-twilight glow; cobalt gradients, diffuse even illumination, serene low-contrast lighting, dusk-toned palette",
+      "name": "Blue-Hour-Style"
+    },
+    {
+      "prompt": "pink/red glow ; indirect horizon light; soft pastel radiance; rosy illumination, magenta skyline hue, ethereal glow, reflective high-altitude light",
+      "name": "Alpenglow-Style"
+    },
+    {
+      "prompt": "enlarged projected shadow; rainbow halo ring; fog-projection glow; ghostlike figure projection, circular glory halo, atmospheric scattering ring, mountain mist halo",
+      "name": "Brocken-Spectre-Style"
+    },
+    {
+      "prompt": "white around head shadow; dewy reflection glow; retroreflection effect; bright localized backscatter, halo-point highlight",
+      "name": "Heiligenschein-Style"
+    },
+    {
+      "prompt": "light penetrating translucent skin; glowing interior diffusion; soft internal radiance; warm red edge glow, translucent lighting, internal light bleed, organic scattering softness",
+      "name": "Subsurface-Scattering-Style"
+    },
+    {
+      "prompt": "diffused light shafts interacting with fog or mist; soft atmospheric illumination; glowing haze around subject; dreamy and immersive volumetric light",
+      "name": "Volumetric-Fog-Style"
+    },
+    {
+      "prompt": "subtle spectrum dispersion; light refracted through water, glass, or crystal; soft rainbow fringes around edges; dreamlike or ethereal glow; subject interacting with refracted light",
+      "name": "Prismatic-Rainbow-Light-Style"
+    },
+    {
+      "prompt": "momentary intense flashes; dramatic illumination of subject and surroundings; high-contrast highlights and shadows; dynamic natural light effect",
+      "name": "Lightning-Strobe-Atmosphere-Style"
+    }
+  ],
+  "Cinematic & Film Emulations": [
+    {
+      "prompt": "high contrast; very low saturation; metallic highlights; gritty desaturated  colors film look; silver-retention harshness",
+      "name": "Bleach-Bypass-style"
+    },
+    {
+      "prompt": "(cool teal shadows; warm orange skin tones; high separation between background and subject; cinematic contrast) — Keywords: teal shadows, orange highlights, blockbuster palette, warm skin tones, cool background, cinematic grade",
+      "name": "Teal-and-Orange-(Hollywood-Blockbuster)"
+    },
+    {
+      "prompt": "unnatural color casts; extreme contrast; green/cyan shadows; yellow/red highlights; surreal tonal shifts",
+      "name": "Cross-Processing(X-Pro)"
+    },
+    {
+      "prompt": "hyper-saturated reds and greens; creamy whites; painted-looking skin tones; vintage film richness, saturated primaries, lush reds, vintage greens, creamy whites, retro film look",
+      "name": "echnicolor(2-Strip-3-Strip)"
+    },
+    {
+      "prompt": "day scenes graded to blue; crushed highlights; underexposed tones; simulation,blue tint, crushed sky, nighttime emulation, underexposed daylight, cinematic look",
+      "name": "Day-for-Night"
+    },
+    {
+      "prompt": "punchy contrast; vibrant reds/yellows; slightly cool shadows; fine grain; classic analog color, vintage Kodak, rich reds, punchy contrast, cool shadows, film grain",
+      "name": "Kodachrome-Look"
+    },
+    {
+      "prompt": "dramatic contrast; deep shadows; limited illumination; moody and mysterious atmosphere; subject highlighted by selective lighting; emphasis on shadow shapes",
+      "name": "Low-Key-Style"
+    },
+    {
+      "prompt": "very bright, minimal shadows; soft even illumination; light-filled scene; subject brightly lit with low contrast; airy and clean visual tone",
+      "name": "High-Key-Style"
+    },
+    {
+      "prompt": "strong interplay of light and shadow; painterly contrast; highlights sharply define form; dramatic and artistic lighting; subject illuminated in cinematic shadow patterns",
+      "name": "Chiaroscuro-Style"
+    },
+    {
+      "prompt": "vivid colored lighting; bright neon tones; reflective surfaces glowing in saturated hues; urban / cyberpunk aesthetic; subject illuminated by multi-colored light sources",
+      "name": "Neon-Glow-Style"
+    },
+    {
+      "prompt": "focused directional light; hard-edged beam; high contrast between subject and background; stage or theatrical illumination; dramatic center of attention",
+      "name": "Spotlight-Style"
+    },
+    {
+      "name": "Light-Leak-Style",
+      "prompt": "analog film effect; accidental streaks of colored light; hazy glows; soft gradients of warm or magenta tones; nostalgic or dreamy imperfections; light bleeding across the frame"
+    }
+  ],
+  "Color Theory & Harmony Effects": [
+    {
+      "prompt": "entire image in tints/tones/shades of a single hue; unified minimal palette",
+      "name": "Monochromatic"
+    },
+    {
+      "prompt": "adjacent, harmonious, natural; gentle gradient from yellow to green, seamless color flow, soft and smooth transitions, unified frame, natural aesthetic",
+      "name": "Analogous-colors-style"
+    },
+    {
+      "prompt": "opposite hues; high contrast; bold visual pop; strong , red–green contrast, blue–orange pop, opposite hues, dramatic color tension",
+      "name": "Complementary-style"
+    }
+  ],
+  "DIGITAL SENSOR & GLITCH ARTIFACTS": [
+    {
+      "prompt": "light overflow; bleeding highlights; bright objects lose shape; pixel-spill glow, overexposed bloom bleed, radiant highlight washout, sensor inundation effect",
+      "name": "Sensor-Blooming-Style"
+    },
+    {
+      "prompt": "vertical bright streak; continuous line from light source; strong CCD artifact; column smear trail, elongated pixel streaks, vertical luminance drag",
+      "name": "Smearing-Style-(CCD)"
+    },
+    {
+      "prompt": "wavy rainbow interference on the image light; fine-grid distortion; spectral patterning; overlapping the image fractal ripples, iridescent mesh distortion frame, micro-pattern color waves",
+      "name": "Moiré-Pattern-Style-effect"
+    },
+    {
+      "prompt": "tiny single red/green/blue dots; all-locations defects; pixel anomalies; random bright speckles, sensor noise defects, static like points",
+      "name": "Hot-Pixels-Style"
+    },
+    {
+      "prompt": "gradient breaks; stepped color regions; tonal discontinuity; discrete color bands, low-bit gradient plateaus, posterized sky tones",
+      "name": "Banding-Style-(Posterization)"
+    },
+    {
+      "name": "Film-Grain-Style",
+      "prompt": "subtle or heavy analog noise; textured image surface; retro photographic feel; visual imperfections resembling classic film stock; soft tonal variation across subject"
+    },
+    {
+      "name": "HDR-Tone-Mapping-Style",
+      "prompt": "high dynamic range; enhanced contrast and detail in highlights and shadows; vibrant yet balanced colors; subject rendered with enhanced depth and clarity"
+    },
+    {
+      "name": "Vignette-Style",
+      "prompt": "darkened or subtly shaded image corners; draws attention toward center; soft gradient around edges; classic cinematic or portrait emphasis; subject highlighted by surrounding shading"
+    },
+    {
+      "name": "Strobe-Flash-Effect-Style",
+      "prompt": "momentary intense light; dramatic frozen motion; high-contrast highlights and shadows; simulated flash photography; dynamic subject illumination with sharp light bursts"
+    }
+  ],
+  "Digital Grading & Post-Processing": [
+    {
+      "prompt": "color in shadows and  in highlights; stylized only two-hue mood cast; non-natural palette, dual tone, colored shadows, colored highlights, mood tinting, stylized palette",
+      "name": "Split-Toning-Style"
+    },
+    {
+      "prompt": "one color preserved saturated ; strong visual isolation of the color, isolated hue, high contrast focal color",
+      "name": "Selective-Color-Style"
+    },
+    {
+      "prompt": "full image mapped to two or three ink-like hues; uniformgraphic tonal structure; no natural colors ,duotone ink, uniform palette, graphic colors, poster style, limited hues",
+      "name": "Duotone-Tritone-Style"
+    },
+    {
+      "prompt": "(lowered saturation; washed-out tones; somber palette; subdued mood ,low saturation, washed palette, soft contrast, muted tones, subdued look)-",
+      "name": "Desaturated-Muted"
+    },
+    {
+      "prompt": "Vivid colors, enhanced saturation, radiant tones, intense and vibrant hues, eye-catching color pop, rich and luminous colors",
+      "name": "Vibrance-Boost-Style"
+    },
+    {
+      "prompt": "global hue shift; emotional palette; warm/cool/green tonal atmospheres, warm sepia, cool blue, green matrix tint, mood color shift, emotional palette",
+      "name": "Color-Grading-(Mood)"
+    }
+  ],
+  "LENS & OPTICAL ARTIFACTS": [
+    {
+      "prompt": "creamy out-of-focus background; soft circular/hexagonal bokeh; luminous blur shapes; high-aperture rendering f/1.4–f/2; fairy-light sparkle, circular bokeh spheres, soft blur disks, shallow focus optics, glowing highlights, smooth DOF falloff, cinematic focus",
+      "name": "Bokeh-Style"
+    },
+    {
+      "prompt": "swirling background blur; circular twist around subject; Helios-style spin; rotating bokeh field, optical swirl motion, curved depth distortion, center-weighted focus clarity, analog lens character, dreamy rotational blur",
+      "name": "Swirly-Bokeh-Style-(Petzval)"
+    },
+    {
+      "prompt": "edge-compressed bokeh; oval-rugby-ball highlights; vignetting-induced background distortion; background directional oval  blur , tapered highlight shapes, peripheral compression, asymmetrical spread bokeh geometry , cinematic focused subject",
+      "name": "Bokeh-Style-CE"
+    },
+    {
+      "prompt": "medium transparent inner bokeh-discs circular shaped bokehs, soft translucent inside centers, bokeh hard edges effects,optical bokeh ring artifacts , bubbl-bokeh",
+      "name": "SPB-Bokeh-Style"
+    },
+    {
+      "prompt": "static natural blended directional blue/cyan streak flares; widescreen optical compression; elongated blue flare bands; cinematic natural flares, compressed lens geometry, highlight forms, flare sweep , cinematic focus on subject",
+      "name": "Anamorphic-Lens-Flare-Style"
+    },
+    {
+      "prompt": "soft  giant light glare hard edges ; wshed glowing scatter, bright atmospheric light flare covers , giant radius lense glare ,  soft obstructing subject giant glare",
+      "name": "Veiling-Glare-Style"
+    },
+    {
+      "prompt": "Layered ghosted subjects, fuzzy super overlapping shapes, motion blur on moving subject, prolonged exposure , semi-transparent stacked exposures, subtle lens aberrations and reflective artifacts, distorted focal length ,ethereal distortion, scattered highlights and subtle ghost flare, elongated motion trails spectral glow, overlapping movement between consecutive frames , intensive hard exaggerated overlapping transparent effect, intense optical aberration ,warped perspective layering",
+      "name": "Ghosting-Style"
+    },
+    {
+      "prompt": "sharp radiating spikes; aperture-blade diffraction; bright point splitting into rays; multi-point star flare, crisp light spikes, radiating sun-lines, high-contrast starburst geometry",
+      "name": "Sunstar-Starburst-Style"
+    },
+    {
+      "prompt": "Overlapping radiant edges in green and purple, translucent spectral outlines, high-contrast color-fringe separation, pronounced halo streaks, optical dispersion with RGB offset, streaked luminous edges, with green pushed left and purple pushed right, blending together in a balanced, shifting chromatic glow.",
+      "name": "Chromatic-Aberration-Style-(Fringing)"
+    },
+    {
+      "prompt": "Zoomed-OUT background warping SHRINKING  around subject, intense lens distortion with spherical aberration, pronounced RGB fringing on edges, subtle color bleeding, chromatic separation, warped perspective, soft optical blur, dreamy cinematic lens effect, slight background swirl, distorted light refraction, artistic optical imperfection , MAGNIFIED AND WARPED SUBJECT",
+      "name": "SAberration-Style"
+    }
+  ],
+  "PORTRAIT & STUDIO PATTERNS": [
+    {
+      "prompt": "triangle of light on shadowed cheek; directional chiaroscuro; dramatic portrait contrast; sculpted face shadows, classic painterly lighting, angled key-light shaping",
+      "name": "Rembrandt-Lighting-Style"
+    },
+    {
+      "prompt": "symmetrical light and shadow; equal nose shadow in left and right and eyes shadow; smooth highlight, equal frontal shadow and light , facial symmetrical shadows",
+      "name": "BTFL-Style"
+    },
+    {
+      "prompt": "light source moved about 30° to the side and 20–30° above eye level, causing the nose shadow to fall sideways and form a small loop; brighter illumination on the light-facing side of the face; smooth gradient of shadow on the opposite cheek; subject facing straight toward the camera with no change in pose, only the light repositioned",
+      "name": "Loop-Lighting-Style"
+    },
+    {
+      "prompt": "one side lit, one side dark; 50/50 contrast; dramatic tonal divide; high-contrast portrait splitting, bold shadow plane, sculptural face separation",
+      "name": "Split-Lighting-Style"
+    },
+    {
+      "prompt": "thin bright outline from behind; silhouette separator; glowing edge halo; crisp edge-light band, background separation flare, luminous outline shaping",
+      "name": "Rim-Light-Style"
+    },
+    {
+      "prompt": "Light coming above the subject angled downward, second light or reflection of light coming below angled upward; soft, even illumination across the subject; minimal downward shadows; smooth, balanced highlights; symmetrical lighting that produces a gentle glow and clean, flattering tones",
+      "name": "Clamshell-Lighting-Style"
+    },
+    {
+      "prompt": "Illumination coming from two different angles, one side brighter and the other creating opposing highlights; strong contrast shaping; textured appearance enhanced by cross-directional light; layered shadows adding depth; dynamic and edgy lighting atmosphere",
+      "name": "Cross-Lighting-Style"
+    },
+    {
+      "prompt": "front-facing side lit; widening effect; bright turned face plane; open-side illumination, expansive facial highlight, portrait broadness emphasis",
+      "name": "Broad-Lighting-Style"
+    },
+    {
+      "prompt": "distant face side lit; slimming effect; deep sculpted contours; shadow-rich shaping, contrasty face definition, refined portrait structure",
+      "name": "Short-Lighting-Style"
+    }
+  ],
+  "STAGE, LASER & ARTISTIC EFFECTS": [
+    {
+      "prompt": "stenciled light shapes; hard shadow projections; patterned illumination; crisp cutout shadows, geometric light casting, artistic projection texture",
+      "name": "Gobo-Style"
+    },
+    {
+      "prompt": "above the subject far away a  uniform Laser tails",
+      "name": "Liquid-Sky-Style-(Laser)"
+    },
+    {
+      "prompt": "visible glowing light-beam; thick illuminated air; fog-defined cone; dense atmospheric rays, cinematic volumetric scatter, beam-through-fog glow",
+      "name": "Volumetric-Light-Style"
+    },
+    {
+      "prompt": "long-exposure glowing streaks; motion trails; drawn-in-air lines; luminous flowing ribbons, kinetic light traces, neon path strokes",
+      "name": "Light-Painting-Style"
+    },
+    {
+      "prompt": "spotted light patches; leaf-filtered sun pattern; natural broken light; organic shadow play, nature-lit speckles, soft shifting patches",
+      "name": "Dappled-Light-Style"
+    }
+  ],
+  "Technical & Glitch Artifacts": [
+    {
+      "prompt": "Posterized Style (reduced color steps; banded gradients; flat color planes; graphic simplification) — Keywords: limited palette, color bands, flat gradients, digital reduction",
+      "name": "Posterization"
+    },
+    {
+      "prompt": "magenta/green speckles in shadows; digital grain; noisy low-light texture, color speckle noise, high ISO artifacts, digital shadow noise",
+      "name": "Chroma-Noise"
+    },
+    {
+      "prompt": "visible stepped transitions between tones; broken and segmented gradients; low bit-depth appearance; 8-bit photography look; banded color tones; digital artifacting; sharp gradient steps; retro digital aesthetic; pixel-level color separation; intentionally imperfect color blending",
+      "name": "Color-banding-style"
+    },
+    {
+      "prompt": "Chromatic aberration style; pink, cyan, and green fringing along edges; misaligned lens colors; RGB separation on outlines; retro digital lens flaw; edge halos; color fringing; slight lens distortion; intentional optical imperfection; subtle RGB misalignment creating a glitchy or retro photographic effect",
+      "name": "Chromatic-Aberration-Style"
+    },
+    {
+      "prompt": "Clipped-color style; overexposed color channels; blown-out red, green, or blue areas; flat highlights lacking detail; channel burnout; detail loss in bright areas; strong color clipping; intentional overexposure; subject affected by clipped colors; minimal texture in highlighted regions",
+      "name": "Color-Clipping-(Burnout)"
+    }
+  ],
+  "VINTAGE & CHEMICAL PROCESSES": [
+    {
+      "prompt": "warm brown and orange monochrome; creamy highlights; soft contrast; antique aesthetic; vintage look; nostalgic and classic atmosphere warm sepia tones",
+      "name": "Sepia-Tone-Style"
+    },
+    {
+      "prompt": "Cyanotype Style (Prussian-blue monochrome; white highlights; blueprint aesthetic) — Keywords: deep blue tone, cyan monochrome, blueprint look, high-contrast blue",
+      "name": "Cyanotype"
+    },
+    {
+      "prompt": "oversaturated colors; heavy vignette; yellow/green tint; toy-camera imperfections ,vignette edges, oversaturation, color shifts, light leaks, lo-fi film",
+      "name": "Lomography-(Lomo)"
+    },
+    {
+      "prompt": "soft contrast; faded blacks; slight green or magenta color cast; dreamy instant-film texture; retro softness; soft shadows; muted highlights; subtle film grain; nostalgic aesthetic; subject integrated into faded, vintage tones",
+      "name": "Polaroid-Instant-film"
+    }
+  ],
+  "ELEMENTAL MATERIALS": [
+    {
+      "name": "FIRE-SHAPED-SUBJECT",
+      "prompt": "Glowing 3D realistic, Flickering, Lively, Intense, Warm, Dynamic, Blazing, Radiant, Ember-like, Smoke Rising, Heat Waves. Fire shaped like a "
+    },
+    {
+      "name": "LAVA-SHAPED-SUBJECT",
+      "prompt": "Molten 3D realistic, Glowing, Flowing, Fiery, Viscous, Radiant, Smoky. Lava shaped like a "
+    },
+    {
+      "name": "EARTH-SHAPED-SUBJECT",
+      "prompt": "Textured 3D realistic, Crumbly, Dense, Organic, Rough, Natural, Soil Particles, Moss Accents. Dirt shaped like a "
+    },
+    {
+      "name": "ASH-SHAPED-SUBJECT",
+      "prompt": "Powdery ,wood heat chalky 3D realistic,  grey black , Dusty, Charred, Soft, Smoke residue, Dispersed particles burnt ashen. Ash shaped like a "
+    },
+    {
+      "name": "WATER-SHAPED-SUBJECT",
+      "prompt": "Transparent 3D realistic, Liquid, Clear, Rippled, Flowing. Water shaped like a "
+    },
+    {
+      "name": "ICE-SHAPED-SUBJECT",
+      "prompt": "Transparent 3D realistic, Frosted, Crystalline, Cold, Smooth, Glimmering. Ice shaped like a "
+    },
+    {
+      "name": "MIST-SHAPED-SUBJECT",
+      "prompt": "foggy, Floating smoke-shaped , vapor , ghostly, diffuse, haze . foggy 3D shaped transparent Mist forming a "
+    },
+    {
+      "name": "SNOW-SHAPED-SUBJECT",
+      "prompt": "3D realistic, White, Frosted, Soft, Crystalline, Sparkling. Snow shaped like a "
+    }
+  ],
+  "STONE / MINERAL MATERIALS": [
+    {
+      "name": "CLAY-SHAPED-SUBJECT",
+      "prompt": "Soft 3D realistic, Moldable, Earthy, Wet or Dry, Textured, Hand-shaped appearance. Clay shaped like a "
+    },
+    {
+      "name": "CLAY-BRICK-RED-SHAPED-SUBJECT",
+      "prompt": "Terracotta tone, Porous, Rough, Fired ceramic, Industrial texture. Red clay brick shaped like a "
+    },
+    {
+      "name": "BRICK-SHAPED-SUBJECT",
+      "prompt": "Rough 3D realistic, Textured, Heavy, Mortar-lined, Weathered, Solid, Structural. Brick shaped like a "
+    },
+    {
+      "name": "CONCRETE-SHAPED-SUBJECT",
+      "prompt": "Rough gray texture, Porous, Heavy, Industrial, cement surface, Solid. Concrete shaped like a "
+    },
+    {
+      "name": "STONE-SHAPED-SUBJECT",
+      "prompt": "Rough 3D realistic, Weathered, Cracked, Heavy, Textured, Natural minerals. Stone shaped like a "
+    },
+    {
+      "name": "GRANITE-SHAPED-SUBJECT",
+      "prompt": "Speckled stone texture, Polished or rough, Dense, Mineral flecks, Heavy. Granite shaped like a "
+    },
+    {
+      "name": "MINERAL-SHAPED-SUBJECT",
+      "prompt": "Crystalline clusters, Raw stone texture, Metallic flecks, Natural formation. Mineral shaped like a "
+    },
+    {
+      "name": "MARBLE-SHAPED-SUBJECT",
+      "prompt": "Polished 3D realistic, Veined, Smooth, Reflective, Elegant, Stone-textured, Weighty. Marble shaped like a "
+    },
+    {
+      "name": "OBSIDIAN-SHAPED-SUBJECT",
+      "prompt": "Glassy 3D realistic, Black volcanic stone, Razor-sharp reflections, Polished, Iridescent edges. Obsidian shaped like a "
+    }
+  ],
+  "PRECIOUS MATERIALS": [
+    {
+      "name": "GOLD-SHAPED-SUBJECT",
+      "prompt": "Glowing 3D realistic, Polished, Lustrous, Shiny, Precious, Reflective, Warm, Ornate, Radiant. Gold shaped like a "
+    },
+    {
+      "name": "DIAMOND-SHAPED-SUBJECT",
+      "prompt": "Sparkling 3D realistic, Faceted, Clear, Prismatic, Reflective, Hard, Gem-like, Radiant. Diamond shaped like a "
+    },
+    {
+      "name": "SAPPHIRE-SHAPED-SUBJECT",
+      "prompt": "Deep blue faceted , Transparent, Highly refractive, Polished, Luminous. Sapphire material shaped like a "
+    },
+    {
+      "name": "RUBY-SHAPED-SUBJECT",
+      "prompt": "Red faceted , Clear, Highly reflective, Prismatic. Ruby shaped like a3D realistic "
+    },
+    {
+      "name": "AMETHYST-SHAPED-SUBJECT",
+      "prompt": "Purple crystalline clusters, Sparkling, Raw mineral formation, Semi-transparent. Amethyst shaped like a "
+    },
+    {
+      "name": "OPAL-SHAPED-SUBJECT",
+      "prompt": "Iridescent 3D realistic, Glossy, Smooth, Color-shifting, Radiant. Opal shaped like a "
+    }
+  ],
+  "METALLIC MATERIALS": [
+    {
+      "name": "METALLIC-SHAPED-SUBJECT",
+      "prompt": "Shiny 3D realistic, Polished, Reflective, Smooth, Industrial, Brushed, Rusted, Cold, Hard. Metal shaped like a "
+    },
+    {
+      "name": "MERCURY-SHAPED-SUBJECT",
+      "prompt": "Liquid metal, Heavy fluid, High surface tension, Silver droplets, Mirror-like reflection, Smooth, Beading. Mercury shaped like a "
+    },
+    {
+      "name": "BRASS-SHAPED-SUBJECT",
+      "prompt": "Yellow metallic alloy, Polished shine, Warm tone, Engraved or smooth. Brass shaped like a "
+    },
+    {
+      "name": "BRONZE-SHAPED-SUBJECT",
+      "prompt": "Metallic brown-gold, Aged patina, Sculpted, Heavy, Classic alloy shine. Bronze shaped like a "
+    },
+    {
+      "name": "MOLTEN-METAL-SHAPED-SUBJECT",
+      "prompt": "Glowing liquid metal, reflective, Hot, Fluid, Bright orange edges. Molten metal shaped like a "
+    },
+    {
+      "name": "CARBON-FIBER-SHAPED-SUBJECT",
+      "prompt": "Woven black composite, Glossy resin coat, Lightweight, High-tech, Reflective weave. Carbon fiber shaped like a "
+    }
+  ],
+  "SYNTHETIC & INDUSTRIAL MATERIALS": [
+    {
+      "name": "RUBBER-SHAPED-SUBJECT",
+      "prompt": "Smooth 3D realistic, Flexible, Matte or Glossy, Synthetic, Durable. Rubber shaped like a "
+    },
+    {
+      "name": "TIRE-RUBBER-SHAPED-SUBJECT",
+      "prompt": "Deep tread grooves, Black textured rubber, Heavy-duty, Industrial. Tire rubber shaped like a "
+    },
+    {
+      "name": "PLASTIC-BOTTLE-SHAPED-SUBJECT",
+      "prompt": "Transparent , Molded ridges, distortion, Glossy, Recycled. Many Plastic bottles shaped like a "
+    },
+    {
+      "name": "PLASTIC-WRAP-SHAPED-SUBJECT",
+      "prompt": "Clear texture, Air pockets, transparency. Empty Bubble wrap shaped like a sculptedinvisible and hollow "
+    },
+    {
+      "name": "BLOCK-SHAPED-SUBJECT",
+      "prompt": "Voxel construction, Studded surface, Modular, Geometric. Plastic bricks shaped like a realistic "
+    },
+    {
+      "name": "FOIL-SHAPED-SUBJECT",
+      "prompt": "Crinkled silver texture, Highly reflective, Sharp creases, Metallic thin film, Shiny. Aluminium foil shaped like a "
+    },
+    {
+      "name": "WIRE-SHAPED-SUBJECT",
+      "prompt": "Tangled cables, Copper or steel strands, Industrial weave, Complex mesh, Tech-waste aesthetic. Wire shaped like a "
+    },
+    {
+      "name": "PCB-SHAPED-SUBJECT",
+      "prompt": "Green circuit texture, Gold traces, Soldered components, Capacitors, High-tech, Intricate details. Electronic chips shaped like a "
+    },
+    {
+      "name": "TAR-SHAPED-SUBJECT",
+      "prompt": "Thick 3D realistic, Black, Glossy, Sticky, Viscous, Dripping, Dense. Tar shaped like a "
+    }
+  ],
+  "LIGHT-BASED / ENERGY MATERIALS": [
+    {
+      "name": "NEBULA-SHAPED-SUBJECT",
+      "prompt": "Ionized gas, Purple and pink hues, Soft glow, Energy field, Stellar texture, Gaseous. Plasma shaped like a "
+    },
+    {
+      "name": "PLASMA-SHAPED-SUBJECT",
+      "prompt": "Electrified energy arcs, Glowing, Vibrational, Chaotic light patterns. Plasma shaped like a "
+    },
+    {
+      "name": "HOLOGRAM-SHAPED-SUBJECT",
+      "prompt": "Translucent 3D projection, Glitching, Luminous, Pixel-lit edges, Futuristic, Floating light grid, Volumetric glow. Hologram shaped like a "
+    },
+    {
+      "name": "ELECTRICITY-SHAPED-SUBJECT",
+      "prompt": "High-voltage arcs, Glowing blue-yellow-white, Crackling energy, Jagged lines, Luminous, Dynamic, Volatile. Electricity shaped like a "
+    },
+    {
+      "name": "NEON-SHAPED-SUBJECT",
+      "prompt": "Luminous realistic, Vibrant, Glowing, Electric, Bright, Futuristic. Neon shaped like a "
+    }
+  ],
+  "NATURAL ORGANIC MATERIALS": [
+    {
+      "name": "PLANT-SHAPED-SUBJECT",
+      "prompt": "Lush 3D realistic, Green, Leafy, Textured, Organic, Blooming, Natural, Vine-like, Rooted. Plant shaped like a "
+    },
+    {
+      "name": "BAMBOO-SHAPED-SUBJECT",
+      "prompt": "Hollow segments, Natural green or dried tan, Linear texture, Organic, Fibrous. Bamboo shaped like a "
+    },
+    {
+      "name": "BONE-SHAPED-SUBJECT",
+      "prompt": "Textured 3D realistic, Hard, Organic, Weathered, Pale, Detailed. Bone shaped like a "
+    },
+    {
+      "name": "FUR-SHAPED-SUBJECT",
+      "prompt": "Soft dense fibers, Realistic strands, Fluffy, Textured, Warm tactile look. Fur shaped like a "
+    },
+    {
+      "name": "CORAL-SHAPED-SUBJECT",
+      "prompt": "Porous texture, Marine organic, Calcified, Colorful details, Reef-like structure, Rough. Coral shaped like a "
+    },
+    {
+      "name": "FEATHER-SHAPED-SUBJECT",
+      "prompt": "abstract , 3D realistic full with feathers , Detailed , Flowing. . Many feathers shaped like astylized stristic plumage-like "
+    },
+    {
+      "name": "CLAMSHELL-SHAPED-SUBJECT",
+      "prompt": "Textured ridges, Pearlescent interior, Rough outer shell, Coastal, Organic. Many Clamshells shaped like a "
+    }
+  ],
+  "FABRIC / TEXTILE MATERIALS": [
+    {
+      "name": "LINEN-SHAPED-SUBJECT",
+      "prompt": "Woven natural fibers, Soft matte texture, Light and breathable, Subtle cross-thread pattern, Organic and lightweight. Linen shaped like a3D "
+    },
+    {
+      "name": "FABRIC-SHAPED-SUBJECT",
+      "prompt": "Soft 3D realistic, Flowing, Draped, Smooth, Woven, Textured. Fabric shaped like a "
+    },
+    {
+      "name": "SILK-SHAPED-SUBJECT",
+      "prompt": "Smooth flowing fabric, High-gloss sheen, Delicate drape, Ultra-fine fibers, Elegant shimmer, Luxurious texture. Silk shaped like a "
+    },
+    {
+      "name": "VELVET-SHAPED-SUBJECT",
+      "prompt": "Soft crushed fabric, Sheen, Deep shadows, Smooth, Luxurious, Tactile fuzz. Velvet shaped like a "
+    },
+    {
+      "name": "LEATHER-SHAPED-SUBJECT",
+      "prompt": "Tanned hide texture, Visible grain, Stitched seams, Worn or Polished, Durable, Brown/Black tones. Leather shaped like a "
+    },
+    {
+      "name": "DENIM-SHAPED-SUBJECT",
+      "prompt": "Blue jean texture, Woven cotton, White stitching, Frayed edges, Heavy fabric, Indigo. Denim shaped like a "
+    }
+  ],
+  "SOFT / POROUS MATERIALS": [
+    {
+      "name": "FOAM-SHAPED-SUBJECT",
+      "prompt": "Soft porous texture, Lightweight, Air-bubble structure, Spongy, Matte. Bubble Foam shaped like a "
+    },
+    {
+      "name": "CORK-SHAPED-SUBJECT",
+      "prompt": "Compressed wood particles, Porous, Matte tan color, Natural, Lightweight, Vintage. Cork shaped like a "
+    },
+    {
+      "name": "SPONGE-MATERIAL",
+      "prompt": "Sponge-material shaped like a, porous texture, Air holes, Soft, Absorbent, Matte, Squeezable."
+    }
+  ],
+  "POWDER / DUST / GRAIN MATERIALS": [
+    {
+      "name": "SAND-SHAPED-SUBJECT",
+      "prompt": "realistic, Textured, Loose, Dry, Natural, Layered. 3D Sand shaped like a "
+    },
+    {
+      "name": "CHARCOAL-SHAPED-SUBJECT",
+      "prompt": "Burnt 3D realistic, Matte dark texture, Cracked, Dry, Chalky edges. Charcoal shaped like a "
+    }
+  ],
+  "LIQUID / VISCOUS MATERIALS": [
+    {
+      "name": "HONEY-SHAPED-SUBJECT",
+      "prompt": "Golden amber liquid, Viscous, Translucent, Sticky, Slow-dripping, Sweet gloss, Bubble inclusions. Honey shaped like a "
+    },
+    {
+      "name": "MILK-SHAPED-SUBJECT",
+      "prompt": "Creamy white liquid 3D realistic, Splashing, Opaque, Smooth, Fluid motion, Droplets, Pure. Milk shaped like a "
+    },
+    {
+      "name": "CHOCOLATE-SHAPED-SUBJECT",
+      "prompt": "Melting dark chocolate, Matte to satin finish, Smooth, Rich brown, Thick liquid flow. Chocolate shaped like a "
+    },
+    {
+      "name": "SLIME-SHAPED-SUBJECT",
+      "prompt": "Translucent, Gooey, Dripping, Wet, Gelatinous, Sticky, Glossy surface. Slime shaped like a "
+    },
+    {
+      "name": "INK-SHAPED-SUBJECT",
+      "prompt": "Fluid simulation 3D realistic, Swirling in water, Dissolving edges, Smoky liquid, High contrast, Abstract flow. Black ink shaped like a "
+    },
+    {
+      "name": "PAINT-SHAPED-SUBJECT",
+      "prompt": "Acrylic texture 3D realistic, Brush strokes, Wet gloss, Colorful, Heavy blend, Artistic. Thick paint shaped like a "
+    },
+    {
+      "name": "BLOOD-SHAPED-SUBJECT",
+      "prompt": "Deep crimson liquid, Glossy, Viscous, Splattered, Droplets, Organic fluid, High contrast. Blood shaped like a "
+    }
+  ]
+}

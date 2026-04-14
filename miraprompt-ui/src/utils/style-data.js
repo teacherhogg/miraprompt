@@ -146,6 +146,7 @@ export function getStyleChips(data, category, subcategory, selectedStyles) {
   const { scopeMap } = buildMergedStylesWithScopes(data, category, subcategory);
   const chips = [];
   for (const [dimension, groups] of Object.entries(selectedStyles)) {
+    if (dimension === 'saved-styles' || Array.isArray(groups)) continue;
     for (const [groupName, options] of Object.entries(groups || {})) {
       for (const option of (options || [])) {
         const scope = scopeMap?.[dimension]?.[groupName]?.[option] || 'global';

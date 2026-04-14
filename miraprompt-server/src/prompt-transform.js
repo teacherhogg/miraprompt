@@ -1,40 +1,60 @@
-function flattenStyles(styles) {
+const BASE_DIMENSION_ORDER = [
+  'composition',
+  'lighting',
+  'color palette',
+  'detail level',
+  'mood',
+  'background',
+];
+
+function toTitle(text) {
+  return String(text)
+    .split(' ')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function orderedDimensions(styles) {
+  const all = Object.keys(styles || {}).filter((key) => key !== 'saved-styles');
+  const ordered = BASE_DIMENSION_ORDER.filter((key) => all.includes(key));
+  const extras = all.filter((key) => !BASE_DIMENSION_ORDER.includes(key)).sort((a, b) => a.localeCompare(b));
+  return ordered.concat(extras);
+}
+
+function buildStyleSummaryLines(styles) {
   const lines = [];
-  const dimensions = Object.keys(styles || {}).sort((a, b) => a.localeCompare(b));
 
-  for (const dimension of dimensions) {
-    const groups = styles[dimension] || {};
-    const groupParts = Object.keys(groups)
+  orderedDimensions(styles).forEach((dimension) => {
+    const groups = styles?.[dimension] || {};
+    const values = Object.keys(groups)
       .sort((a, b) => a.localeCompare(b))
-      .map((groupName) => `${groupName}: ${groups[groupName].join(', ')}`);
+      .flatMap((groupName) => groups[groupName] || []);
 
-    if (groupParts.length) {
-      lines.push(`${dimension}: ${groupParts.join(' | ')}`);
+    if (values.length) {
+      lines.push(`${toTitle(dimension)}: ${values.join(', ')}`);
     }
-  }
+  });
 
   return lines;
 }
 
-export function transformPromptForFal(prompt, execution) {
-  const lines = [];
+function buildSavedStylePromptLines(styles) {
+  const savedStyles = Array.isArray(styles?.['saved-styles']) ? styles['saved-styles'] : [];
+  return savedStyles
+    .map((style) => String(style?.prompt || '').trim())
+    .filter(Boolean);
+}
 
-  if (prompt.description?.trim()) {
-    lines.push(prompt.description.trim());
+export function transformPromptForFal(prompt, _execution) {
+  const parts = [
+    ...buildStyleSummaryLines(prompt?.styles || {}),
+    ...buildSavedStylePromptLines(prompt?.styles || {}),
+  ];
+
+  const description = String(prompt?.description || '').trim();
+  if (description) {
+    parts.push(description);
   }
 
-  if (prompt.category) lines.push(`Category: ${prompt.category}`);
-  if (prompt.subcategory) lines.push(`Subcategory: ${prompt.subcategory}`);
-
-  const styleLines = flattenStyles(prompt.styles);
-  if (styleLines.length) {
-    lines.push('Style directives:');
-    lines.push(...styleLines);
-  }
-
-  if (execution?.settings?.negativePrompt?.trim()) {
-    lines.push(`Avoid: ${execution.settings.negativePrompt.trim()}`);
-  }
-
-  return lines.join('\n');
+  return parts.join(', ');
 }

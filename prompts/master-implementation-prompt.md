@@ -22,7 +22,7 @@ Implement only Phase 1 now. Keep architecture ready for Phase 2 and Phase 3.
 - Mount persisted storage into the backend container for future prompt and image files.
 
 ## Data Requirements
-- Use copied style data in frontend assets sourced from image-styles.json.
+- Use copied style data in frontend assets sourced from custom-styles.json.
 - UI hierarchy:
   1. Category dropdown.
   2. Subcategory dropdown filtered by category.

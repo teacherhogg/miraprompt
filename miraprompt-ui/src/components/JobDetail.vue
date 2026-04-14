@@ -391,7 +391,7 @@
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue';
 import { getJob, deletePrompt, startJobRun, stopJobRun, getJobProgress, updatePrompt } from '../api/jobs.js';
-import styleData from '../assets/image-styles.json';
+import styleData from '../assets/custom-styles.json';
 import { getStyleChips } from '../utils/style-data.js';
 
 const props = defineProps({

@@ -132,6 +132,13 @@
         <q-separator />
         <q-card-actions align="right">
           <q-btn flat label="Close" @click="lightboxImage = null" />
+          <q-btn
+            color="secondary"
+            icon="check"
+            label="Add These Styles"
+            :disable="!lightboxImage?.styles || !Object.keys(lightboxImage.styles).length"
+            @click="applyImageStyles(lightboxImage)"
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -140,7 +147,7 @@
 
 <script setup>
 import { computed, ref, watch, onMounted } from 'vue';
-import styleData from '../assets/image-styles.json';
+import styleData from '../assets/custom-styles.json';
 import { listGeneratedImages } from '../api/jobs.js';
 import { getStyleChips } from '../utils/style-data.js';
 
@@ -148,6 +155,8 @@ const props = defineProps({
   active: { type: Boolean, default: false },
   refreshToken: { type: Number, default: 0 },
 });
+
+const emit = defineEmits(['apply-styles']);
 
 const loading = ref(false);
 const error = ref('');
@@ -230,6 +239,12 @@ const groupedBySubcategory = computed(() => {
 
 function getImageChips(img) {
   return getStyleChips(styleData, img.category, img.subcategory, img.styles || {});
+}
+
+function applyImageStyles(img) {
+  if (!img?.styles || !Object.keys(img.styles).length) return;
+  emit('apply-styles', img);
+  lightboxImage.value = null;
 }
 
 async function loadImages() {

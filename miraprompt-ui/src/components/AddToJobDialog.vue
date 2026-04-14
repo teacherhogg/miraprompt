@@ -89,7 +89,7 @@ const props = defineProps({
   modelValue: { type: Boolean, default: false },
   promptPayload: { type: Object, required: true },
 });
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'success']);
 
 const open = ref(props.modelValue);
 watch(() => props.modelValue, (v) => { open.value = v; });
@@ -122,8 +122,12 @@ watch(open, async (v) => {
   loadError.value = '';
   try {
     jobs.value = await listJobs();
-    const slugs = jobs.value.map((j) => j.slug);
-    selectedSlug.value = lastUsedSlug && slugs.includes(lastUsedSlug) ? lastUsedSlug : null;
+    if (jobs.value.length === 0) {
+      mode.value = 'new';
+    } else {
+      const slugs = jobs.value.map((j) => j.slug);
+      selectedSlug.value = lastUsedSlug && slugs.includes(lastUsedSlug) ? lastUsedSlug : null;
+    }
   } catch (e) {
     loadError.value = e.message || 'Failed to load jobs';
   } finally {
@@ -142,6 +146,7 @@ async function submitExisting() {
     await addPrompt(selectedSlug.value, props.promptPayload);
     lastUsedSlug = selectedSlug.value;
     open.value = false;
+    emit('success', selectedSlug.value);
   } catch (e) {
     error.value = e.message || 'Something went wrong';
   } finally {
@@ -159,6 +164,7 @@ async function submitNew() {
     await addPrompt(newJob.slug, props.promptPayload);
     lastUsedSlug = newJob.slug;
     open.value = false;
+    emit('success', newJob.slug);
   } catch (e) {
     error.value = e.message || 'Something went wrong';
   } finally {

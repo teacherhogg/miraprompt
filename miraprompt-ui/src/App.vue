@@ -18,7 +18,7 @@
               </div>
             </div>
             <q-btn
-              v-if="activeTab === 'prompt'"
+              v-if="activeTab === 'custom-styles'"
               flat dense round
               icon="view_sidebar"
               :color="panelOpen ? 'primary' : 'grey-7'"
@@ -31,17 +31,170 @@
 
         <!-- ── tabs ─────────────────────────────────────────────────── -->
         <q-tabs v-model="activeTab" dense align="left" class="q-mb-md text-grey-8" active-color="primary" indicator-color="primary">
+          <q-tab name="home" icon="home" label="Home" />
           <q-tab name="images" icon="photo_library" label="Images" @click="imagesRefreshToken += 1" />
-          <q-tab name="prompt" icon="tune" label="Prompt" />
+          <q-tab name="saved-styles" icon="bookmark" label="Saved Styles" />
+          <q-tab name="custom-styles" icon="palette" label="Custom Styles" />
+          <q-tab name="prompt" icon="edit_note" label="Prompt" />
           <q-tab name="models" icon="tune" label="Models" @click="modelsRefreshToken += 1" />
           <q-tab name="jobs" icon="work_outline" label="Jobs" @click="jobsRefreshToken += 1" />
         </q-tabs>
 
         <q-tab-panels v-model="activeTab" animated keep-alive>
 
+          <!-- ══ HOME TAB ══════════════════════════════════════════════ -->
+          <q-tab-panel name="home" class="q-pa-none">
+            <q-card flat bordered class="q-mb-md">
+              <q-card-section>
+                <div class="text-h6">Home</div>
+                <div class="text-body2 text-grey-7 q-mt-sm">
+                  Follow the workflow below to build and run an image-generation job.
+                </div>
+              </q-card-section>
+              <q-separator />
+              <q-card-section>
+                <q-stepper
+                  v-model="homeStep"
+                  flat
+                  animated
+                  header-nav
+                  alternative-labels
+                  color="primary"
+                  active-color="primary"
+                  done-color="secondary"
+                  inactive-color="grey-7"
+                >
+                  <q-step :name="1" title="Choose Styles" icon="palette">
+                    <div class="text-body1">Step 1 - Styles</div>
+                    <div class="text-body2 text-grey-7 q-mt-sm">
+                      <div class="row">
+                        <div>                        
+                            You have several choices for choosing and defining styles.
+                        </div>
+                        <div>
+                          <img src="./assets/choose-style.png" alt="Choose styles tabs" class="q-my-md" />
+                          <ul>
+                            <li><span class="text-weight-bold">Images</span> Browse previously generated images in the library and apply their styles to your prompt.</li>
+                            <li><span class="text-weight-bold">Saved Styles</span> Explore a collection of curated style prompts and add them to your prompt.</li>
+                            <li><span class="text-weight-bold">Custom Styles</span> Create and manage your own custom styles for more personalized prompts.</li>
+                          </ul>
+                        </div>
+                        <div>
+                           Once you have defined some styles, you can add them to your prompt and see a summary of selected styles in the Prompt tab. 
+
+                           A tip is to not overwhelm the prompt with too many styles at once - start with a few key styles and add more as needed when you review your prompt description in Step 2. 
+                        </div>
+                     </div>
+                    </div>
+                    <q-stepper-navigation>
+                      <q-btn color="primary" label="Continue" @click="homeStep = 2" />
+                    </q-stepper-navigation>
+                  </q-step>
+
+                  <q-step :name="2" title="Define your Prompt" icon="edit_note">
+                    <div class="text-body1">Step 2 - Prompt</div>
+                    <div class="text-body2 text-grey-7 q-mt-sm">
+                      Add your help text for writing prompt descriptions and refinements here.
+                    </div>
+                    <q-stepper-navigation>
+                      <q-btn flat label="Back" @click="homeStep = 1" />
+                      <q-btn color="primary" label="Continue" @click="homeStep = 3" />
+                    </q-stepper-navigation>
+                  </q-step>
+
+                  <q-step :name="3" title="Choose a Model" icon="tune">
+                    <div class="text-body1">Section 3</div>
+                    <div class="text-body2 text-grey-7 q-mt-sm">
+                      Add your help text for model, provider, and execution settings here.
+                    </div>
+                    <q-stepper-navigation>
+                      <q-btn flat label="Back" @click="homeStep = 2" />
+                      <q-btn color="primary" label="Continue" @click="homeStep = 4" />
+                    </q-stepper-navigation>
+                  </q-step>
+
+                  <q-step :name="4" title="Create and Run a Job" icon="work_outline">
+                    <div class="text-body1">Section 4</div>
+                    <div class="text-body2 text-grey-7 q-mt-sm">
+                      Add your help text for assembling jobs, reviewing prompts, and running generation here.
+                    </div>
+                    <q-stepper-navigation>
+                      <q-btn flat label="Back" @click="homeStep = 3" />
+                    </q-stepper-navigation>
+                  </q-step>
+                </q-stepper>
+              </q-card-section>
+            </q-card>
+          </q-tab-panel>
+
           <!-- ══ IMAGES TAB ═══════════════════════════════════════════ -->
           <q-tab-panel name="images" class="q-pa-none">
-            <ImagesView :active="activeTab === 'images'" :refresh-token="imagesRefreshToken" />
+            <ImagesView
+              :active="activeTab === 'images'"
+              :refresh-token="imagesRefreshToken"
+              @apply-styles="applyLibraryImageStyles"
+            />
+          </q-tab-panel>
+
+          <!-- ══ SAVED STYLES TAB ═════════════════════════════════════ -->
+          <q-tab-panel name="saved-styles" class="q-pa-none">
+            <SavedStylesView @add-to-prompt="addSavedStyleToPrompt" />
+          </q-tab-panel>
+
+          <!-- ══ PROMPT TAB ════════════════════════════════════════════ -->
+          <q-tab-panel name="prompt" class="q-pa-none">
+            <q-card v-if="hasPromptSummary" flat bordered class="q-mb-md">
+              <q-card-section class="row items-center justify-between q-gutter-sm">
+                <div class="text-h6">Styles Selected</div>
+              </q-card-section>
+              <q-separator />
+              <q-card-section class="q-pt-sm">
+                <div v-if="promptSavedStyles.length" class="summary-row">
+                  <span class="summary-dim">Saved Style:</span>
+                  <span class="summary-vals">{{ promptSavedStyles.map((style) => style.name).join(', ') }}</span>
+                </div>
+                <div v-for="(values, dim) in promptSelectionSummary" :key="dim" class="summary-row">
+                  <span class="summary-dim">{{ toTitle(dim) }}:</span>
+                  <span class="summary-vals">{{ values.join(', ') }}</span>
+                </div>
+              </q-card-section>
+            </q-card>
+
+            <q-card flat bordered class="q-mb-md">
+              <q-card-section>
+                <div class="text-h6">Prompt Description</div>
+              </q-card-section>
+              <q-separator />
+              <q-card-section>
+                <q-input
+                  v-model="description"
+                  type="textarea"
+                  outlined
+                  autogrow
+                  placeholder="Add a description for this prompt..."
+                />
+              </q-card-section>
+            </q-card>
+
+            <q-card flat bordered class="q-mb-md">
+              <q-card-section class="row items-center justify-between q-gutter-sm">
+                <div class="text-h6">Prompt</div>
+                <q-btn
+                  label="Add to Job"
+                  color="secondary"
+                  outline
+                  icon="playlist_add"
+                  :disable="!canAddPromptToJob"
+                  @click="showAddToJob = true"
+                />
+              </q-card-section>
+              <q-separator />
+              <q-card-section>
+                <div class="text-body2" style="white-space: pre-wrap; line-height: 1.5;">
+                  {{ fullPromptPreview || 'No prompt content yet. Add styles or a prompt description first.' }}
+                </div>
+              </q-card-section>
+            </q-card>
           </q-tab-panel>
 
           <!-- ══ JOBS TAB ══════════════════════════════════════════════ -->
@@ -51,11 +204,11 @@
 
           <!-- ══ MODELS TAB ═══════════════════════════════════════════ -->
           <q-tab-panel name="models" class="q-pa-none">
-            <ModelsView :active="activeTab === 'models'" :refresh-token="modelsRefreshToken" />
+            <ModelsView :active="activeTab === 'models'" :refresh-token="modelsRefreshToken" @save-success="activeTab = 'jobs'" />
           </q-tab-panel>
 
-          <!-- ══ PROMPT TAB ════════════════════════════════════════════ -->
-          <q-tab-panel name="prompt" class="q-pa-none">
+          <!-- ══ CUSTOM STYLES TAB ═════════════════════════════════════ -->
+          <q-tab-panel name="custom-styles" class="q-pa-none">
 
         <!-- ── main two-column layout ───────────────────────────────── -->
         <div class="row q-col-gutter-md">
@@ -92,9 +245,9 @@
             <q-banner
               v-if="!selectedCategory || !selectedSubcategory"
               rounded
-              class="bg-grey-2 text-grey-8 q-mb-md"
+              class="bg-grey-2 text-blue-8 q-mb-md q-mx-lg" 
             >
-              Select both a category and a subcategory to view style options.
+              Select both a category and a subcategory to view custom style options.
             </q-banner>
             <q-card v-if="selectedCategory && selectedSubcategory" flat bordered class="q-mb-md">
               <q-card-section class="row items-center justify-between q-gutter-sm">
@@ -112,7 +265,6 @@
                     <q-tooltip>Collapse all sections</q-tooltip>
                   </q-btn>
                   <q-btn label="Clear" flat color="negative" @click="clearSelections" />
-                  <q-btn label="Add to Job" color="secondary" outline icon="playlist_add" @click="showAddToJob = true" />
                 </div>
               </q-card-section>
 
@@ -156,37 +308,24 @@
                 </q-list>
               </q-card-section>
             </q-card>
-
-            <!-- description -->
-            <q-card flat bordered class="q-mb-md">
-              <q-card-section>
-                <div class="text-h6">Description</div>
-              </q-card-section>
-              <q-separator />
-              <q-card-section>
-                <q-input
-                  v-model="description"
-                  type="textarea"
-                  outlined autogrow
-                  placeholder="Add a description for this prompt..."
-                />
-              </q-card-section>
-            </q-card>
-
             <!-- selection summary -->
-            <q-card v-if="hasSummary" flat bordered class="q-mb-md">
+            <q-card v-if="hasSummary || promptSavedStyles.length" flat bordered class="q-mb-md">
               <q-card-section class="row items-center justify-between q-gutter-sm">
-                <div class="text-h6">Selection Summary</div>
+                <div class="text-h6">Styles Selected</div>
                 <q-btn
-                  label="Add To Job"
+                  label="Add to Prompt"
                   color="secondary"
                   outline
                   icon="playlist_add"
-                  @click="showAddToJob = true"
+                  @click="addCurrentSelectionToPrompt"
                 />
               </q-card-section>
               <q-separator />
               <q-card-section class="q-pt-sm">
+                <div v-if="promptSavedStyles.length" class="summary-row">
+                  <span class="summary-dim">Saved Style:</span>
+                  <span class="summary-vals">{{ promptSavedStyles.map((style) => style.name).join(', ') }}</span>
+                </div>
                 <div v-for="(values, dim) in selectionSummary" :key="dim" class="summary-row">
                   <span class="summary-dim">{{ toTitle(dim) }}:</span>
                   <span class="summary-vals">{{ values.join(', ') }}</span>
@@ -266,9 +405,6 @@
 
         </div><!-- /row -->
 
-        <!-- dialogs -->
-        <AddToJobDialog v-model="showAddToJob" :prompt-payload="selectedPayload" />
-
         <!-- image lightbox -->
         <q-dialog v-model="lightboxOpen" maximized>
           <q-card class="column" style="max-width:900px; margin:auto; height:100%">
@@ -312,9 +448,12 @@
           </q-card>
         </q-dialog>
 
-          </q-tab-panel><!-- /prompt tab -->
+          </q-tab-panel><!-- /custom styles tab -->
 
         </q-tab-panels>
+
+        <!-- global dialog — must be outside tab panels so it renders on any active tab -->
+        <AddToJobDialog v-model="showAddToJob" :prompt-payload="promptPayloadForJob" @success="activeTab = 'models'" />
 
       </q-page>
     </q-page-container>
@@ -322,8 +461,8 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
-import styleData from './assets/image-styles.json';
+import { computed, nextTick, ref, watch } from 'vue';
+import styleData from './assets/custom-styles.json';
 import mirapromptLogo from './assets/miraprompt.png';
 import sampleImage from './assets/sample-image.svg';
 import { buildMergedStylesWithScopes, orderedDimensions, getStyleChips, SCOPE_PRIORITY } from './utils/style-data';
@@ -332,14 +471,16 @@ import AddToJobDialog from './components/AddToJobDialog.vue';
 import ImagesView from './components/ImagesView.vue';
 import JobsView from './components/JobsView.vue';
 import ModelsView from './components/ModelsView.vue';
+import SavedStylesView from './components/SavedStylesView.vue';
 
 // ── reactive state ───────────────────────────────────────────────────────────
 const selectedCategory = ref(null);
 const selectedSubcategory = ref(null);
-const activeTab = ref('images');
+const activeTab = ref('home');
 const imagesRefreshToken = ref(0);
 const jobsRefreshToken = ref(0);
 const modelsRefreshToken = ref(0);
+const homeStep = ref(1);
 const showAddToJob = ref(false);
 const lightboxImage = ref(null);
 const panelOpen = ref(true);
@@ -347,6 +488,12 @@ const generatedImages = ref([]);
 const generatedImagesLoading = ref(false);
 const selectedMap = ref({});
 const description = ref('');
+const promptDraft = ref({
+  category: null,
+  subcategory: null,
+  styles: {},
+  savedStyles: [],
+});
 const expandedState = ref({});
 
 // ── derived data (must be declared before any watcher that references them) ──
@@ -430,6 +577,80 @@ const selectionSummary = computed(() => {
 
 const hasSummary = computed(() => Object.keys(selectionSummary.value).length > 0);
 
+const promptSavedStyles = computed(() => promptDraft.value.savedStyles || []);
+const primarySavedStyle = computed(() => promptSavedStyles.value[0] || null);
+
+const promptDescriptionForJob = computed(() => {
+  return description.value.trim();
+});
+
+const promptStylesForJob = computed(() => {
+  const styles = cloneStyles(promptDraft.value.styles || {});
+  if (promptSavedStyles.value.length) {
+    styles['saved-styles'] = promptSavedStyles.value.map((style) => ({
+      category: String(style?.category || '').trim(),
+      name: String(style?.name || '').trim(),
+      prompt: String(style?.prompt || '').trim(),
+    }));
+  }
+  return styles;
+});
+
+const promptPayloadForJob = computed(() => ({
+  category: promptDraft.value.category || primarySavedStyle.value?.category || null,
+  subcategory: promptDraft.value.subcategory || primarySavedStyle.value?.name || null,
+  description: promptDescriptionForJob.value,
+  styles: promptStylesForJob.value,
+  transformedPrompt: fullPromptPreview.value,
+}));
+
+const promptSelectionSummary = computed(() => {
+  const raw = promptDraft.value.styles || {};
+  const result = {};
+  orderedDimensions(raw).forEach((dim) => {
+    if (dim === 'saved-styles') return;
+    const groups = raw[dim] || {};
+    const all = Object.keys(groups)
+      .sort((a, b) => a.localeCompare(b))
+      .flatMap((groupName) => groups[groupName] || []);
+    if (all.length) result[dim] = all;
+  });
+  return result;
+});
+
+const hasPromptSummary = computed(() => {
+  return Object.keys(promptSelectionSummary.value).length > 0 || promptSavedStyles.value.length > 0;
+});
+
+const promptStyleCount = computed(() => {
+  return Object.entries(promptDraft.value.styles || {}).reduce((acc, [dimension, groups]) => {
+    if (dimension === 'saved-styles') return acc;
+    const groupCount = Object.values(groups || {}).reduce((sum, options) => sum + (options?.length || 0), 0);
+    return acc + groupCount;
+  }, 0);
+});
+
+const canAddPromptToJob = computed(() => {
+  return promptStyleCount.value > 0 || promptSavedStyles.value.length > 0 || promptDescriptionForJob.value.length > 0;
+});
+
+const styleSummaryLines = computed(() => {
+  return Object.entries(promptSelectionSummary.value).map(([dimension, values]) => {
+    return `${toTitle(dimension)}: ${values.join(', ')}`;
+  });
+});
+
+const fullPromptPreview = computed(() => {
+  const parts = [...styleSummaryLines.value];
+  promptSavedStyles.value.forEach((style) => {
+    const text = String(style?.prompt || '').trim();
+    if (text) parts.push(text);
+  });
+  const desc = description.value.trim();
+  if (desc) parts.push(desc);
+  return parts.join(', ');
+});
+
 const lightboxOpen = computed({
   get: () => lightboxImage.value !== null,
   set: (v) => { if (!v) lightboxImage.value = null; },
@@ -499,6 +720,37 @@ function clearSelections() {
   selectedMap.value = {};
 }
 
+function cloneStyles(styles) {
+  return JSON.parse(JSON.stringify(styles || {}));
+}
+
+function addCurrentSelectionToPrompt() {
+  promptDraft.value = {
+    category: selectedCategory.value,
+    subcategory: selectedSubcategory.value,
+    styles: cloneStyles(selectedPayload.value.styles),
+    savedStyles: [...(promptDraft.value.savedStyles || [])],
+  };
+  activeTab.value = 'prompt';
+}
+
+function addSavedStyleToPrompt(savedStyle) {
+  const category = String(savedStyle?.category || '').trim();
+  const name = String(savedStyle?.name || '').trim();
+  const prompt = String(savedStyle?.prompt || '').trim();
+  if (!name || !prompt) return;
+
+  const existing = promptDraft.value.savedStyles || [];
+  const alreadyAdded = existing.some((item) => item.category === category && item.name === name && item.prompt === prompt);
+  if (!alreadyAdded) {
+    promptDraft.value = {
+      ...promptDraft.value,
+      savedStyles: [...existing, { category, name, prompt }],
+    };
+  }
+  activeTab.value = 'prompt';
+}
+
 function toTitle(text) {
   return String(text)
     .split(' ')
@@ -534,6 +786,7 @@ function orderedGroupNames(dimension) {
 function applyImageStyles(img) {
   if (!img?.styles) return;
   for (const [dimension, groups] of Object.entries(img.styles)) {
+    if (dimension === 'saved-styles' || Array.isArray(groups)) continue;
     for (const [groupName, options] of Object.entries(groups || {})) {
       for (const option of (options || [])) {
         selectedMap.value[keyFor(dimension, groupName, option)] = true;
@@ -541,6 +794,26 @@ function applyImageStyles(img) {
     }
   }
   lightboxImage.value = null;
+}
+
+async function applyLibraryImageStyles(img) {
+  if (!img?.styles) return;
+
+  activeTab.value = 'custom-styles';
+  selectedCategory.value = img.category || null;
+  await nextTick();
+  selectedSubcategory.value = img.subcategory || null;
+  await nextTick();
+
+  selectedMap.value = {};
+  for (const [dimension, groups] of Object.entries(img.styles)) {
+    if (dimension === 'saved-styles' || Array.isArray(groups)) continue;
+    for (const [groupName, options] of Object.entries(groups || {})) {
+      for (const option of (options || [])) {
+        selectedMap.value[keyFor(dimension, groupName, option)] = true;
+      }
+    }
+  }
 }
 
 async function refreshGeneratedImages() {
