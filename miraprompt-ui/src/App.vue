@@ -44,87 +44,7 @@
 
           <!-- ══ HOME TAB ══════════════════════════════════════════════ -->
           <q-tab-panel name="home" class="q-pa-none">
-            <q-card flat bordered class="q-mb-md">
-              <q-card-section>
-                <div class="text-h6">Home</div>
-                <div class="text-body2 text-grey-7 q-mt-sm">
-                  Follow the workflow below to build and run an image-generation job.
-                </div>
-              </q-card-section>
-              <q-separator />
-              <q-card-section>
-                <q-stepper
-                  v-model="homeStep"
-                  flat
-                  animated
-                  header-nav
-                  alternative-labels
-                  color="primary"
-                  active-color="primary"
-                  done-color="secondary"
-                  inactive-color="grey-7"
-                >
-                  <q-step :name="1" title="Choose Styles" icon="palette">
-                    <div class="text-body1">Step 1 - Styles</div>
-                    <div class="text-body2 text-grey-7 q-mt-sm">
-                      <div class="row">
-                        <div>                        
-                            You have several choices for choosing and defining styles.
-                        </div>
-                        <div>
-                          <img src="./assets/choose-style.png" alt="Choose styles tabs" class="q-my-md" />
-                          <ul>
-                            <li><span class="text-weight-bold">Images</span> Browse previously generated images in the library and apply their styles to your prompt.</li>
-                            <li><span class="text-weight-bold">Saved Styles</span> Explore a collection of curated style prompts and add them to your prompt.</li>
-                            <li><span class="text-weight-bold">Custom Styles</span> Create and manage your own custom styles for more personalized prompts.</li>
-                          </ul>
-                        </div>
-                        <div>
-                           Once you have defined some styles, you can add them to your prompt and see a summary of selected styles in the Prompt tab. 
-
-                           A tip is to not overwhelm the prompt with too many styles at once - start with a few key styles and add more as needed when you review your prompt description in Step 2. 
-                        </div>
-                     </div>
-                    </div>
-                    <q-stepper-navigation>
-                      <q-btn color="primary" label="Continue" @click="homeStep = 2" />
-                    </q-stepper-navigation>
-                  </q-step>
-
-                  <q-step :name="2" title="Define your Prompt" icon="edit_note">
-                    <div class="text-body1">Step 2 - Prompt</div>
-                    <div class="text-body2 text-grey-7 q-mt-sm">
-                      Add your help text for writing prompt descriptions and refinements here.
-                    </div>
-                    <q-stepper-navigation>
-                      <q-btn flat label="Back" @click="homeStep = 1" />
-                      <q-btn color="primary" label="Continue" @click="homeStep = 3" />
-                    </q-stepper-navigation>
-                  </q-step>
-
-                  <q-step :name="3" title="Choose a Model" icon="tune">
-                    <div class="text-body1">Section 3</div>
-                    <div class="text-body2 text-grey-7 q-mt-sm">
-                      Add your help text for model, provider, and execution settings here.
-                    </div>
-                    <q-stepper-navigation>
-                      <q-btn flat label="Back" @click="homeStep = 2" />
-                      <q-btn color="primary" label="Continue" @click="homeStep = 4" />
-                    </q-stepper-navigation>
-                  </q-step>
-
-                  <q-step :name="4" title="Create and Run a Job" icon="work_outline">
-                    <div class="text-body1">Section 4</div>
-                    <div class="text-body2 text-grey-7 q-mt-sm">
-                      Add your help text for assembling jobs, reviewing prompts, and running generation here.
-                    </div>
-                    <q-stepper-navigation>
-                      <q-btn flat label="Back" @click="homeStep = 3" />
-                    </q-stepper-navigation>
-                  </q-step>
-                </q-stepper>
-              </q-card-section>
-            </q-card>
+            <HomeWorkflowContent />
           </q-tab-panel>
 
           <!-- ══ IMAGES TAB ═══════════════════════════════════════════ -->
@@ -133,12 +53,17 @@
               :active="activeTab === 'images'"
               :refresh-token="imagesRefreshToken"
               @apply-styles="applyLibraryImageStyles"
+              @saved-style-created="onSavedStyleChanged"
             />
           </q-tab-panel>
 
           <!-- ══ SAVED STYLES TAB ═════════════════════════════════════ -->
           <q-tab-panel name="saved-styles" class="q-pa-none">
-            <SavedStylesView @add-to-prompt="addSavedStyleToPrompt" />
+            <SavedStylesView
+              :active="activeTab === 'saved-styles'"
+              :refresh-token="savedStylesRefreshToken"
+              @add-to-prompt="addSavedStyleToPrompt"
+            />
           </q-tab-panel>
 
           <!-- ══ PROMPT TAB ════════════════════════════════════════════ -->
@@ -440,7 +365,7 @@
               <q-btn
                 color="secondary"
                 icon="check"
-                label="Add These Styles"
+                label="Add Styles to Prompt"
                 :disable="!lightboxImage?.styles || !Object.keys(lightboxImage.styles).length"
                 @click="applyImageStyles(lightboxImage)"
               />
@@ -468,6 +393,7 @@ import sampleImage from './assets/sample-image.svg';
 import { buildMergedStylesWithScopes, orderedDimensions, getStyleChips, SCOPE_PRIORITY } from './utils/style-data';
 import { listGeneratedImages } from './api/jobs.js';
 import AddToJobDialog from './components/AddToJobDialog.vue';
+import HomeWorkflowContent from './components/HomeWorkflowContent.vue';
 import ImagesView from './components/ImagesView.vue';
 import JobsView from './components/JobsView.vue';
 import ModelsView from './components/ModelsView.vue';
@@ -480,7 +406,7 @@ const activeTab = ref('home');
 const imagesRefreshToken = ref(0);
 const jobsRefreshToken = ref(0);
 const modelsRefreshToken = ref(0);
-const homeStep = ref(1);
+const savedStylesRefreshToken = ref(0);
 const showAddToJob = ref(false);
 const lightboxImage = ref(null);
 const panelOpen = ref(true);
@@ -773,6 +699,10 @@ function onAddToJobSuccess() {
     savedStyles: [],
   };
   activeTab.value = 'models';
+}
+
+function onSavedStyleChanged() {
+  savedStylesRefreshToken.value += 1;
 }
 
 function toTitle(text) {

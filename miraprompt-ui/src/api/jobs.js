@@ -89,3 +89,19 @@ export function listGeneratedImages(subcategory = null) {
     : '';
   return request('GET', `/api/jobs/generated-images${suffix}`).then((d) => d.images);
 }
+
+export function listSavedStyles() {
+  return request('GET', '/api/saved-styles');
+}
+
+export function createSavedStyle(payload) {
+  return request('POST', '/api/saved-styles', payload);
+}
+
+export function updateSavedStyle(payload) {
+  return request('PATCH', '/api/saved-styles', payload);
+}
+
+export function deleteSavedStyle(payload) {
+  return request('DELETE', '/api/saved-styles', payload);
+}

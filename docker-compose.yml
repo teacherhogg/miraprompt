@@ -4,6 +4,7 @@ services:
       context: ./miraprompt-server
       dockerfile: Dockerfile
     container_name: miraprompt-server
+    user: "${MIRAPROMPT_SERVER_UID:-1000}:${MIRAPROMPT_SERVER_GID:-1000}"
     env_file:
       - .env
     environment:

@@ -39,6 +39,7 @@ npm run dev
 ## Persisted Data Path
 Host path is controlled by MIRAPROMPT_DATA_DIR in .env and mounted to /app/data in the server container.
 Backend host port is controlled by MIRAPROMPT_SERVER_PORT in .env and maps to container port 3001.
+Server container user is controlled by MIRAPROMPT_SERVER_UID and MIRAPROMPT_SERVER_GID in .env so bind-mounted files are not created as root on the host.
 
 ## Prompt Planning Files
 - prompts/master-implementation-prompt.md

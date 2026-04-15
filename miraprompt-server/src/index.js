@@ -2,7 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { ensureJobsDir } from './jobs.js';
+import { ensureSavedStylesStorage } from './saved-styles.js';
 import jobsRouter from './routes/jobs.js';
+import savedStylesRouter from './routes/saved-styles.js';
 import { MODEL_CATALOG } from './models.js';
 import { getDataDir } from './paths.js';
 
@@ -49,9 +51,11 @@ app.get('/api/models', (_req, res) => {
 });
 
 app.use('/api/jobs', jobsRouter);
+app.use('/api/saved-styles', savedStylesRouter);
 
 async function start() {
   await ensureJobsDir();
+  await ensureSavedStylesStorage();
   app.listen(PORT, () => {
     console.log(`miraprompt-server listening on port ${PORT}`);
   });

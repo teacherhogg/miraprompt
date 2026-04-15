@@ -5,7 +5,7 @@
         <div>
           <div class="text-h6">Saved Styles</div>
           <div class="text-body2 text-grey-7 q-mt-sm">
-            Browse curated style prompts grouped by section.
+            Browse curated and user-created styles grouped by category.
           </div>
         </div>
         <div class="row items-center q-gutter-sm">
@@ -22,25 +22,18 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <q-btn
-            label="Expand All"
-            icon="unfold_more"
-            color="primary"
-            outline
-            no-caps
-            @click="expandAll"
-          />
-          <q-btn
-            label="Collapse All"
-            icon="unfold_less"
-            color="primary"
-            outline
-            no-caps
-            @click="collapseAll"
-          />
+          <q-btn flat dense round icon="refresh" :loading="loading" @click="loadSavedStyles">
+            <q-tooltip>Refresh styles</q-tooltip>
+          </q-btn>
+          <q-btn label="Expand All" icon="unfold_more" color="primary" outline no-caps @click="expandAll" />
+          <q-btn label="Collapse All" icon="unfold_less" color="primary" outline no-caps @click="collapseAll" />
         </div>
       </q-card-section>
     </q-card>
+
+    <q-banner v-if="error" rounded class="bg-negative text-white q-mb-md">
+      {{ error }}
+    </q-banner>
 
     <q-list separator>
       <q-expansion-item
@@ -63,16 +56,32 @@
               class="saved-style-card"
               @click="openStyleDialog(item)"
             >
+              <q-btn
+                round
+                dense
+                size="sm"
+                icon="edit"
+                class="style-edit-btn"
+                color="white"
+                text-color="primary"
+                @click.stop="openEditDialog(item)"
+              />
+
               <q-card-section class="q-pb-sm">
-                <div class="text-subtitle2 saved-style-name">{{ item.name }}</div>
+                <div class="row items-center justify-between q-gutter-sm">
+                  <div class="text-subtitle2 saved-style-name">{{ item.name }}</div>
+                  <q-chip
+                    dense
+                    size="sm"
+                    :color="item.isUserStyle ? 'teal-1' : 'grey-3'"
+                    :text-color="item.isUserStyle ? 'teal-10' : 'grey-8'"
+                  >
+                    {{ item.isUserStyle ? 'User' : 'Built-in' }}
+                  </q-chip>
+                </div>
               </q-card-section>
 
-              <q-img
-                :src="resolveStyleImage(item.name)"
-                :alt="item.name"
-                fit="contain"
-                class="saved-style-image"
-              >
+              <q-img :src="resolveStyleImage(item)" :alt="item.name" fit="contain" class="saved-style-image">
                 <template #error>
                   <div class="absolute-full flex flex-center bg-grey-3 text-grey-7 text-caption">
                     Image unavailable
@@ -88,7 +97,8 @@
         </div>
       </q-expansion-item>
     </q-list>
-    <q-banner v-if="!filteredSections.length" rounded class="bg-grey-2 text-grey-8 q-mt-md">
+
+    <q-banner v-if="!loading && !filteredSections.length" rounded class="bg-grey-2 text-grey-8 q-mt-md">
       No saved styles match that filter.
     </q-banner>
 
@@ -105,12 +115,65 @@
         </q-card-section>
         <q-card-actions align="right">
           <q-btn flat label="Cancel" @click="confirmDialogOpen = false" />
-          <q-btn
-            color="secondary"
-            icon="add"
-            label="Add to Prompt"
-            @click="confirmAddToPrompt"
+          <q-btn color="secondary" icon="add" label="Add to Prompt" @click="confirmAddToPrompt" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <q-dialog v-model="editDialogOpen" persistent>
+      <q-card style="min-width: 520px; max-width: 95vw;">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Edit Saved Style</div>
+          <q-space />
+          <q-btn flat dense round icon="close" :disable="savingEdit" @click="editDialogOpen = false" />
+        </q-card-section>
+        <q-card-section>
+          <q-input
+            v-model="editName"
+            outlined
+            label="Name"
+            class="q-mb-sm"
+            :error="Boolean(editError)"
+            :error-message="editError"
           />
+          <q-select
+            v-model="editCategory"
+            :options="categoryOptions"
+            outlined
+            use-input
+            fill-input
+            hide-selected
+            new-value-mode="add-unique"
+            label="Category"
+            class="q-mb-sm"
+          />
+          <q-input
+            v-model="editPrompt"
+            outlined
+            type="textarea"
+            autogrow
+            label="Style Prompt"
+          />
+        </q-card-section>
+        <q-card-actions align="between">
+          <q-btn flat color="negative" icon="delete_outline" label="Delete" :disable="savingEdit" @click="deleteConfirmOpen = true" />
+          <div class="row q-gutter-sm">
+            <q-btn flat label="Cancel" :disable="savingEdit" @click="editDialogOpen = false" />
+            <q-btn color="primary" icon="save" label="Save" :loading="savingEdit" @click="saveStyleEdits" />
+          </div>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <q-dialog v-model="deleteConfirmOpen" persistent>
+      <q-card style="min-width: 420px; max-width: 90vw;">
+        <q-card-section class="text-h6">Delete Saved Style</q-card-section>
+        <q-card-section class="text-body2 text-grey-8">
+          Delete <strong>{{ editingStyle?.name }}</strong> from <strong>{{ editingStyle?.category }}</strong>?
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" @click="deleteConfirmOpen = false" />
+          <q-btn color="negative" icon="delete" label="Delete" :loading="savingEdit" @click="deleteStyle" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -118,14 +181,37 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import savedStyles from '../assets/saved-styles.json';
+import { computed, onMounted, ref, watch } from 'vue';
 import sampleImage from '../assets/sample-image.svg';
+import {
+  deleteSavedStyle,
+  listSavedStyles,
+  resolveApiAssetUrl,
+  updateSavedStyle,
+} from '../api/jobs.js';
+
+const props = defineProps({
+  active: { type: Boolean, default: false },
+  refreshToken: { type: Number, default: 0 },
+});
 
 const emit = defineEmits(['add-to-prompt']);
 const selectedStyle = ref(null);
 const confirmDialogOpen = ref(false);
 const filterText = ref('');
+const loading = ref(false);
+const error = ref('');
+const sections = ref([]);
+const categoryOptions = ref([]);
+
+const editDialogOpen = ref(false);
+const deleteConfirmOpen = ref(false);
+const editingStyle = ref(null);
+const editName = ref('');
+const editCategory = ref('');
+const editPrompt = ref('');
+const editError = ref('');
+const savingEdit = ref(false);
 
 const imageModules = import.meta.glob('../assets/images/*.{png,jpg,jpeg,webp,gif,avif}', {
   eager: true,
@@ -148,8 +234,8 @@ function registerImageKey(key, value) {
   if (!imageLookup.has(key)) imageLookup.set(key, value);
 }
 
-for (const [path, url] of Object.entries(imageModules)) {
-  const fileName = path.split('/').pop() || '';
+for (const [modulePath, url] of Object.entries(imageModules)) {
+  const fileName = modulePath.split('/').pop() || '';
   const baseName = fileName.replace(/\.[^.]+$/, '');
   const normalizedBase = normalizeName(baseName);
 
@@ -160,11 +246,17 @@ for (const [path, url] of Object.entries(imageModules)) {
   registerImageKey(normalizedBase.replace(/-/g, ' '), url);
 }
 
-function resolveStyleImage(name) {
+function resolveStyleImage(item) {
+  const imagePath = String(item?.imagePath || '').trim();
+  if (imagePath) {
+    return resolveApiAssetUrl(imagePath);
+  }
+
+  const name = String(item?.name || '');
   const normalized = normalizeName(name);
   const candidates = [
     name,
-    String(name || '').toLowerCase(),
+    name.toLowerCase(),
     normalized,
     normalized.replace(/-/g, '_'),
     normalized.replace(/-/g, ' '),
@@ -177,6 +269,31 @@ function resolveStyleImage(name) {
   }
 
   return sampleImage;
+}
+
+async function loadSavedStyles() {
+  loading.value = true;
+  error.value = '';
+  try {
+    const response = await listSavedStyles();
+    sections.value = Array.isArray(response?.sections) ? response.sections : [];
+    categoryOptions.value = Array.isArray(response?.categories) ? response.categories : [];
+    syncExpandedState();
+  } catch (e) {
+    error.value = e.message || 'Failed to load saved styles';
+    sections.value = [];
+    categoryOptions.value = [];
+  } finally {
+    loading.value = false;
+  }
+}
+
+function syncExpandedState() {
+  const next = {};
+  sections.value.forEach((section) => {
+    next[section.title] = Boolean(expandedState.value[section.title]);
+  });
+  expandedState.value = next;
 }
 
 function openStyleDialog(item) {
@@ -192,33 +309,87 @@ function confirmAddToPrompt() {
   selectedStyle.value = null;
 }
 
-const sections = Object.entries(savedStyles)
-  .map(([title, items]) => ({
-    title,
-    items: Array.isArray(items)
-      ? items
-        .filter((item) => item && item.name && item.prompt)
-        .map((item) => ({
-          ...item,
-          category: title,
-        }))
-      : [],
-  }))
-  .filter((section) => section.items.length > 0);
+function openEditDialog(item) {
+  editingStyle.value = item;
+  editName.value = String(item?.name || '');
+  editCategory.value = String(item?.category || '');
+  editPrompt.value = String(item?.prompt || '');
+  editError.value = '';
+  editDialogOpen.value = true;
+}
+
+async function saveStyleEdits() {
+  const style = editingStyle.value;
+  if (!style) return;
+
+  const name = String(editName.value || '').trim();
+  const category = String(editCategory.value || '').trim();
+  if (!name || !category) {
+    editError.value = 'Name and category are required.';
+    return;
+  }
+
+  savingEdit.value = true;
+  editError.value = '';
+  try {
+    await updateSavedStyle({
+      original: {
+        name: style.name,
+        category: style.category,
+        isUserStyle: Boolean(style.isUserStyle),
+      },
+      next: {
+        name,
+        category,
+        prompt: String(editPrompt.value || '').trim(),
+        styles: style.styles || {},
+        imageLocalPath: style.imagePath || null,
+      },
+    });
+    editDialogOpen.value = false;
+    await loadSavedStyles();
+  } catch (e) {
+    editError.value = e.message || 'Failed to save changes';
+  } finally {
+    savingEdit.value = false;
+  }
+}
+
+async function deleteStyle() {
+  const style = editingStyle.value;
+  if (!style) return;
+
+  savingEdit.value = true;
+  editError.value = '';
+  try {
+    await deleteSavedStyle({
+      name: style.name,
+      category: style.category,
+      isUserStyle: Boolean(style.isUserStyle),
+    });
+    deleteConfirmOpen.value = false;
+    editDialogOpen.value = false;
+    await loadSavedStyles();
+  } catch (e) {
+    editError.value = e.message || 'Failed to delete style';
+  } finally {
+    savingEdit.value = false;
+  }
+}
 
 const filteredSections = computed(() => {
   const query = String(filterText.value || '').trim().toLowerCase();
-  if (!query) return sections;
+  if (!query) return sections.value;
 
   const out = [];
-  for (const section of sections) {
+  for (const section of sections.value) {
     const categoryMatch = section.title.toLowerCase().includes(query);
     if (categoryMatch) {
       out.push(section);
       continue;
     }
 
-    const matchedItems = section.items.filter((item) =>
+    const matchedItems = (section.items || []).filter((item) =>
       String(item.name || '').toLowerCase().includes(query)
     );
 
@@ -233,9 +404,7 @@ const filteredSections = computed(() => {
   return out;
 });
 
-const expandedState = ref(
-  Object.fromEntries(sections.map((section) => [section.title, false]))
-);
+const expandedState = ref({});
 
 function expandAll() {
   const next = {};
@@ -269,11 +438,27 @@ function onSectionToggle(title, isOpen) {
   }
 
   const next = {};
-  sections.forEach((section) => {
+  sections.value.forEach((section) => {
     next[section.title] = section.title === title;
   });
   expandedState.value = next;
 }
+
+onMounted(loadSavedStyles);
+
+watch(
+  () => props.active,
+  (isActive) => {
+    if (isActive) loadSavedStyles();
+  }
+);
+
+watch(
+  () => props.refreshToken,
+  () => {
+    if (props.active) loadSavedStyles();
+  }
+);
 </script>
 
 <style scoped>
@@ -288,11 +473,20 @@ function onSectionToggle(title, isOpen) {
   border-radius: 12px;
   cursor: pointer;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
 }
 
 .saved-style-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.style-edit-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
 }
 
 .saved-style-name {
