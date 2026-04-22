@@ -10,6 +10,77 @@ export const MODEL_CATALOG = [
     specificOptions: [],
   },
   {
+    id: 'nano-banana-2/edit',
+    provider: 'fal-ai',
+    falModelId: 'fal-ai/nano-banana-2/edit',
+    settings: {
+      aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16'],
+      resolutions: ['1024x1024', '1280x720', '720x1280'],
+    },
+    specificOptions: [
+      {
+        key: 'input_url',
+        label: 'Input Image (Base64)',
+        type: 'text',
+        default: '',
+        multiple: true,
+      },
+      {
+        key: 'strength',
+        label: 'Strength',
+        type: 'number',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        default: 0.8,
+      }
+    ],
+  },
+  {
+    id: 'openai/gpt-image-2',
+    provider: 'openai',
+    falModelId: 'openai/gpt-image-2',
+    settings: {
+      aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16'],
+      resolutions: ['1024x1024', '1280x720', '720x1280'],
+    },
+    specificOptions: [],
+  },
+  {
+    id: 'openai/gpt-image-2/edit',
+    provider: 'openai',
+    falModelId: 'openai/gpt-image-2/edit',
+    settings: {
+      aspectRatios: ['1:1', '4:3', '3:4', '16:9', '9:16'],
+      resolutions: ['1024x1024', '1280x720', '720x1280'],
+    },
+    specificOptions: [
+      {
+        key: 'input_url',
+        label: 'Input Image (Base64)',
+        type: 'text',
+        default: '',
+        multiple: true,
+      },
+      {
+        key: 'strength',
+        label: 'Strength',
+        type: 'number',
+        min: 0,
+        max: 1,
+        step: 0.01,
+        default: 0.8,
+      },
+      {
+        key: 'quality',
+        label: 'Quality',
+        type: 'select',
+        options: ['high', 'medium', 'low'],
+        default: 'medium',
+      }
+    ],
+  },
+  {
     id: 'nano-banana',
     provider: 'fal-ai',
     falModelId: 'fal-ai/nano-banana',

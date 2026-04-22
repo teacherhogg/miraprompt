@@ -109,91 +109,65 @@
             </q-input>
           </div>
           <!-- model-specific options (e.g. rendering_speed for ideogram/v3) -->
-          <template v-if="selectedModel?.specificOptions?.length">
-            <div
-              v-for="opt in selectedModel.specificOptions"
-              :key="opt.key"
-              class="col-12 col-md-6"
-            >
-              <q-select
-                v-if="opt.type === 'select'"
-                v-model="execution.settings[opt.key]"
-                :options="opt.options"
-                :label="opt.label"
-                outlined
-                emit-value
-                map-options
-                :disable="!selectedJobSlug"
-              >
-                <template #append>
-                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                    <q-tooltip class="model-help-tooltip bg-primary text-white">
-                      {{ specificOptionHelp(opt.key) }}
-                    </q-tooltip>
-                  </q-icon>
-                </template>
-              </q-select>
-              <q-input
-                v-else-if="opt.type === 'number'"
-                v-model.number="execution.settings[opt.key]"
-                type="number"
-                :min="opt.min"
-                :max="opt.max"
-                :step="opt.step || 0.01"
-                :label="opt.label"
-                outlined
-                :disable="!selectedJobSlug"
-              >
-                <template #append>
-                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                    <q-tooltip class="model-help-tooltip bg-primary text-white">
-                      {{ specificOptionHelp(opt.key) }}
-                    </q-tooltip>
-                  </q-icon>
-                </template>
-              </q-input>
-              <q-input
-                v-else-if="opt.type === 'text'"
-                v-model="execution.settings[opt.key]"
-                type="textarea"
-                autogrow
-                :label="opt.label"
-                outlined
-                :disable="!selectedJobSlug"
-              >
-                <template #append>
-                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                    <q-tooltip class="model-help-tooltip bg-primary text-white">
-                      {{ specificOptionHelp(opt.key) }}
-                    </q-tooltip>
-                  </q-icon>
-                </template>
-              </q-input>
+          <!-- Unified Input Images section for all models supporting input images -->
+          <template v-if="inputImageKeys.length">
+            <div class="col-12">
+              <div class="text-weight-medium q-mb-xs">Input Images</div>
+              <div class="q-gutter-sm q-mb-sm">
+                <q-btn color="primary" unelevated icon="upload" label="Upload Image" @click="$refs.inputImageFile.click()" :disable="!selectedJobSlug" />
+                <q-btn color="primary" unelevated icon="collections" label="Choose Previous Image" @click="showInputImageDialog = true" :disable="!selectedJobSlug || !generatedImages.length" />
+                <input ref="inputImageFile" type="file" accept="image/*" style="display:none" @change="onInputImageFileChange" :multiple="inputImageMultiple" />
+              </div>
+              <div class="row q-col-gutter-md q-mb-sm">
+                <div v-for="(img, idx) in inputImages" :key="img" class="col-6 col-md-3">
+                  <q-card bordered>
+                    <q-img :src="img" fit="contain" style="max-height: 200px;" />
+                    <q-card-actions align="right">
+                      <q-btn flat dense icon="delete" color="negative" @click="removeInputImage(idx)" />
+                    </q-card-actions>
+                  </q-card>
+                </div>
+              </div>
+              <q-dialog v-model="showInputImageDialog">
+                <q-card style="min-width: 70vw; min-height: 50vh;">
+                  <q-card-section>
+                    <div class="text-h6">Select Input Image</div>
+                  </q-card-section>
+                  <q-separator />
+                  <q-card-section>
+                    <div class="row q-col-gutter-md">
+                      <div
+                        v-for="img in generatedImages"
+                        :key="img.publicLocalPath || img.imageUrl"
+                        class="col-6 col-md-3"
+                      >
+                        <q-card
+                          bordered
+                          class="cursor-pointer"
+                          @click="selectInputImageFromDialog(img)"
+                        >
+                          <q-img
+                            :src="resolveApiAssetUrl(img.publicLocalPath || img.imageUrl)"
+                            fit="contain"
+                            style="max-height: 160px;"
+                          />
+                          <q-card-section class="q-pa-xs">
+                            <div class="text-caption" style="max-width: 100%; white-space: normal; word-break: break-word;">
+                              {{ [img.jobName, img.subcategory || 'No subcategory', img.description || 'No description', new Date(img.createdAt).toLocaleString()].join(' · ') }}
+                            </div>
+                          </q-card-section>
+                        </q-card>
+                      </div>
+                    </div>
+                  </q-card-section>
+                  <q-separator />
+                  <q-card-actions align="right">
+                    <q-btn flat label="Cancel" color="primary" v-close-popup />
+                  </q-card-actions>
+                </q-card>
+              </q-dialog>
             </div>
           </template>
-
-          <div v-if="isFluxModel" class="col-12">
-            <q-select
-              v-model="selectedInputImage"
-              :options="generatedImageOptions"
-              label="Choose Input Image from Previous Generations"
-              outlined
-              emit-value
-              map-options
-              clearable
-              :disable="!selectedJobSlug || !generatedImageOptions.length"
-              @update:model-value="chooseInputImage"
-              hint="Selected image is converted to base64 and stored in input_url"
-            >
-              <template #append>
-                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                  <q-tooltip class="model-help-tooltip bg-primary text-white">
-                    Pick any previously generated image. It will be converted to base64 and saved to input_url.
-                  </q-tooltip>
-                </q-icon>
-              </template>
-            </q-select>
-          </div>
 
           <div class="col-12">
             <q-toggle
@@ -250,6 +224,7 @@
                 label="Character Reference URL/Base64 (optional)"
                 outlined
                 :disable="!selectedJobSlug"
+                class="q-mb-sm"
               >
                 <template #append>
                   <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
@@ -259,6 +234,23 @@
                   </q-icon>
                 </template>
               </q-input>
+              <input
+                ref="characterReferenceFile"
+                type="file"
+                accept="image/*"
+                style="display:none"
+                @change="onCharacterReferenceFileChange"
+              />
+
+              <q-btn
+                color="primary"
+                unelevated
+                icon="upload"
+                label="Upload Reference Image"
+                @click="() => $refs.characterReferenceFile.click()"
+                :disable="!selectedJobSlug"
+                class="q-ml-sm"
+              />
             </div>
 
             <div class="col-12" v-if="characterReferencePreviewUrl">
@@ -389,6 +381,95 @@
 </template>
 
 <script setup>
+// --- Unified Input Images logic ---
+import { nextTick } from 'vue';
+
+// Find all keys in specificOptions that are for input images (e.g., input_url)
+const inputImageKeys = computed(() => {
+  if (!selectedModel.value || !selectedModel.value.specificOptions) return [];
+  return selectedModel.value.specificOptions.filter(opt => opt.key && opt.key.includes('input_url')).map(opt => opt.key);
+});
+const inputImageMultiple = computed(() =>
+  !!(selectedModel.value?.specificOptions?.find(opt => opt.key?.includes('input_url') && opt.multiple))
+);
+const inputImages = ref([]);
+
+// Sync inputImages with execution.settings
+watch(
+  () => execution.value && execution.value.settings ? execution.value.settings : {},
+  (settings) => {
+    if (!settings || !inputImageKeys.value || !inputImageKeys.value.length) {
+      inputImages.value = [];
+      return;
+    }
+    if (inputImageKeys.value.length === 1 && !inputImageMultiple.value) {
+      inputImages.value = settings[inputImageKeys.value[0]] ? [settings[inputImageKeys.value[0]]] : [];
+    } else if ((inputImageKeys.value.length > 1 || inputImageMultiple.value) && inputImageKeys.value[0]) {
+      inputImages.value = Array.isArray(settings[inputImageKeys.value[0]]) ? settings[inputImageKeys.value[0]] : [];
+    } else {
+      inputImages.value = [];
+    }
+  },
+  { immediate: true, deep: true }
+);
+
+function updateInputImages(newImages) {
+  if (inputImageKeys.value.length === 1 && !inputImageMultiple.value) {
+    execution.value.settings[inputImageKeys.value[0]] = newImages[0] || '';
+    inputImages.value = newImages.slice(0, 1);
+  } else if (inputImageKeys.value.length > 0 && inputImageMultiple.value) {
+    execution.value.settings[inputImageKeys.value[0]] = newImages;
+    inputImages.value = newImages;
+  }
+}
+
+function onInputImageFileChange(event) {
+  const files = Array.from(event.target.files || []);
+  if (!files.length) return;
+  const readers = files.map(file => new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.readAsDataURL(file);
+  }));
+  Promise.all(readers).then((results) => {
+    updateInputImages(inputImageMultiple.value ? inputImages.value.concat(results) : [results[0]]);
+    nextTick(() => { event.target.value = ''; });
+  });
+}
+
+function selectInputImageFromDialog(img) {
+  showInputImageDialog.value = false;
+  // Fetch and convert to base64 as before
+  fetch(resolveApiAssetUrl(img.publicLocalPath || img.imageUrl))
+    .then(res => res.blob())
+    .then(blob => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        updateInputImages(inputImageMultiple.value ? inputImages.value.concat([e.target.result]) : [e.target.result]);
+      };
+      reader.readAsDataURL(blob);
+    });
+}
+
+function removeInputImage(idx) {
+  const newImages = inputImages.value.slice();
+  newImages.splice(idx, 1);
+  updateInputImages(newImages);
+}
+const showInputImageDialog = ref(false);
+
+function onCharacterReferenceFileChange(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    execution.value.settings.characterReferenceUrl = e.target.result;
+    selectedCharacterRefImage.value = null; // Clear selection from previous generations
+  };
+  reader.readAsDataURL(file);
+  // Reset file input so same file can be re-uploaded if needed
+  event.target.value = '';
+}
 import { computed, ref, watch, onMounted } from 'vue';
 import {
   listJobs,
