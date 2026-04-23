@@ -108,11 +108,10 @@
               </template>
             </q-input>
           </div>
-          <!-- model-specific options (e.g. rendering_speed for ideogram/v3) -->
-          <!-- Unified Input Images section for all models supporting input images -->
+          <!-- Unified Input Image/Images section -->
           <template v-if="inputImageKeys.length">
             <div class="col-12">
-              <div class="text-weight-medium q-mb-xs">Input Images</div>
+              <div class="text-weight-medium q-mb-xs">{{ inputImageSectionTitle }}</div>
               <div class="q-gutter-sm q-mb-sm">
                 <q-btn color="primary" unelevated icon="upload" label="Upload Image" @click="$refs.inputImageFile.click()" :disable="!selectedJobSlug" />
                 <q-btn color="primary" unelevated icon="collections" label="Choose Previous Image" @click="showInputImageDialog = true" :disable="!selectedJobSlug || !generatedImages.length" />
@@ -130,27 +129,13 @@
               </div>
               <q-dialog v-model="showInputImageDialog">
                 <q-card style="min-width: 70vw; min-height: 50vh;">
-                  <q-card-section>
-                    <div class="text-h6">Select Input Image</div>
-                  </q-card-section>
+                  <q-card-section><div class="text-h6">Select Input Image</div></q-card-section>
                   <q-separator />
                   <q-card-section>
                     <div class="row q-col-gutter-md">
-                      <div
-                        v-for="img in generatedImages"
-                        :key="img.publicLocalPath || img.imageUrl"
-                        class="col-6 col-md-3"
-                      >
-                        <q-card
-                          bordered
-                          class="cursor-pointer"
-                          @click="selectInputImageFromDialog(img)"
-                        >
-                          <q-img
-                            :src="resolveApiAssetUrl(img.publicLocalPath || img.imageUrl)"
-                            fit="contain"
-                            style="max-height: 160px;"
-                          />
+                      <div v-for="img in generatedImages" :key="img.publicLocalPath || img.imageUrl" class="col-6 col-md-3">
+                        <q-card bordered class="cursor-pointer" @click="selectInputImageFromDialog(img)">
+                          <q-img :src="resolveApiAssetUrl(img.publicLocalPath || img.imageUrl)" fit="contain" style="max-height: 160px;" />
                           <q-card-section class="q-pa-xs">
                             <div class="text-caption" style="max-width: 100%; white-space: normal; word-break: break-word;">
                               {{ [img.jobName, img.subcategory || 'No subcategory', img.description || 'No description', new Date(img.createdAt).toLocaleString()].join(' · ') }}
@@ -169,164 +154,112 @@
             </div>
           </template>
 
-          <div class="col-12">
-            <q-toggle
-              v-model="execution.settings.characterChaining"
-              color="primary"
-              label="Enable Character Chain"
-              :disable="!selectedJobSlug || (!isChainCompatibleModel && !execution.settings.characterChaining)"
-            >
-              <template #append>
-                <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                  <q-tooltip class="model-help-tooltip bg-primary text-white">
-                    Prompt 1 becomes the anchor subject. Later prompts reuse it for visual consistency.
-                  </q-tooltip>
-                </q-icon>
-              </template>
-            </q-toggle>
-          </div>
-
-          <div class="col-12" v-if="!isChainCompatibleModel">
-            <q-banner rounded class="bg-amber-1 text-amber-10">
-              Character Chain is disabled for this model. Switch to flux/dev, flux/schnell, or flux/pulid.
-            </q-banner>
-          </div>
-
-          <template v-if="execution.settings.characterChaining">
-            <div class="col-12 col-md-6">
-              <q-select
-                v-model="selectedCharacterRefImage"
-                :options="generatedImageOptions"
-                label="Character Reference from Existing Images (optional)"
-                outlined
-                emit-value
-                map-options
-                clearable
-                :disable="!selectedJobSlug || !generatedImageOptions.length"
-                @update:model-value="chooseCharacterReferenceImage"
-                hint="If empty, Prompt 1 output becomes the anchor."
-              >
-                <template #append>
-                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                    <q-tooltip class="model-help-tooltip bg-primary text-white">
-                      Pick a prior image to lock character appearance from the start.
-                    </q-tooltip>
-                  </q-icon>
-                </template>
-              </q-select>
-            </div>
-
-            <div class="col-12 col-md-6">
-              <q-input
-                v-model="execution.settings.characterReferenceUrl"
-                type="textarea"
-                autogrow
-                label="Character Reference URL/Base64 (optional)"
-                outlined
-                :disable="!selectedJobSlug"
-                class="q-mb-sm"
-              >
-                <template #append>
-                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                    <q-tooltip class="model-help-tooltip bg-primary text-white">
-                      Optional direct reference. Leave blank to use Prompt 1 output automatically.
-                    </q-tooltip>
-                  </q-icon>
-                </template>
-              </q-input>
-              <input
-                ref="characterReferenceFile"
-                type="file"
-                accept="image/*"
-                style="display:none"
-                @change="onCharacterReferenceFileChange"
-              />
-
-              <q-btn
+          <!-- Character Chain — only shown for models that support it -->
+          <template v-if="isChainCompatibleModel">
+            <div class="col-12">
+              <q-toggle
+                v-model="execution.settings.characterChaining"
                 color="primary"
-                unelevated
-                icon="upload"
-                label="Upload Reference Image"
-                @click="() => $refs.characterReferenceFile.click()"
+                label="Enable Character Chain"
                 :disable="!selectedJobSlug"
-                class="q-ml-sm"
-              />
+              >
+                <template #append>
+                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
+                    <q-tooltip class="model-help-tooltip bg-primary text-white">
+                      Prompt 1 becomes the anchor subject. Later prompts reuse it for visual consistency.
+                    </q-tooltip>
+                  </q-icon>
+                </template>
+              </q-toggle>
             </div>
 
-            <div class="col-12" v-if="characterReferencePreviewUrl">
-              <q-card flat bordered class="bg-grey-1">
-                <q-card-section class="q-pb-sm">
-                  <div class="text-subtitle2">Character Reference Preview</div>
-                  <div class="text-caption text-grey-7">
-                    This is the image that will be used as the reference anchor.
+            <template v-if="execution.settings.characterChaining">
+              <!-- Character Reference image picker — same pattern as input images, always single -->
+              <div class="col-12">
+                <div class="text-weight-medium q-mb-xs">Character Reference</div>
+                <div class="q-gutter-sm q-mb-sm">
+                  <q-btn color="primary" unelevated icon="upload" label="Upload Image" @click="$refs.characterReferenceFile.click()" :disable="!selectedJobSlug" />
+                  <q-btn color="primary" unelevated icon="collections" label="Choose Previous Image" @click="showCharacterRefDialog = true" :disable="!selectedJobSlug || !generatedImages.length" />
+                  <input ref="characterReferenceFile" type="file" accept="image/*" style="display:none" @change="onCharacterRefFileUpload" />
+                </div>
+                <div class="row q-col-gutter-md q-mb-sm" v-if="execution.settings.characterReferenceUrl">
+                  <div class="col-6 col-md-3">
+                    <q-card bordered>
+                      <q-img :src="execution.settings.characterReferenceUrl" fit="contain" style="max-height: 200px;" />
+                      <q-card-actions align="right">
+                        <q-btn flat dense icon="delete" color="negative" @click="clearCharacterRef" />
+                      </q-card-actions>
+                    </q-card>
                   </div>
-                </q-card-section>
-                <q-separator />
-                <q-card-section>
-                  <q-img
-                    :src="characterReferencePreviewUrl"
-                    fit="contain"
-                    style="max-width:220px; max-height:220px"
-                    class="rounded-borders"
-                  />
-                </q-card-section>
-              </q-card>
-            </div>
+                </div>
+                <q-dialog v-model="showCharacterRefDialog">
+                  <q-card style="min-width: 70vw; min-height: 50vh;">
+                    <q-card-section><div class="text-h6">Select Character Reference</div></q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                      <div class="row q-col-gutter-md">
+                        <div v-for="img in generatedImages" :key="img.publicLocalPath || img.imageUrl" class="col-6 col-md-3">
+                          <q-card bordered class="cursor-pointer" @click="selectCharacterRefFromDialog(img)">
+                            <q-img :src="resolveApiAssetUrl(img.publicLocalPath || img.imageUrl)" fit="contain" style="max-height: 160px;" />
+                            <q-card-section class="q-pa-xs">
+                              <div class="text-caption" style="max-width: 100%; white-space: normal; word-break: break-word;">
+                                {{ [img.jobName, img.subcategory || 'No subcategory', img.description || 'No description', new Date(img.createdAt).toLocaleString()].join(' · ') }}
+                              </div>
+                            </q-card-section>
+                          </q-card>
+                        </div>
+                      </div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-actions align="right">
+                      <q-btn flat label="Cancel" color="primary" v-close-popup />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
+              </div>
 
-            <div class="col-12 col-md-6" v-if="isFluxModel">
-              <q-input
-                v-model.number="execution.settings.characterStrength"
-                type="number"
-                min="0"
-                max="1"
-                step="0.01"
-                label="Character Chain Strength"
-                outlined
-                :disable="!selectedJobSlug"
-                hint="Recommended 0.30 - 0.50"
-              >
-                <template #append>
-                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                    <q-tooltip class="model-help-tooltip bg-primary text-white">
-                      Lower values allow bigger scene/pose changes while keeping the same subject.
-                    </q-tooltip>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div>
+              <div class="col-12 col-md-6" v-if="isFluxModel">
+                <q-input
+                  v-model.number="execution.settings.characterStrength"
+                  type="number" min="0" max="1" step="0.01"
+                  label="Character Chain Strength"
+                  outlined :disable="!selectedJobSlug"
+                  hint="Recommended 0.30 - 0.50"
+                >
+                  <template #append>
+                    <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
+                      <q-tooltip class="model-help-tooltip bg-primary text-white">
+                        Lower values allow bigger scene/pose changes while keeping the same subject.
+                      </q-tooltip>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
 
-            <div class="col-12 col-md-6" v-if="isPulidModel">
-              <q-input
-                v-model.number="execution.settings.characterIdScale"
-                type="number"
-                min="0"
-                max="1"
-                step="0.01"
-                label="Character Identity Scale"
-                outlined
-                :disable="!selectedJobSlug"
-                hint="Higher values preserve face identity more strongly"
-              >
-                <template #append>
-                  <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
-                    <q-tooltip class="model-help-tooltip bg-primary text-white">
-                      Controls how strongly the model keeps facial identity across prompts.
-                    </q-tooltip>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div>
+              <div class="col-12 col-md-6" v-if="isPulidModel">
+                <q-input
+                  v-model.number="execution.settings.characterIdScale"
+                  type="number" min="0" max="1" step="0.01"
+                  label="Character Identity Scale"
+                  outlined :disable="!selectedJobSlug"
+                  hint="Higher values preserve face identity more strongly"
+                >
+                  <template #append>
+                    <q-icon name="help_outline" size="16px" class="text-primary cursor-pointer">
+                      <q-tooltip class="model-help-tooltip bg-primary text-white">
+                        Controls how strongly the model keeps facial identity across prompts.
+                      </q-tooltip>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
 
-            <div class="col-12" v-if="!isFluxModel && !isPulidModel">
-              <q-banner rounded class="bg-amber-1 text-amber-10">
-                Character Chain works with FLUX models. Choose flux/dev, flux/schnell, or flux/pulid.
-              </q-banner>
-            </div>
-            <div class="col-12" v-if="isPulidModel && !hasCharacterReference">
-              <q-banner rounded class="bg-amber-1 text-amber-10">
-                flux/pulid requires a Character Reference image when Character Chain is enabled.
-              </q-banner>
-            </div>
+              <div class="col-12" v-if="isPulidModel && !hasCharacterReference">
+                <q-banner rounded class="bg-amber-1 text-amber-10">
+                  flux/pulid requires a Character Reference image when Character Chain is enabled.
+                </q-banner>
+              </div>
+            </template>
           </template>
 
           <div class="col-12">
@@ -384,13 +317,14 @@
 // --- Unified Input Images logic ---
 import { nextTick } from 'vue';
 
-// Find all keys in specificOptions that are for input images (e.g., input_url)
 const inputImageKeys = computed(() => {
-  if (!selectedModel.value || !selectedModel.value.specificOptions) return [];
-  return selectedModel.value.specificOptions.filter(opt => opt.key && opt.key.includes('input_url')).map(opt => opt.key);
+  if (!selectedModel.value?.specificOptions) return [];
+  return selectedModel.value.specificOptions
+    .filter(opt => opt.mode === 'image' || opt.mode === 'images')
+    .map(opt => opt.key);
 });
 const inputImageMultiple = computed(() =>
-  !!(selectedModel.value?.specificOptions?.find(opt => opt.key?.includes('input_url') && opt.multiple))
+  !!(selectedModel.value?.specificOptions?.find(opt => opt.mode === 'images'))
 );
 const inputImages = ref([]);
 
@@ -457,18 +391,30 @@ function removeInputImage(idx) {
   updateInputImages(newImages);
 }
 const showInputImageDialog = ref(false);
+const showCharacterRefDialog = ref(false);
 
-function onCharacterReferenceFileChange(event) {
-  const file = event.target.files && event.target.files[0];
+function onCharacterRefFileUpload(event) {
+  const file = event.target.files?.[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = (e) => {
-    execution.value.settings.characterReferenceUrl = e.target.result;
-    selectedCharacterRefImage.value = null; // Clear selection from previous generations
-  };
+  reader.onload = (e) => { execution.value.settings.characterReferenceUrl = e.target.result; };
   reader.readAsDataURL(file);
-  // Reset file input so same file can be re-uploaded if needed
   event.target.value = '';
+}
+
+function selectCharacterRefFromDialog(img) {
+  showCharacterRefDialog.value = false;
+  fetch(resolveApiAssetUrl(img.publicLocalPath || img.imageUrl))
+    .then(res => res.blob())
+    .then(blob => {
+      const reader = new FileReader();
+      reader.onload = (e) => { execution.value.settings.characterReferenceUrl = e.target.result; };
+      reader.readAsDataURL(blob);
+    });
+}
+
+function clearCharacterRef() {
+  execution.value.settings.characterReferenceUrl = '';
 }
 import { computed, ref, watch, onMounted } from 'vue';
 import {
@@ -494,8 +440,6 @@ const jobs = ref([]);
 const models = ref([]);
 const selectedJobSlug = ref(null);
 const generatedImages = ref([]);
-const selectedInputImage = ref(null);
-const selectedCharacterRefImage = ref(null);
 
 const execution = ref({
   provider: 'fal-ai',
@@ -548,20 +492,22 @@ const isPulidModel = computed(() => {
   return modelId === 'flux/pulid';
 });
 
-const isChainCompatibleModel = computed(() => isFluxModel.value || isPulidModel.value);
+const isChainCompatibleModel = computed(() =>
+  !!(selectedModel.value?.specificOptions?.find(opt => opt.mode === 'character-chain-image'))
+);
 
 const hasCharacterReference = computed(() => String(execution.value.settings.characterReferenceUrl || '').trim().length > 0);
 
-const characterReferencePreviewUrl = computed(() => {
-  const value = String(execution.value.settings.characterReferenceUrl || '').trim();
-  return value ? resolveApiAssetUrl(value) : '';
+const inputImageSectionTitle = computed(() => {
+  const opt = selectedModel.value?.specificOptions?.find(o => o.mode === 'image' || o.mode === 'images');
+  return opt?.mode === 'images' ? 'Input Images' : 'Input Image';
 });
 
 const saveDisabledReason = computed(() => {
   if (!selectedJobSlug.value) return '';
 
   if (execution.value.settings.characterChaining && !isChainCompatibleModel.value) {
-    return 'Character Chain is only supported on flux/dev, flux/schnell, or flux/pulid.';
+    return 'Character Chain is not supported by the selected model.';
   }
 
   if (execution.value.settings.characterChaining && isPulidModel.value && !hasCharacterReference.value) {
@@ -571,64 +517,6 @@ const saveDisabledReason = computed(() => {
   return '';
 });
 
-const generatedImageOptions = computed(() =>
-  generatedImages.value.map((img) => ({
-    label: [
-      img.jobName,
-      img.subcategory || 'No subcategory',
-      img.description || 'No description',
-      new Date(img.createdAt).toLocaleString(),
-    ].join(' · '),
-    value: img.publicLocalPath || img.imageUrl,
-  }))
-);
-
-function toDataUrl(blob) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
-}
-
-async function chooseInputImage(imagePathOrUrl) {
-  if (!imagePathOrUrl) {
-    selectedInputImage.value = null;
-    execution.value.settings.input_url = '';
-    return;
-  }
-
-  try {
-    selectedInputImage.value = imagePathOrUrl;
-    const src = resolveApiAssetUrl(imagePathOrUrl);
-
-    const res = await fetch(src);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch selected image (${res.status})`);
-    }
-    const blob = await res.blob();
-    const dataUrl = await toDataUrl(blob);
-    execution.value.settings.input_url = String(dataUrl);
-  } catch (e) {
-    error.value = e.message || 'Could not convert selected image to base64';
-  }
-}
-
-async function chooseCharacterReferenceImage(imagePathOrUrl) {
-  if (!imagePathOrUrl) {
-    selectedCharacterRefImage.value = null;
-    execution.value.settings.characterReferenceUrl = '';
-    return;
-  }
-
-  try {
-    selectedCharacterRefImage.value = imagePathOrUrl;
-    execution.value.settings.characterReferenceUrl = resolveApiAssetUrl(imagePathOrUrl);
-  } catch (e) {
-    error.value = e.message || 'Could not convert selected character reference image';
-  }
-}
 
 async function loadGeneratedImages() {
   try {
@@ -673,21 +561,8 @@ watch(selectedModel, (model) => {
   if (!Object.prototype.hasOwnProperty.call(execution.value.settings, 'characterIdScale')) {
     execution.value.settings = { ...execution.value.settings, characterIdScale: 0.8 };
   }
-  if (!Object.prototype.hasOwnProperty.call(execution.value.settings, 'characterReferenceUrl')) {
-    execution.value.settings = { ...execution.value.settings, characterReferenceUrl: '' };
-  }
-
   if (!isChainCompatibleModel.value && execution.value.settings.characterChaining) {
     execution.value.settings = { ...execution.value.settings, characterChaining: false };
-  }
-
-  if (!isPulidModel.value) {
-    if (Object.prototype.hasOwnProperty.call(execution.value.settings, 'id_scale')) {
-      const cleanPulid = { ...execution.value.settings };
-      delete cleanPulid.id_scale;
-      delete cleanPulid.reference_image_url;
-      execution.value.settings = cleanPulid;
-    }
   }
 
   // Set defaults for any specific options not already in the execution settings
@@ -706,7 +581,6 @@ watch(selectedModel, (model) => {
     'characterChaining',
     'characterStrength',
     'characterIdScale',
-    'characterReferenceUrl',
   ]);
   const staleKeys = Object.keys(execution.value.settings).filter(
     (k) => !globalKeys.has(k) && !validKeys.has(k)
@@ -744,11 +618,9 @@ watch(selectedJobSlug, async (slug) => {
         characterIdScale: Number.isFinite(Number(job.execution?.settings?.characterIdScale))
           ? Number(job.execution.settings.characterIdScale)
           : 0.8,
-        characterReferenceUrl: job.execution?.settings?.characterReferenceUrl || '',
         ...specificSettings,
       },
     };
-    selectedCharacterRefImage.value = null;
   } catch (e) {
     error.value = e.message || 'Failed to load selected job';
   }

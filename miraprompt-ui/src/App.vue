@@ -17,17 +17,45 @@
                 </div>
               </div>
             </div>
-            <q-btn
-              v-if="activeTab === 'custom-styles'"
-              flat dense round
-              icon="view_sidebar"
-              :color="panelOpen ? 'primary' : 'grey-7'"
-              @click="panelOpen = !panelOpen"
-            >
-              <q-tooltip>{{ panelOpen ? 'Hide image panel' : 'Show image panel' }}</q-tooltip>
-            </q-btn>
+            <div class="row items-center q-gutter-sm">
+              <q-btn
+                flat dense round
+                icon="playlist_remove"
+                color="grey-7"
+                @click="showClearPromptDialog = true"
+              >
+                <q-tooltip>Clear Current Prompt</q-tooltip>
+              </q-btn>
+              <q-btn
+                v-if="activeTab === 'custom-styles'"
+                flat dense round
+                icon="view_sidebar"
+                :color="panelOpen ? 'primary' : 'grey-7'"
+                @click="panelOpen = !panelOpen"
+              >
+                <q-tooltip>{{ panelOpen ? 'Hide image panel' : 'Show image panel' }}</q-tooltip>
+              </q-btn>
+            </div>
           </q-card-section>
         </q-card>
+
+        <q-dialog v-model="showClearPromptDialog">
+          <q-card style="min-width: 320px;">
+            <q-card-section>
+              <div class="text-h6">Clear Current Prompt</div>
+            </q-card-section>
+            <q-separator />
+            <q-card-section class="q-gutter-sm">
+              <q-checkbox v-model="clearPromptStyles" label="Clear Styles" />
+              <q-checkbox v-model="clearPromptDescription" label="Clear Description" />
+            </q-card-section>
+            <q-separator />
+            <q-card-actions align="right">
+              <q-btn flat label="Cancel" color="grey-7" v-close-popup />
+              <q-btn flat label="OK" color="negative" @click="executeClearPrompt" />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
 
         <!-- ── tabs ─────────────────────────────────────────────────── -->
         <q-tabs v-model="activeTab" dense align="left" class="q-mb-md text-grey-8" active-color="primary" indicator-color="primary">
@@ -386,411 +414,93 @@
 </template>
 
 <script setup>
-import { computed, nextTick, ref, watch } from 'vue';
-import styleData from './assets/custom-styles.json';
+import { nextTick, ref } from 'vue';
 import mirapromptLogo from './assets/miraprompt.png';
 import sampleImage from './assets/sample-image.svg';
-import { buildMergedStylesWithScopes, orderedDimensions, getStyleChips, SCOPE_PRIORITY } from './utils/style-data';
-import { listGeneratedImages } from './api/jobs.js';
 import AddToJobDialog from './components/AddToJobDialog.vue';
 import HomeWorkflowContent from './components/HomeWorkflowContent.vue';
 import ImagesView from './components/ImagesView.vue';
 import JobsView from './components/JobsView.vue';
 import ModelsView from './components/ModelsView.vue';
 import SavedStylesView from './components/SavedStylesView.vue';
+import { useCustomStyles } from './composables/useCustomStyles.js';
+import { usePrompt, toTitle } from './composables/usePrompt.js';
 
-// ── reactive state ───────────────────────────────────────────────────────────
-const selectedCategory = ref(null);
-const selectedSubcategory = ref(null);
+// ── layout / navigation state ────────────────────────────────────────────────
 const activeTab = ref('home');
 const imagesRefreshToken = ref(0);
 const jobsRefreshToken = ref(0);
 const modelsRefreshToken = ref(0);
 const savedStylesRefreshToken = ref(0);
-const showAddToJob = ref(false);
-const lightboxImage = ref(null);
 const panelOpen = ref(true);
-const generatedImages = ref([]);
-const generatedImagesLoading = ref(false);
-const selectedMap = ref({});
-const description = ref('');
-const promptDraft = ref({
-  category: null,
-  subcategory: null,
-  styles: {},
-  savedStyles: [],
-});
-const expandedState = ref({});
+const showAddToJob = ref(false);
+const showClearPromptDialog = ref(false);
+const clearPromptStyles = ref(true);
+const clearPromptDescription = ref(true);
 
-// ── derived data (must be declared before any watcher that references them) ──
-const categoryOptions = computed(() =>
-  Object.keys(styleData.categories)
-    .sort((a, b) => a.localeCompare(b))
-    .map((cat) => ({ label: cat, value: cat }))
-);
+// ── composables ──────────────────────────────────────────────────────────────
+const {
+  selectedCategory, selectedSubcategory, expandedState,
+  generatedImages, generatedImagesLoading, lightboxImage, lightboxOpen,
+  categoryOptions, subcategoryOptions, mergedStyles,
+  dimensions, selectedPayload, selectionSummary, hasSummary,
+  expandAll, collapseAll, onDimensionToggle,
+  isSelected, toggleSelection, clearSelections,
+  applyImageStyles, applyStyleMap,
+  getImageChips, lightboxPromptText,
+  dimensionCountLabel, optionScopeClass, orderedGroupNames,
+} = useCustomStyles();
 
-const subcategoryOptions = computed(() => {
-  if (!selectedCategory.value) return [];
-  const sub = styleData.categories[selectedCategory.value] || [];
-  return [...new Set(sub)]
-    .sort((a, b) => a.localeCompare(b))
-    .map((item) => ({ label: item, value: item }));
-});
+const {
+  description,
+  promptSavedStyles, promptPayloadForJob,
+  promptSelectionSummary, hasPromptSummary,
+  canAddPromptToJob, fullPromptPreview,
+  setPromptFromSelection,
+  addSavedStyleToPrompt: addSavedStyleToPromptDraft,
+  clearStyles, clearDescription, resetAll,
+} = usePrompt();
 
-const mergedBundle = computed(() =>
-  buildMergedStylesWithScopes(styleData, selectedCategory.value, selectedSubcategory.value)
-);
-
-const mergedStyles = computed(() => mergedBundle.value.merged);
-const styleScopes = computed(() => mergedBundle.value.scopeMap);
-
-// Group-level scope: highest-priority scope of any option in that group
-const groupScopeMap = computed(() => {
-  const scopes = styleScopes.value;
-  const result = {};
-  for (const [dim, groups] of Object.entries(scopes || {})) {
-    result[dim] = {};
-    for (const [groupName, options] of Object.entries(groups || {})) {
-      let max = 1;
-      let maxScope = 'global';
-      for (const s of Object.values(options || {})) {
-        if ((SCOPE_PRIORITY[s] || 1) > max) { max = SCOPE_PRIORITY[s]; maxScope = s; }
-      }
-      result[dim][groupName] = maxScope;
-    }
-  }
-  return result;
-});
-
-const dimensions = computed(() => orderedDimensions(mergedStyles.value));
-
-const selectedPayload = computed(() => {
-  const payload = {
-    category: selectedCategory.value,
-    subcategory: selectedSubcategory.value,
-    description: description.value,
-    styles: {}
-  };
-
-  Object.keys(selectedMap.value).forEach((k) => {
-    const [dimension, groupName, option] = k.split('|||');
-    if (!payload.styles[dimension]) payload.styles[dimension] = {};
-    if (!payload.styles[dimension][groupName]) payload.styles[dimension][groupName] = [];
-    payload.styles[dimension][groupName].push(option);
-  });
-
-  Object.keys(payload.styles).forEach((dimension) => {
-    Object.keys(payload.styles[dimension]).forEach((groupName) => {
-      payload.styles[dimension][groupName].sort((a, b) => a.localeCompare(b));
-    });
-  });
-
-  return payload;
-});
-
-const jsonPreview = computed(() => JSON.stringify(selectedPayload.value, null, 2));
-
-// ── selection summary (flat list of chosen values per dimension) ─────────────
-const selectionSummary = computed(() => {
-  const raw = selectedPayload.value.styles;
-  const result = {};
-  orderedDimensions(raw).forEach((dim) => {
-    const all = Object.values(raw[dim] || {}).flat();
-    if (all.length) result[dim] = all;
-  });
-  return result;
-});
-
-const hasSummary = computed(() => Object.keys(selectionSummary.value).length > 0);
-
-const promptSavedStyles = computed(() => promptDraft.value.savedStyles || []);
-const primarySavedStyle = computed(() => promptSavedStyles.value[0] || null);
-
-const promptDescriptionForJob = computed(() => {
-  return description.value.trim();
-});
-
-const promptStylesForJob = computed(() => {
-  const styles = cloneStyles(promptDraft.value.styles || {});
-  if (promptSavedStyles.value.length) {
-    styles['saved-styles'] = promptSavedStyles.value.map((style) => ({
-      category: String(style?.category || '').trim(),
-      name: String(style?.name || '').trim(),
-      prompt: String(style?.prompt || '').trim(),
-    }));
-  }
-  return styles;
-});
-
-const promptPayloadForJob = computed(() => ({
-  category: promptDraft.value.category || primarySavedStyle.value?.category || null,
-  subcategory: promptDraft.value.subcategory || primarySavedStyle.value?.name || null,
-  description: promptDescriptionForJob.value,
-  styles: promptStylesForJob.value,
-  transformedPrompt: fullPromptPreview.value,
-}));
-
-const promptSelectionSummary = computed(() => {
-  const raw = promptDraft.value.styles || {};
-  const result = {};
-  orderedDimensions(raw).forEach((dim) => {
-    if (dim === 'saved-styles') return;
-    const groups = raw[dim] || {};
-    const all = Object.keys(groups)
-      .sort((a, b) => a.localeCompare(b))
-      .flatMap((groupName) => groups[groupName] || []);
-    if (all.length) result[dim] = all;
-  });
-  return result;
-});
-
-const hasPromptSummary = computed(() => {
-  return Object.keys(promptSelectionSummary.value).length > 0 || promptSavedStyles.value.length > 0;
-});
-
-const promptStyleCount = computed(() => {
-  return Object.entries(promptDraft.value.styles || {}).reduce((acc, [dimension, groups]) => {
-    if (dimension === 'saved-styles') return acc;
-    const groupCount = Object.values(groups || {}).reduce((sum, options) => sum + (options?.length || 0), 0);
-    return acc + groupCount;
-  }, 0);
-});
-
-const canAddPromptToJob = computed(() => {
-  return promptStyleCount.value > 0 || promptSavedStyles.value.length > 0 || promptDescriptionForJob.value.length > 0;
-});
-
-const styleSummaryLines = computed(() => {
-  const lines = [];
-  const raw = promptDraft.value.styles || {};
-  orderedDimensions(raw).forEach((dimension) => {
-    const groups = raw[dimension] || {};
-    Object.keys(groups)
-      .sort((a, b) => a.localeCompare(b))
-      .forEach((groupName) => {
-        const values = groups[groupName] || [];
-        if (values.length) {
-          lines.push(`${toTitle(groupName)}: ${values.join(', ')}`);
-        }
-      });
-  });
-  return lines;
-});
-
-const fullPromptPreview = computed(() => {
-  const parts = [...styleSummaryLines.value];
-  promptSavedStyles.value.forEach((style) => {
-    const text = String(style?.prompt || '').trim();
-    if (text) parts.push(text);
-  });
-  const desc = description.value.trim();
-  if (desc) parts.push(desc);
-  return parts.join(', ');
-});
-
-const lightboxOpen = computed({
-  get: () => lightboxImage.value !== null,
-  set: (v) => { if (!v) lightboxImage.value = null; },
-});
-
-// ── watchers (after all referenced computeds are declared) ───────────────────
-watch(selectedCategory, () => {
-  selectedSubcategory.value = null;
-  selectedMap.value = {};
-});
-
-watch(selectedSubcategory, () => {
-  selectedMap.value = {};
-  refreshGeneratedImages();
-});
-
-watch(selectedCategory, () => {
-  generatedImages.value = [];
-});
-
-watch(
-  dimensions,
-  (newDims) => {
-    const state = {};
-    newDims.forEach((d) => { state[d] = false; });
-    expandedState.value = state;
-  },
-  { immediate: true }
-);
-
-// ── functions ────────────────────────────────────────────────────────────────
-function expandAll() {
-  dimensions.value.forEach((d) => { expandedState.value[d] = true; });
-}
-
-function collapseAll() {
-  dimensions.value.forEach((d) => { expandedState.value[d] = false; });
-}
-
-function onDimensionToggle(dim, val) {
-  if (val) {
-    // accordion: opening one collapses all others
-    dimensions.value.forEach((d) => { expandedState.value[d] = d === dim; });
-  } else {
-    expandedState.value[dim] = false;
-  }
-}
-
-function keyFor(dimension, groupName, option) {
-  return `${dimension}|||${groupName}|||${option}`;
-}
-
-function isSelected(dimension, groupName, option) {
-  return Boolean(selectedMap.value[keyFor(dimension, groupName, option)]);
-}
-
-function toggleSelection(dimension, groupName, option, value) {
-  const key = keyFor(dimension, groupName, option);
-  if (value) {
-    selectedMap.value[key] = true;
-  } else {
-    delete selectedMap.value[key];
-  }
-}
-
-function clearSelections() {
-  selectedMap.value = {};
-}
-
-function cloneStyles(styles) {
-  return JSON.parse(JSON.stringify(styles || {}));
-}
+// ── bridge functions ─────────────────────────────────────────────────────────
 
 function addCurrentSelectionToPrompt() {
-  promptDraft.value = {
-    category: selectedCategory.value,
-    subcategory: selectedSubcategory.value,
-    styles: cloneStyles(selectedPayload.value.styles),
-    savedStyles: [...(promptDraft.value.savedStyles || [])],
-  };
+  setPromptFromSelection(selectedCategory.value, selectedSubcategory.value, selectedPayload.value.styles);
   activeTab.value = 'prompt';
 }
 
 function addSavedStyleToPrompt(savedStyle) {
-  const category = String(savedStyle?.category || '').trim();
-  const name = String(savedStyle?.name || '').trim();
-  const prompt = String(savedStyle?.prompt || '').trim();
-  if (!name || !prompt) return;
-
-  const existing = promptDraft.value.savedStyles || [];
-  const alreadyAdded = existing.some((item) => item.category === category && item.name === name && item.prompt === prompt);
-  if (!alreadyAdded) {
-    promptDraft.value = {
-      ...promptDraft.value,
-      savedStyles: [...existing, { category, name, prompt }],
-    };
-  }
+  addSavedStyleToPromptDraft(savedStyle);
   activeTab.value = 'prompt';
 }
 
 function onAddToJobSuccess() {
-  // Start the next prompt from a clean slate.
-  selectedMap.value = {};
-  description.value = '';
-  promptDraft.value = {
-    category: null,
-    subcategory: null,
-    styles: {},
-    savedStyles: [],
-  };
+  clearSelections();
+  resetAll();
   activeTab.value = 'models';
+}
+
+function executeClearPrompt() {
+  if (clearPromptStyles.value) {
+    clearSelections();
+    clearStyles();
+  }
+  if (clearPromptDescription.value) {
+    clearDescription();
+  }
+  showClearPromptDialog.value = false;
 }
 
 function onSavedStyleChanged() {
   savedStylesRefreshToken.value += 1;
 }
 
-function toTitle(text) {
-  return String(text)
-    .split(' ')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
-}
-
-function dimensionCountLabel(dimension) {
-  const selDim = selectedPayload.value.styles?.[dimension] || {};
-  const selectedCount = Object.values(selDim).reduce((acc, list) => acc + list.length, 0);
-  const totalCount = Object.values(mergedStyles.value?.[dimension] || {}).reduce(
-    (acc, list) => acc + list.length,
-    0
-  );
-  return `${selectedCount}/${totalCount} selected`;
-}
-
-function optionScopeClass(dimension, groupName, option) {
-  const scope = styleScopes.value?.[dimension]?.[groupName]?.[option] || 'global';
-  return `scope-${scope}`;
-}
-
-// Returns group names sorted subcategory-first, category, then global
-function orderedGroupNames(dimension) {
-  const groups = Object.keys(mergedStyles.value[dimension] || {});
-  return groups.sort((a, b) => {
-    const pa = SCOPE_PRIORITY[groupScopeMap.value[dimension]?.[a]] || 1;
-    const pb = SCOPE_PRIORITY[groupScopeMap.value[dimension]?.[b]] || 1;
-    return pb - pa;
-  });
-}
-
-function applyImageStyles(img) {
-  if (!img?.styles) return;
-  for (const [dimension, groups] of Object.entries(img.styles)) {
-    if (dimension === 'saved-styles' || Array.isArray(groups)) continue;
-    for (const [groupName, options] of Object.entries(groups || {})) {
-      for (const option of (options || [])) {
-        selectedMap.value[keyFor(dimension, groupName, option)] = true;
-      }
-    }
-  }
-  lightboxImage.value = null;
-}
-
 async function applyLibraryImageStyles(img) {
   if (!img?.styles) return;
-
   activeTab.value = 'custom-styles';
   selectedCategory.value = img.category || null;
   await nextTick();
   selectedSubcategory.value = img.subcategory || null;
   await nextTick();
-
-  selectedMap.value = {};
-  for (const [dimension, groups] of Object.entries(img.styles)) {
-    if (dimension === 'saved-styles' || Array.isArray(groups)) continue;
-    for (const [groupName, options] of Object.entries(groups || {})) {
-      for (const option of (options || [])) {
-        selectedMap.value[keyFor(dimension, groupName, option)] = true;
-      }
-    }
-  }
-}
-
-async function refreshGeneratedImages() {
-  if (!selectedSubcategory.value) {
-    generatedImages.value = [];
-    return;
-  }
-
-  generatedImagesLoading.value = true;
-  try {
-    generatedImages.value = await listGeneratedImages(selectedSubcategory.value);
-  } catch {
-    generatedImages.value = [];
-  } finally {
-    generatedImagesLoading.value = false;
-  }
-}
-
-function getImageChips(img) {
-  return getStyleChips(styleData, img.category, img.subcategory, img.styles || {});
-}
-
-function lightboxPromptText(img) {
-  return img?.transformedPrompt || img?.description || 'No prompt text available for this image.';
+  applyStyleMap(img);
 }
 </script>
