@@ -250,6 +250,68 @@ export async function buildIndex(config) {
   await fs.rename(tmp, indexPath);
 }
 
+export async function buildShowcaseMd(config) {
+  const mPath = manifestPath(config);
+  let manifest = {};
+  try {
+    manifest = JSON.parse(await fs.readFile(mPath, 'utf-8'));
+  } catch {
+    return;
+  }
+
+  const attachmentsDir = path.join(config.vaultPath, config.attachmentsDir);
+
+  const groups = new Map();
+  for (const [imageFile, entry] of Object.entries(manifest)) {
+    try {
+      await fs.access(path.join(attachmentsDir, imageFile));
+    } catch {
+      continue;
+    }
+    const cat = entry.category || '(Uncategorized)';
+    const sub = entry.subcategory || '';
+    if (!groups.has(cat)) groups.set(cat, new Map());
+    const subs = groups.get(cat);
+    if (!subs.has(sub)) subs.set(sub, []);
+    subs.get(sub).push({ imageFile, ...entry });
+  }
+
+  if (groups.size === 0) return;
+
+  const sortedCats = [...groups.keys()].sort((a, b) => a.localeCompare(b));
+  const totalCount = [...groups.values()].flatMap((s) => [...s.values()]).flat().length;
+
+  const lines = [`# Showcase`, ``, `_${totalCount} article${totalCount !== 1 ? 's' : ''}_`, ``];
+
+  for (const cat of sortedCats) {
+    lines.push(`## ${cat}`, ``);
+    const subs = groups.get(cat);
+    const sortedSubs = [...subs.keys()].sort((a, b) => a.localeCompare(b));
+
+    for (const sub of sortedSubs) {
+      if (sub) lines.push(`### ${sub}`, ``);
+      const entries = subs.get(sub).sort((a, b) => a.title.localeCompare(b.title));
+
+      for (const { imageFile, markdownPath, title, category, subcategory } of entries) {
+        const mdLink = markdownPath.replace(/\\/g, '/');
+        const metaText = [category, subcategory].filter(Boolean).join(' › ');
+        const displayTitle = title.replace(/\b\w/g, c => c.toUpperCase());
+        lines.push(
+          `![[${imageFile}]]`,
+          `**[${displayTitle}](${mdLink})**  `,
+          `_${metaText}_`,
+          ``,
+        );
+      }
+    }
+  }
+
+  const mdPath = path.join(config.vaultPath, 'Showcase.md');
+  const tmp = mdPath + '.tmp';
+  await fs.writeFile(tmp, lines.join('\n'), 'utf-8');
+  await fs.rename(tmp, mdPath);
+}
+
 function escHtml(str) {
   return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }

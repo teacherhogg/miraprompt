@@ -8,13 +8,28 @@ import { writeImageToVault } from './vault.js';
 const DEBOUNCE_MS = 2000;
 const BACKFILL_CONCURRENCY = 2;
 
-export function startWatcher(config) {
-  const pendingTimers = new Map();
-  const processing = new Set();
+export function startWatchers(vaultPaths, config) {
   let imagesGenerated = 0;
-
   const onSuccess = () => { imagesGenerated++; };
   const limitReached = () => config.testingMaxImages > 0 && imagesGenerated >= config.testingMaxImages;
+
+  if (config.testingMaxImages > 0) {
+    console.log(`  Testing mode: will stop after ${config.testingMaxImages} image(s) total across all vaults`);
+  }
+
+  return vaultPaths.map(vaultPath =>
+    startOneVault({ ...config, vaultPath }, onSuccess, limitReached)
+  );
+}
+
+// Backward-compat single-vault entry point
+export function startWatcher(config) {
+  return startWatchers([config.vaultPath], config)[0];
+}
+
+function startOneVault(config, onSuccess, limitReached) {
+  const pendingTimers = new Map();
+  const processing = new Set();
 
   const ignored = [
     path.join(config.vaultPath, config.attachmentsDir, '**'),
@@ -28,23 +43,19 @@ export function startWatcher(config) {
     awaitWriteFinish: { stabilityThreshold: 500, pollInterval: 100 },
   });
 
-  if (config.testingMaxImages > 0) {
-    console.log(`  Testing mode: will stop after ${config.testingMaxImages} image(s)`);
-  }
-
   watcher.on('add', (filePath) => {
     if (!filePath.endsWith('.md')) return;
     if (limitReached()) return;
     scheduleProcess(filePath, config, pendingTimers, processing, onSuccess, limitReached);
   });
 
-  watcher.on('error', (err) => console.error('Watcher error:', err));
+  watcher.on('error', (err) => console.error(`Watcher error (${config.vaultPath}):`, err));
 
   console.log(`Watching for new markdown files in: ${config.vaultPath}`);
 
   // Fire-and-forget: backfill runs concurrently with the live watcher
   backfillVault(config, processing, onSuccess, limitReached).catch((err) =>
-    console.error('Backfill error:', err.message)
+    console.error(`Backfill error (${config.vaultPath}):`, err.message)
   );
 
   return watcher;
@@ -88,12 +99,13 @@ async function processFile(filePath, config, processing, onSuccess, limitReached
 }
 
 async function backfillVault(config, processing, onSuccess, limitReached) {
+  const label = path.basename(config.vaultPath);
   const files = await collectUnprocessedFiles(config);
   if (files.length === 0) {
-    console.log(`[backfill] No unprocessed markdown files found.`);
+    console.log(`[backfill:${label}] No unprocessed markdown files found.`);
     return;
   }
-  console.log(`[backfill] Found ${files.length} unprocessed file(s). Processing with concurrency=${BACKFILL_CONCURRENCY}.`);
+  console.log(`[backfill:${label}] Found ${files.length} unprocessed file(s). Processing with concurrency=${BACKFILL_CONCURRENCY}.`);
 
   let index = 0;
   let active = 0;
@@ -117,7 +129,7 @@ async function backfillVault(config, processing, onSuccess, limitReached) {
     next();
   });
 
-  console.log(`[backfill] Complete.`);
+  console.log(`[backfill:${label}] Complete.`);
 }
 
 async function collectUnprocessedFiles(config) {
@@ -128,6 +140,7 @@ async function collectUnprocessedFiles(config) {
 
 async function walkDir(dir, config, results) {
   const attachmentsAbs = path.join(config.vaultPath, config.attachmentsDir);
+  const label = path.basename(config.vaultPath);
   let entries;
   try {
     entries = await fs.readdir(dir, { withFileTypes: true });
@@ -146,7 +159,7 @@ async function walkDir(dir, config, results) {
         results.push(fullPath);
       } else {
         const rel = path.relative(config.vaultPath, fullPath);
-        console.log(`[backfill] Skipping (already has image): ${rel}`);
+        console.log(`[backfill:${label}] Skipping (already has image): ${rel}`);
       }
     }
   }

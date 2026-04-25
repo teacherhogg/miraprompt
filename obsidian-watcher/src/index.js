@@ -1,12 +1,6 @@
-import { startWatcher } from './watcher.js';
+import { startWatchers } from './watcher.js';
 
-const required = [
-  'ANTHROPIC_API_KEY',
-  'OBSIDIAN_VAULT_PATH',
-  'MIRAPROMPT_SERVER_URL',
-  'MIRAPROMPT_DATA_DIR',
-];
-
+const required = ['ANTHROPIC_API_KEY', 'MIRAPROMPT_SERVER_URL', 'MIRAPROMPT_DATA_DIR'];
 for (const key of required) {
   if (!process.env[key]) {
     console.error(`Missing required environment variable: ${key}`);
@@ -14,9 +8,15 @@ for (const key of required) {
   }
 }
 
+const vaultPathsRaw = process.env.OBSIDIAN_VAULT_PATHS || process.env.OBSIDIAN_VAULT_PATH;
+if (!vaultPathsRaw) {
+  console.error('Missing required env: OBSIDIAN_VAULT_PATHS (or OBSIDIAN_VAULT_PATH for a single vault)');
+  process.exit(1);
+}
+const vaultPaths = vaultPathsRaw.split(',').map(p => p.trim()).filter(Boolean);
+
 export const config = {
   anthropicApiKey: process.env.ANTHROPIC_API_KEY,
-  vaultPath: process.env.OBSIDIAN_VAULT_PATH,
   attachmentsDir: process.env.OBSIDIAN_ATTACHMENTS_DIR || '_generated',
   miraDatDir: process.env.MIRAPROMPT_DATA_DIR,
   serverUrl: process.env.MIRAPROMPT_SERVER_URL,
@@ -26,8 +26,8 @@ export const config = {
 };
 
 console.log(`Obsidian watcher starting`);
-console.log(`  Vault: ${config.vaultPath}`);
+console.log(`  Vaults (${vaultPaths.length}): ${vaultPaths.join(', ')}`);
 console.log(`  Attachments dir: ${config.attachmentsDir}`);
 console.log(`  miraprompt-server: ${config.serverUrl}`);
 
-startWatcher(config);
+startWatchers(vaultPaths, config);
