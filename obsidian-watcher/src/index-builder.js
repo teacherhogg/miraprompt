@@ -306,7 +306,7 @@ export async function buildShowcaseMd(config) {
     }
   }
 
-  const mdPath = path.join(config.vaultPath, 'Showcase.md');
+  const mdPath = path.join(config.vaultPath, 'Showcase Summary.md');
   const tmp = mdPath + '.tmp';
   await fs.writeFile(tmp, lines.join('\n'), 'utf-8');
   await fs.rename(tmp, mdPath);
