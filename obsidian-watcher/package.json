@@ -1,0 +1,11 @@
+{
+  "name": "obsidian-watcher",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "chokidar": "^4.0.3",
+    "fs-extra": "^11.2.0"
+  }
+}

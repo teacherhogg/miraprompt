@@ -21,6 +21,28 @@ services:
       timeout: 5s
       retries: 3
 
+  obsidian-watcher:
+    build:
+      context: ./obsidian-watcher
+      dockerfile: Dockerfile
+    container_name: obsidian-watcher
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MIRAPROMPT_SERVER_URL: http://miraprompt-server:3001
+      MIRAPROMPT_DATA_DIR: /miraprompt-data
+      OBSIDIAN_VAULT_PATH: /vault
+      OBSIDIAN_ATTACHMENTS_DIR: ${OBSIDIAN_ATTACHMENTS_DIR:-_generated}
+      DEFAULT_MODEL_ID: ${DEFAULT_MODEL_ID:-flux/schnell}
+      CLAUDE_MODEL: ${CLAUDE_MODEL:-claude-haiku-4-5-20251001}
+    volumes:
+      - ${OBSIDIAN_VAULT_PATH}:/vault
+      - ${MIRAPROMPT_DATA_DIR:-./data}:/miraprompt-data:ro
+    depends_on:
+      miraprompt-server:
+        condition: service_healthy
+
   miraprompt-ui:
     build:
       context: ./miraprompt-ui
