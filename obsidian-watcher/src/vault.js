@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { updateManifest, buildIndex, buildShowcaseMd } from './index-builder.js';
+import { updateManifest, buildShowcaseMd } from './index-builder.js';
 
 export async function writeImageToVault(imagePath, markdownFilePath, jobName, config) {
   const attachmentsDir = path.join(config.vaultPath, config.attachmentsDir);
@@ -23,7 +23,6 @@ export async function writeImageToVault(imagePath, markdownFilePath, jobName, co
   await fs.writeFile(markdownFilePath, updated, 'utf-8');
 
   await updateManifest(destFilename, markdownFilePath, config);
-  await buildIndex(config);
   await buildShowcaseMd(config);
 
   return destPath;
